@@ -1,0 +1,15 @@
+version: '2'
+services:
+  nginx:
+    container_name: nginx
+    build: nginx/
+    ports: 
+      - "80:80"
+    volumes: 
+      - "./angular/dist:/usr/share/nginx/html"
+  
+  springbootservice1:
+    container_name: springbootservice1
+    build: springCass/
+    ports: 
+      - "8080"

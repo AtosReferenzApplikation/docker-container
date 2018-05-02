@@ -1,0 +1,14 @@
+version: '2'
+# If you see exit code 137 (OOM killer) then ensure Docker has access to more resources
+services:
+  cassandra-seed:
+    container_name: cassandra-seed-node
+    image: cassandra
+    volumes:
+      - ./seed:/var/lib/cassandra/data
+    ports:
+      - "9042:9042"   # Native transport
+      - "7199:7199"   # JMX
+      - "9160:9160"   # Thrift clients
+    
+ 

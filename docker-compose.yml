@@ -13,10 +13,6 @@ services:
     build: springCass/
     ports: 
       - "8080"
-    depends_on:
-      - kafka
-    links:
-      - kafka:kafka
 
   zookeeper:
       image: wurstmeister/zookeeper

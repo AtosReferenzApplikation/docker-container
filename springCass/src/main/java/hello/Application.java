@@ -39,7 +39,7 @@ public class Application {
 	}
 
 	public void addEntry(String value) {
-		postsRepository.save(new Posts((postsRepository.findHighestPostId() + 1), value));
+		//postsRepository.save(new Posts((postsRepository.findHighestPostId() + 1), value));
 	}
 
 	@Autowired

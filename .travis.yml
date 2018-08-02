@@ -1,0 +1,44 @@
+sudo: required
+language: 
+- node_js
+- java
+jdk:
+- oraclejdk8
+#specifies the languages that are used.
+node_js:
+- "node"
+# specifies that the latest version of node_js should be used.
+
+addons:
+    - chrome: stable
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+    - google-chrome-beta
+    # specifies that chrome should be installed, this is necessary for the angular tests
+
+before_install:
+- FLAG=0
+# sets a flag to prove whichat changes had been made, so that no unnecessary script has to be run
+
+- . ./scripts/checkChanges.sh
+# checks the changes
+
+- . ./scripts/runInstall.sh
+# performes the before_install steps, depending on the flag
+  
+install:
+- skip
+  
+before_script:
+- . ./scripts/beforeScript.sh
+# performs before_scripts steps depending on the flag
+   
+script:
+- . ./scripts/script.sh
+ # performs scripts steps depending on the flag
+
+after_success: 
+- echo "success!"

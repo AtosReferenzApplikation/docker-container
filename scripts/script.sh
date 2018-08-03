@@ -14,14 +14,13 @@ fi
 #if FLAG is 1, only Angular tests will be performed
 
 if [ $FLAG -eq 2 ]; then
-echo ""
-# Add any Script for gradle to perfrom in the script step of .travis.yml
+. ./scripts/springCassScript.sh
 fi
 #if FLAG is 2 tests for springCass can be performed, you have to add a script in the script directory and place it here to 
 #do so.
 
 if [ $FLAG -eq 3 ]; then
 . ./scripts/angularScript.sh
-# Add any Script for gradle to perfrom in the script step of .travis.yml
+. ./scripts/springCassScript.sh
 fi
 #FLAG = 3 performes all tests for the Application.

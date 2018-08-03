@@ -4,7 +4,9 @@
 cd ./angular
 npm remove webpack
 npm install webpack@3.11.0
-# needed ot be added, because from time to time travis throws an error saying that multiple webpackages are installed. this fixes the problem
+# needed to be added, because from time to time travis throws an error saying that multiple webpackages are installed. this fixes the problem
+npm install --save-dev karma@3.0.0
+#needed since it makes the command "npm audit fix" able to fix 14 dependency vulnerabilities.
 
 npm install
 # install all dependecies for Angular

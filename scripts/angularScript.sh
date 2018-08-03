@@ -3,10 +3,12 @@
 
 cd ./angular
 ng lint
-#checking the files regarding the angular aplication
+npm audit fix
+npm audit
+#checking the files regarding the angular application and fixing dependency vulnerabilities
 
 npm test
-if [ $? -ne 0 ] 
+if [ $? -ne 0 ]
 then exit 1
 fi
 #run tests, if the test fails, exit script with status 1. If the if clause wasn not here, the script would exit with status

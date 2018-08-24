@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hello.Posts;
-import hello.PostsRepository;;
-
 @RestController
 @SpringBootApplication
 public class Application {
@@ -27,8 +24,7 @@ public class Application {
 
 	@RequestMapping("/")
     public String home(@RequestParam(value="value") String name) {
-		addEntry(name);
-		sendMessage("Hallo!");
+		sendMessage(name);
         return "Neuer Eintrag '"+name+"' wurde gespeichert.";
 	}
 
@@ -39,7 +35,8 @@ public class Application {
 	}
 
 	public void addEntry(String value) {
-		//postsRepository.save(new Posts((postsRepository.findHighestPostId() + 1), value));
+		postsRepository.save(new Posts(value));
+		System.out.println("Saved Post " + value +  " in the database");
 	}
 
 	@Autowired
@@ -52,6 +49,7 @@ public class Application {
 	@KafkaListener(topics = "Test", groupId = "foo")
 	public void listen(String message) {
     	System.out.println("Received Messasge in group foo: " + message);
+    	addEntry(message);
 	}
 
 }

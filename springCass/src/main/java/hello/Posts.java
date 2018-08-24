@@ -1,27 +1,30 @@
 package hello;
 
+import com.datastax.driver.core.utils.UUIDs;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+
+import java.util.UUID;
 
 @Table
 public class Posts {
 	
 	@PrimaryKey
-	private int id;
+	private UUID id;
 	private String entry;
 	
 	public Posts(){}
 	
-	public Posts(int id, String entry){
-		this.id = id;
+	public Posts(String entry){
+		this.id = UUIDs.timeBased();
 		this.entry = entry;
 	}
 	
-	public void setId(int id){
+	public void setId(UUID id){
 		this.id = id;
 	}
 	
-	public int getId(){
+	public UUID getId(){
 		return this.id;
 	}
 	

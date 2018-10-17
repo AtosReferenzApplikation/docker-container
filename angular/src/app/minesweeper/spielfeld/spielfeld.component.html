@@ -1,0 +1,23 @@
+<div>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+        }
+        </style>
+  <table>
+    <tr *ngFor="let row of felder;">
+      <td *ngFor="let feld of row;" (click)="aufdecken(feld)">
+        <div *ngIf="feld.aufgedeckt" else noBomb>-</div>
+        <div>{{feld.zahl}}</div>
+      </td>
+    </tr>
+  </table>
+</div>
+        
+
+
+<!-- <div *ngIf="feld.bomb"></div> -->

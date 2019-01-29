@@ -21,6 +21,8 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "node_modules/css-star-rating/css/star-rating.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
             "scripts": []

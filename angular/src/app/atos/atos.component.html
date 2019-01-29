@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="" routerLinkActive="active">
+    <img src="../assets/images/Atos.png" style="text-align: right" height="80px">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <button style="margin-right: 5px" routerLink="" routerLinkActive="active">Home</button>
+      <button routerLink="/fb" routerLinkActive="active">Feedback</button>
+    </div>
+  </div>
+</nav>
+
+<div style="font-family: Arial">
+  <h1>{{title}}</h1>
+
+  <div >
+    <table>
+      <tr>
+        <td>Eintrag in der Datenbank speichern:</td>
+        <td><input [(ngModel)]="inputText"/></td>
+        <td><button (click)="insertEntry()">Speichern</button></td>
+      </tr>
+      <tr>
+        <td>Nach folgendem Eintrag suchen:</td>
+        <td><input [(ngModel)]="searchEntry"/></td>
+        <td><button (click)="getEntries()">Suchen</button></td>
+      </tr>
+    </table>
+  </div>
+</div>

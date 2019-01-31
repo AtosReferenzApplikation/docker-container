@@ -14,3 +14,6 @@ npm install
 npm run build
 #compile the Angular App
 cd ..
+
+
+

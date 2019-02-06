@@ -23,6 +23,4 @@ describe('Feedback', () => {
     page.submitFeedback();
     expect(element(page.getThanks).isDisplayed()).toBe(true);
   });
-
-
 });

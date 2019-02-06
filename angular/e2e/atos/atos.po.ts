@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import {browser, by, element, protractor} from 'protractor';
 
 export class AtosPage {
 
@@ -10,7 +10,7 @@ export class AtosPage {
   navigateTo() {
     return browser.get('/');
   }
-  navigateToFeedback(){
+  navigateToFeedback() {
     element(by.cssContainingText('button', 'Feedback')).click();
   }
 
@@ -26,5 +26,12 @@ export class AtosPage {
   getEntry(entries: any = this.entries) {
     // element(by.name('searchEntryField')).sendKeys(entries.text);
     element(by.cssContainingText('button', 'Suchen')).click();
+  }
+
+  checkAlert() {
+    browser.wait(protractor.ExpectedConditions.alertIsPresent(), 1000);
+    const alertDialog = browser.switchTo().alert();
+    // expect(alertDialog.getText()).toEqual('Hello');
+    alertDialog.accept();
   }
 }

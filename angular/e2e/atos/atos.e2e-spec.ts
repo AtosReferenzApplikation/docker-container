@@ -1,4 +1,5 @@
 import { AtosPage } from './atos.po';
+import {browser, by, element, protractor} from 'protractor';
 
 describe('Home', () => {
   let page: AtosPage;
@@ -13,17 +14,17 @@ describe('Home', () => {
     expect(page.getParagraphText()).toEqual('Verbindung zur Cassandra Datenbank über Container');
   });
 
-  // --------------------------------------------------------------------------------------------
-  // at the moment kinda useless, because there is no check if data is send or received correctly
-  // --------------------------------------------------------------------------------------------
-  it('should add entry and get one result back', () => {
+  // Check if search and enter fields are working
+  it('should add/get a test entry', () => {
     page.navigateTo();
     page.addEntry();
+    page.checkAlert();
     page.getEntry();
+    page.checkAlert();
   });
 
   // Check if navbar to Feedback is working
-  it('feedback page opens',() => {
+  it('feedback page opens', () => {
     page.navigateToFeedback();
     expect(page.getParagraphText()).toEqual('Feedback');
   });

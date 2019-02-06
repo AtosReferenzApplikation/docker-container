@@ -1,11 +1,10 @@
 {
-  "/apu/*": {
+  "/api/*": {
     "target": "http://192.168.99.100:80",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
       "^/api": ""
     }
-  },
-  "logLevel": "debug"
+  }
 }

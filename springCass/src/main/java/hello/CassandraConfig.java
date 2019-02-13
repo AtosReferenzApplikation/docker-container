@@ -42,14 +42,14 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Override
     protected List<CreateKeyspaceSpecification> getKeyspaceCreations() {
-      final CreateKeyspaceSpecification specification =
-          CreateKeyspaceSpecification.createKeyspace(keySpace)
-              .ifNotExists()
-              .with(KeyspaceOption.DURABLE_WRITES, true)
-              .withSimpleReplication();
+        final CreateKeyspaceSpecification specification =
+                CreateKeyspaceSpecification.createKeyspace(keySpace)
+                        .ifNotExists()
+                        .with(KeyspaceOption.DURABLE_WRITES, true)
+                        .withSimpleReplication();
         ArrayList<CreateKeyspaceSpecification> schema = new ArrayList<>();
         schema.add(specification);
-      return schema;
+        return schema;
     }
 
     @Override

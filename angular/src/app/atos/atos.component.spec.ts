@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AtosComponent } from './atos.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
@@ -10,6 +11,7 @@ describe('AtosComponent', () => {
         AtosComponent
       ],
       imports: [
+        HttpClientTestingModule,
         HttpClientModule,
         FormsModule
       ]

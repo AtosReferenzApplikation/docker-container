@@ -3,6 +3,7 @@ import { FeedbackComponent } from './feedback.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
+import {HttpClientModule } from '@angular/common/http';
 
 
 describe('FeedbackComponent', () => {
@@ -12,6 +13,7 @@ describe('FeedbackComponent', () => {
         FeedbackComponent
       ],
       imports: [
+        HttpClientModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,

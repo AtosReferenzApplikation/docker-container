@@ -17,14 +17,14 @@ export class AtosComponent implements OnInit {
 
   insertEntry() {
     console.log(this.inputText);
-    this.http.get('http://192.168.99.100:80/spring?value=' + this.inputText, {responseType: 'text'})
+    this.http.get('/api/spring/enterEntry?value=' + this.inputText, {responseType: 'text'})
       .subscribe((response: string) => {
         window.alert(response);
       });
   }
 
   getEntries() {
-    this.http.get('http://192.168.99.100:80/spring/searchEntries?entry=' + this.searchEntry, {responseType: 'text'})
+    this.http.get('/api/spring/searchEntries?entry=' + this.searchEntry, {responseType: 'text'})
       .subscribe((response: string) => {
         window.alert('Gefundene Einträge zu ' + this.searchEntry + ': ' + response);
       });

@@ -19,16 +19,16 @@ public class Application {
 	PostsRepository postsRepository;
 
 	public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
-	@RequestMapping("/")
-    public String home(@RequestParam(value="value") String name) {
+	@RequestMapping("/spring/enterEntry")
+	public String home(@RequestParam(value="value") String name) {
 		sendMessage(name);
-        return "Neuer Eintrag '"+name+"' wurde gespeichert.";
+		return "Neuer Eintrag '"+name+"' wurde gespeichert.";
 	}
 
-	@RequestMapping("/searchEntries")
+	@RequestMapping("/spring/searchEntries")
 	public String getEntries(@RequestParam(value="entry") String e) {
 		List<Posts> foundPosts = postsRepository.findByEntry(e);
 		return ""+foundPosts.size();
@@ -41,15 +41,15 @@ public class Application {
 
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
- 
+
 	public void sendMessage(String msg) {
-    	kafkaTemplate.send("Test", msg);
+		kafkaTemplate.send("Test", msg);
 	}
 
 	@KafkaListener(topics = "Test", groupId = "foo")
 	public void listen(String message) {
-    	System.out.println("Received Messasge in group foo: " + message);
-    	addEntry(message);
+		System.out.println("Received Messasge in group foo: " + message);
+		addEntry(message);
 	}
 
 }

@@ -17,33 +17,33 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 @Configuration
 public class KafkaConsumerConfig {
 
-  @Value(value = "${spring.data.kafka.bootstrapAddress}")
-  private String bootstrapAddress;
- 
+    @Value(value = "${spring.data.kafka.bootstrapAddress}")
+    private String bootstrapAddress;
+
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
-          ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          bootstrapAddress);
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                bootstrapAddress);
         props.put(
-          ConsumerConfig.GROUP_ID_CONFIG, 
-          "foo");
+                ConsumerConfig.GROUP_ID_CONFIG,
+                "foo");
         props.put(
-          ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
-          StringDeserializer.class);
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
         props.put(
-          ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 
-          StringDeserializer.class);
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props);
     }
- 
+
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> 
-      kafkaListenerContainerFactory() {
-    
+    public ConcurrentKafkaListenerContainerFactory<String, String>
+    kafkaListenerContainerFactory() {
+
         ConcurrentKafkaListenerContainerFactory<String, String> factory
-          = new ConcurrentKafkaListenerContainerFactory<>();
+                = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }

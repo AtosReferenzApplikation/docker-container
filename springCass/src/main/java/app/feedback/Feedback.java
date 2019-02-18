@@ -1,4 +1,4 @@
-package hello;
+package app.feedback;
 
 import com.datastax.driver.core.utils.UUIDs;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
@@ -40,7 +40,7 @@ public class Feedback {
 
     @Override
     public String toString(){
-        return String.format("{'id': %d, 'myRatingControl': %d, 'reFeedbackText': %s}", this.id, this.myRatingControl, this.reFeedbackText);
+        return String.format("{'id': %s, 'myRatingControl': %d, 'reFeedbackText': %s}", this.id, this.myRatingControl, this.reFeedbackText);
     }
 
 }

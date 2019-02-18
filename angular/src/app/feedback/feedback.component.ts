@@ -38,9 +38,12 @@ export class FeedbackComponent implements OnInit {
     this.thanks = true;
     // console.log(JSON.stringify(this.reFeedbackForm.value));
     // console.log(this.reFeedbackForm.value);
-    return this.http.post<any>(this.url, this.reFeedbackForm.value, httpOptions)
-      .subscribe(
-      );
+    this.submitFB(this.url, this.reFeedbackForm.value)
+      .subscribe();
+  }
+
+  submitFB(url: string, data: string) {
+    return this.http.post<any>(url, data, httpOptions);
   }
 
   onClick = ($event: ClickEvent) => {

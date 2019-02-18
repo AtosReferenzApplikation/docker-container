@@ -1,4 +1,4 @@
-package hello;
+package app.feedback;
 
 import java.util.List;
 
@@ -21,6 +21,12 @@ public class FeedbackController {
     @Autowired
     FeedbackRepository feedbackRepository;
 
+    //Just for testing
+    @RequestMapping(value = "/spring/test")
+    public String test(){
+        return "Test";
+    }
+
     @RequestMapping(value = "/spring/submitFB", consumes = "application/json" ,method = RequestMethod.POST)
     public Feedback addFeedback(@RequestBody Feedback feedback){
         sendFeedback(feedback);
@@ -32,16 +38,13 @@ public class FeedbackController {
     private KafkaTemplate<String, Feedback> kafkaTemplateFB;
 
     public void sendFeedback(Feedback feedback){
-        // System.out.println("sending data=" + fb);
         kafkaTemplateFB.send("fb", feedback);
     }
 
     // Kafka Listener / Consumer
     @KafkaListener(topics = "fb", groupId = "foo")
     public void listenFB(Feedback feedback) {
-        //System.out.println(feedback);
         inputFeedback(feedback);
-        // feedbackRepository.save(new Feedback(3, "TestTestTestTest"));
     }
 
     public void inputFeedback(Feedback feedback) {

@@ -1,4 +1,4 @@
-package hello;
+package app.atos;
 
 import java.util.List;
 
@@ -6,8 +6,7 @@ import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import hello.Posts;
-
+import app.atos.Posts;
 public interface PostsRepository extends CrudRepository<Posts, String> {
 
 	@Query("SELECT max(id) FROM posts")

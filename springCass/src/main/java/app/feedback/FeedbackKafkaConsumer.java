@@ -1,4 +1,4 @@
-package hello;
+package app.feedback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 @EnableKafka
 @Configuration
-public class KafkaConsumerFeedbackConfig {
+public class FeedbackKafkaConsumer {
 
     @Value(value = "${spring.data.kafka.bootstrapAddress}")
     private String bootstrapAddress;

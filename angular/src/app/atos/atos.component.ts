@@ -17,18 +17,27 @@ export class AtosComponent implements OnInit {
 
   insertEntry() {
     console.log(this.inputText);
-    this.http.get('/api/spring/enterEntry?value=' + this.inputText, {responseType: 'text'})
+    this.insertEntryHttp('/api/spring/enterEntry?value=', this.inputText)
       .subscribe((response: string) => {
         window.alert(response);
       });
   }
 
+  insertEntryHttp(url: string, text: string) {
+    return this.http.get(url + text, {responseType: 'text'});
+  }
+
   getEntries() {
-    this.http.get('/api/spring/searchEntries?entry=' + this.searchEntry, {responseType: 'text'})
+    this.getEntriesHttp('/api/spring/searchEntries?entry=', this.searchEntry)
       .subscribe((response: string) => {
         window.alert('Gefundene Einträge zu ' + this.searchEntry + ': ' + response);
       });
   }
+
+  getEntriesHttp(url: string, text: string) {
+    return this.http.get(url + text, {responseType: 'text'});
+  }
+
 
   ngOnInit() {
   }

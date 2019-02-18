@@ -1,4 +1,4 @@
-package hello;
+package app.atos;
 
 import com.datastax.driver.core.utils.UUIDs;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;

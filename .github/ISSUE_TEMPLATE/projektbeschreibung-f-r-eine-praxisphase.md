@@ -1,7 +1,10 @@
 ---
 name: Projektbeschreibung für eine Praxisphase
 about: Vorlage für die Beschreibung eines Projektes für eine Praxisphase
+title: ''
 labels: new topic
+assignees: ''
+
 ---
 
 # Beschreibung

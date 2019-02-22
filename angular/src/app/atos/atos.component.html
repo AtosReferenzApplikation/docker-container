@@ -17,12 +17,12 @@
     <table>
       <tr>
         <td>Eintrag in der Datenbank speichern:</td>
-        <td><input [(ngModel)]="inputText"/></td>
+        <td><input name="inputTextField" [(ngModel)]="inputText"/></td>
         <td><button (click)="insertEntry()">Speichern</button></td>
       </tr>
       <tr>
         <td>Nach folgendem Eintrag suchen:</td>
-        <td><input [(ngModel)]="searchEntry"/></td>
+        <td><input name="searchEntryField" [(ngModel)]="searchEntry"/></td>
         <td><button (click)="getEntries()">Suchen</button></td>
       </tr>
     </table>

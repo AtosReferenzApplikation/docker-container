@@ -15,7 +15,6 @@ export class FeedbackPage {
   }
 
   setStarRating() {
-    // return element(by.id('star-filled')).getText();
     element(by.className('star')).click();
   }
 

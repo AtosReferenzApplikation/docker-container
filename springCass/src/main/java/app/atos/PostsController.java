@@ -19,7 +19,7 @@ public class PostsController {
 
     @RequestMapping("/spring/enterEntry")
     public String home(@RequestParam(value="value") String name) {
-        //sendMessage(name);
+        sendMessage(name);
         return "Neuer Eintrag " +name+ " wurde gespeichert.";
     }
 

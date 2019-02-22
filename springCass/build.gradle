@@ -37,11 +37,7 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
-   // testCompile('org.junit.jupiter:junit-jupiter-api:5.4.0')
-   // testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.0')
     compile("org.springframework.boot:spring-boot-starter-data-cassandra")
     compile 'org.springframework.kafka:spring-kafka:2.1.6.RELEASE'
-    // compile("org.springframework.data:spring-data-rest-webmvc")
-    // compile("org.springframework.data:spring-data-rest-cassandra")
     testCompile 'org.mockito:mockito-core:2.7.22'
 }

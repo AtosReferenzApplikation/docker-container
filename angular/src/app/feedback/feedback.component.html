@@ -22,6 +22,15 @@
                          rows="5"></textarea>
             </div>
 
+            <div class="form-group mb-6" *ngIf="rated">
+              <label for="reFeedbackTextMood"> {{labelText}} </label><br>
+              <textarea  type="text"
+                         class="form-control"
+                         id="reFeedbackTextMood"
+                         formControlName="reFeedbackText"
+                         rows="5"></textarea>
+            </div>
+
             <div class="form-group" *ngIf="rated">
               <button class="btn btn-primary" type="submit" [disabled]="!rated">Submit</button>
             </div>

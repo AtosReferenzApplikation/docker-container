@@ -36,17 +36,6 @@ describe('FeedbackComponent', () => {
     expect(app.title).toEqual('Feedback');
   }));
 
-  /*
-  it('should post data', () => {
-    const fixture = TestBed.createComponent(FeedbackComponent);
-    fixture.componentInstance.submitFB('/api/spring/submitFB', '{reFeedbackText: \'Test Feedback-Text!\', myRatingControl: 5}')
-      .subscribe((data: any) => {
-        expect(data.myRatingControl).toBe(5);
-        expect(data.reFeedbackText).toBe('Test Feedback-Text!');
-      });
-  });
-  */
-
   it('Post form data correctly',
     inject([HttpTestingController],
       (httpMock: HttpTestingController) => {

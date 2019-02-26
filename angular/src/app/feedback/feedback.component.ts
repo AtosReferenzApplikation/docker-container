@@ -5,8 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -36,8 +35,6 @@ export class FeedbackComponent implements OnInit {
   sendFb() {
     this.rated = false;
     this.thanks = true;
-    // console.log(JSON.stringify(this.reFeedbackForm.value));
-    // console.log(this.reFeedbackForm.value);
     this.submitFB(this.url, this.reFeedbackForm.value)
       .subscribe();
   }

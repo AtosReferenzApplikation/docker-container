@@ -13,8 +13,7 @@ describe('AtosComponent', () => {
       imports: [
         HttpClientTestingModule,
         HttpClientModule,
-        FormsModule,
-        HttpClientTestingModule
+        FormsModule
       ]
     }).compileComponents();
   }));

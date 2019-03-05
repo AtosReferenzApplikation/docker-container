@@ -22,12 +22,12 @@ public class FeedbackController {
     FeedbackRepository feedbackRepository;
 
     //Just for testing
-    @RequestMapping(value = "/spring/test")
+    @RequestMapping(value = "/test")
     public String test(){
         return "Test";
     }
 
-    @RequestMapping(value = "/spring/submitFB", consumes = "application/json" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/submitFB", consumes = "application/json" ,method = RequestMethod.POST)
     public Feedback addFeedback(@RequestBody Feedback feedback){
         sendFeedback(feedback);
         return feedback;

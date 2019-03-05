@@ -16,7 +16,7 @@ export class AtosComponent implements OnInit {
 
   insertEntry() {
     console.log(this.inputText);
-    this.insertEntryHttp('/api/spring/enterEntry?value=', this.inputText)
+    this.insertEntryHttp('/spring/enterEntry?value=', this.inputText)
       .subscribe((response: string) => {
         window.alert(response);
       });
@@ -27,7 +27,7 @@ export class AtosComponent implements OnInit {
   }
 
   getEntries() {
-    this.getEntriesHttp('/api/spring/searchEntries?entry=', this.searchEntry)
+    this.getEntriesHttp('/spring/searchEntries?entry=', this.searchEntry)
       .subscribe((response: string) => {
         window.alert('Gefundene Einträge zu ' + this.searchEntry + ': ' + response);
       });

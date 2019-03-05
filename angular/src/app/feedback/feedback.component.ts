@@ -30,7 +30,7 @@ export class FeedbackComponent implements OnInit {
     myRatingControl: new FormControl('', Validators.required)
   });
 
-  private url = '/api/spring/submitFB';
+  private url = '/spring/submitFB';
 
   sendFb() {
     this.rated = false;

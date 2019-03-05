@@ -17,13 +17,13 @@ public class PostsController {
     @Autowired
     PostsRepository postsRepository;
 
-    @RequestMapping("/spring/enterEntry")
+    @RequestMapping("/enterEntry")
     public String home(@RequestParam(value="value") String name) {
         sendMessage(name);
         return "Neuer Eintrag " +name+ " wurde gespeichert.";
     }
 
-    @RequestMapping("/spring/searchEntries")
+    @RequestMapping("/searchEntries")
     public String getEntries(@RequestParam(value="entry") String e) {
         List<Posts> foundPosts = postsRepository.findByEntry(e);
         return ""+foundPosts.size();

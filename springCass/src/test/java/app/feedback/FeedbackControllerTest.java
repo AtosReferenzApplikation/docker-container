@@ -31,7 +31,7 @@ public class FeedbackControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setWac(){
+    public void setWac() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 

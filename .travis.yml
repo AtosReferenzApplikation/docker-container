@@ -8,7 +8,8 @@ jdk:
 node_js:
 - "node"
 # specifies that the latest version of node_js should be used.
-
+services:
+  - cassandra
 addons:
     - chrome: stable
 apt:

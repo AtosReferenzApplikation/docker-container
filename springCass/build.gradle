@@ -41,6 +41,4 @@ dependencies {
     compile 'org.springframework.kafka:spring-kafka:2.1.6.RELEASE'
     testCompile 'org.mockito:mockito-core:2.7.22'
 
-    // Embedded cassandra for integration testing with database.
-    testCompile('org.cassandraunit:cassandra-unit-spring:2.2.2.1')
 }

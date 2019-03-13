@@ -2,15 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { CircuitComponent } from './circuit/circuit.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: AtosComponent
   },
   {
-    path: 'fb',
+    path: 'feedback',
     component: FeedbackComponent
+  },
+  {
+    path: 'circuit',
+    component: CircuitComponent
   },
   {
     path: '**',

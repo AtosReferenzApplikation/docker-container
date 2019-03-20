@@ -10,6 +10,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { AppComponent } from './app.component';
 import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { CircuitComponent } from './circuit/circuit.component';
 
 
 
@@ -17,7 +18,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
   declarations: [
     AppComponent,
     AtosComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    CircuitComponent
   ],
   imports: [
     BrowserModule,

@@ -3,22 +3,20 @@ import { browser, by, element } from 'protractor';
 import * as file_system from 'file-system';
 import * as csvModule from 'papaparse';
 
-// const csvModule = require('papaparse');
 const strSomething = file_system.readFileSync('e2e\\csv-data.csv', 'utf8');
 const csvValues = csvModule.parse(strSomething);
 
 describe('Feedback', () => {
   let page: FeedbackPage;
-
   beforeEach(() => {
     page = new FeedbackPage();
   });
 
   for(let i=0; i<csvValues.data.length-1; i++) {
-  it('should load Home-Page ', () => {
-    page.navigateToFeedback();
-    expect(page.getParagraphText()).toEqual('Feedback');
-  });
+    it('should load Home-Page ', () => {
+      page.navigateToFeedback();
+      expect(page.getParagraphText()).toEqual('Feedback');
+    });
     it('feedback page opens and elements are dynamically', () => {
       page.navigateToFeedback();
       expect(page.getParagraphText()).toEqual('Feedback');

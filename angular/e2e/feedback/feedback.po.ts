@@ -18,6 +18,15 @@ export class FeedbackPage {
     element(by.className('star')).click();
   }
 
+  setRating() {
+    element(by.className('star')).get().click();
+  }
+
+  setRatingNumber(number){
+    element.all(by.css('.star')).get(number).click();
+
+}
+
   getTextField() {
     return element(by.id('reFeedbackText')).getWebElement();
   }

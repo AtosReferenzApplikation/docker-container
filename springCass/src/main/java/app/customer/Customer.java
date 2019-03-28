@@ -13,22 +13,30 @@ public class Customer {
     private UUID id;
     private String name;
     private String surname;
+    private String email;
 
     public Customer(){this.id = UUIDs.timeBased();}
 
-    public Customer(String name, String surname){
+    public Customer(String name, String surname, String email){
         this.id = UUIDs.timeBased();
         this.name = name;
         this.surname = surname;
-    }
+        this.email = email;
+    }	
 
-    public UUID getId(){return this.id;}
+	public UUID getId(){return this.id;}
     public String getName(){
         return this.name;
     }
     public String getSurname(){
         return this.surname;
     }
+    /**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
     public void setId(){this.id = UUIDs.timeBased();}
     public void setName(String name){
@@ -37,10 +45,16 @@ public class Customer {
     public void setSurname(String surname){
         this.surname = surname;
     }
+    /**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
     @Override
     public String toString(){
-        return String.format("{'id': %s, 'name': %s, 'surname': %s}", this.id, this.name, this.surname);
+        return String.format("{'id': %s, 'name': %s, 'surname': %s, 'email': %s}", this.id, this.name, this.surname, this.email);
     }
 
 }

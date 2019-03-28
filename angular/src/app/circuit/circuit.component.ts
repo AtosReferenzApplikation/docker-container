@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+import { Customer } from '../models/customer';
+import { CustomerService } from '../shared/customer.service';
 
 @Component({
   selector: 'app-circuit',
@@ -16,18 +11,15 @@ const httpOptions = {
 })
 export class CircuitComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private customerService: CustomerService) { }
 
-  title = 'Daten Erfassung';
-
-  private addURL = 'http://localhost:8080/addCustomer';//'/spring/addCustomer';
-  private getURL = 'http://localhost:8080/getCustomers';
   customerList; // contains all customers
   displayedCustomers; // contains customers which will be displayed
 
   CustomerForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    surname: new FormControl('', Validators.required)
+    name: new FormControl(null, [Validators.required]),
+    surname: new FormControl(null, [Validators.required]),
+    email: new FormControl(null),
   });
 
   ngOnInit() {
@@ -35,39 +27,34 @@ export class CircuitComponent implements OnInit {
     this.getCustomers();
   }
 
-  searchCustomers(term) {
+  searchCustomers(term: string) {
     this.displayedCustomers = this.customerList.filter((item: Customer) => {
       return (item.name + item.surname).includes(term);
     });
   }
 
   sendCustomer() {
-    this.submitCustomer(this.addURL, this.CustomerForm.value)
-      .subscribe(() => this.ngOnInit());
-  }
+    if (this.CustomerForm.status === 'VALID') {
+      if (this.CustomerForm.value.email == null) {
+        this.CustomerForm.value.email = this.CustomerForm.value.name.toLowerCase() + '.' + this.CustomerForm.value.surname.toLowerCase() + '@atos.de';
+      }
 
-  submitCustomer(url: string, data: string) {
-    return this.http.post<any>(url, data, httpOptions);
+      this.customerService.addCustomer(this.CustomerForm.value)
+        .subscribe(() => this.ngOnInit());
+    } else {
+      console.error('INPUT IS INVALID');
+    }
   }
 
   getCustomers() {
-    this.http.get(this.getURL, httpOptions).subscribe((res: any) => {
-      res.reverse();
-      this.customerList = res;
-      this.displayedCustomers = res;
+    this.customerService.getAllCustomers().subscribe((result: any) => {
+      this.customerList = result;
+      this.displayedCustomers = result;
     });
   }
 
   deleteCustomer(id: string) {
-    this.http.delete('http://localhost:8080/deleteCustomer/' + id, httpOptions)
-      .subscribe(() => this.ngOnInit());
+    this.customerService.deleteCustomerById(id).subscribe(() => this.ngOnInit());
   }
 
-}
-
-
-export interface Customer {
-  id: string;
-  name: string;
-  surname: string;
 }

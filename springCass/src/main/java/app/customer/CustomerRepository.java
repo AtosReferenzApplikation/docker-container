@@ -1,14 +1,10 @@
 package app.customer;
 
-import java.util.List;
+import java.util.UUID;
 
-import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
-import app.customer.Customer;
-
-public interface CustomerRepository extends CrudRepository<Customer, String> {
+public interface CustomerRepository extends CrudRepository<Customer, UUID> {
 
 
 }

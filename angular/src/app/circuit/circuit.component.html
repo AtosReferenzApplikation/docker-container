@@ -5,11 +5,14 @@
     <form [formGroup]="CustomerForm" (ngSubmit)="sendCustomer()">
       <div class="form-group">
         <label for="name">Vorname</label>
-        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Vorname" style="max-width: 400px">
+        <input type="text" class="form-control" id="name" formControlName="name"
+          placeholder="Vorname" style="max-width: 400px">
       </div>
       <div class="form-group">
         <label for="surname">Nachname</label>
-        <input type="text" class="form-control" id="surname" formControlName="surname" placeholder="Nachname" style="max-width: 400px">
+        <input type="text" class="form-control" id="surname"
+          formControlName="surname" placeholder="Nachname"
+          style="max-width: 400px">
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -17,3 +20,32 @@
     </form>
   </div>
 </section>
+
+<div id="customerTable">
+  <div class="searchInput">
+    <label>Search:</label>
+    <input type="text" class="form-control"
+      (keyup)="searchCustomers($event.target.value)">
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Anschrift</th>
+        <th scope="col">Optionen</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let customer of displayedCustomers; let i=index">
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{customer.surname}}, {{customer.name}}</td>
+        <td>undef</td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" id="deleteBtn"
+            (click)="deleteCustomer(customer.id)">-</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

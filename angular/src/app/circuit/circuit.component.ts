@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -19,7 +19,7 @@ export class CircuitComponent implements OnInit {
 
   title = 'Daten Erfassung';
 
-  private addURL = '/spring/addCustomer';
+  private addURL = 'http://localhost:8080/addCustomer';//'/spring/addCustomer';
 
   CustomerForm = new FormGroup({
     name: new FormControl('', Validators.required),

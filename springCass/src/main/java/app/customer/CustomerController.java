@@ -1,6 +1,9 @@
 package app.customer;
 
+//import java.util.*;
 import java.util.List;
+import java.util.Arrays;
+import com.google.common.collect.Lists;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -21,10 +24,19 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/addCustomer", consumes = "application/json" ,method = RequestMethod.POST)
     public Customer addCustomer(@RequestBody Customer customer){
-        sendCustomer(customer);
+        //sendCustomer(customer);
+        customerRepository.save(customer); // kafka endlos schleife umgehen und direkt hier den save
         return customer;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getCustomers")
+    public String getCustomers() {
+      List<Customer> customerList = Lists.newArrayList(customerRepository.findAll());
+      return customerList.toString();
     }
 
     //Kafka Producer

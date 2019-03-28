@@ -12,3 +12,31 @@ button {
   color: #FFFFFF;
   font-family: Arial;
 }
+
+.btn-sm {
+  padding: 0px 8px;
+}
+
+.searchInput {
+  display: flex;
+  float: right;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.searchInput label {
+  margin: auto 0;
+}
+
+.searchInput input {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+@media screen and (min-width: 800px) {
+  #customerTable {
+    width: 800px;
+    margin: 0 auto;
+  }
+}

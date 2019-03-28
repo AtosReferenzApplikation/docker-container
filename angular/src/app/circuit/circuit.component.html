@@ -55,7 +55,8 @@
         <td>{{customer.email}}</td>
         <td>
           <button type="button" class="btn btn-primary btn-sm" id="deleteBtn"
-            (click)="deleteCustomer(customer.id)">-</button>
+            (click)="deleteCustomer(customer.id)"
+            ngbTooltip="Kunden entfernen">-</button>
         </td>
       </tr>
     </tbody>

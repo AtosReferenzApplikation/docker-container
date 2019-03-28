@@ -1,4 +1,4 @@
-<h1 style="font-family: Arial">{{title}}</h1>
+<h1 style="font-family: Arial">Datenerfassung</h1>
 
 <section style="font-family: Arial">
   <div class="container-fluid" style="margin-top: 15px">
@@ -6,13 +6,25 @@
       <div class="form-group">
         <label for="name">Vorname</label>
         <input type="text" class="form-control" id="name" formControlName="name"
-          placeholder="Vorname" style="max-width: 400px">
+          required placeholder="Vorname" style="max-width: 400px">
+        <small class="form-text text-muted" *ngIf="!CustomerForm.value.name">Der
+          Vorname wird
+          benötigt!</small>
       </div>
       <div class="form-group">
         <label for="surname">Nachname</label>
-        <input type="text" class="form-control" id="surname"
+        <input type="text" class="form-control" required id="surname"
           formControlName="surname" placeholder="Nachname"
           style="max-width: 400px">
+        <small class="form-text text-muted"
+          *ngIf="!CustomerForm.value.surname">Der
+          Nachname wird
+          benötigt!</small>
+      </div>
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="email" class="form-control" id="email"
+          formControlName="email" placeholder="E-Mail" style="max-width: 400px">
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -32,7 +44,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Anschrift</th>
+        <th scope="col">E-Mail</th>
         <th scope="col">Optionen</th>
       </tr>
     </thead>
@@ -40,7 +52,7 @@
       <tr>
         <th scope="row">{{i+1}}</th>
         <td>{{customer.surname}}, {{customer.name}}</td>
-        <td>undef</td>
+        <td>{{customer.email}}</td>
         <td>
           <button type="button" class="btn btn-primary btn-sm" id="deleteBtn"
             (click)="deleteCustomer(customer.id)">-</button>

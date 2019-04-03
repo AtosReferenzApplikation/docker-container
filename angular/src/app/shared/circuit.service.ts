@@ -16,8 +16,14 @@ export class CircuitService {
     .set('Accept', 'application/json')
     .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
 
+  private _loggedIn = false;
+
   constructor(private http: HttpClient) {
     this.refreshToken();
+  }
+
+  get loggedIn(): boolean {
+    return this._loggedIn;
   }
 
   // Authentication
@@ -35,13 +41,12 @@ export class CircuitService {
           const callbackUrl = loginPopup.location.href;
           clearInterval(checkLogin);
           loginPopup.close();
-
           const access_token = this.getValueFromString('access_token', callbackUrl);
           localStorage.setItem('access_token', access_token);
 
           this.refreshToken();
         }
-      } catch (error) { }
+      } catch (error) { } // todo: handle login error
     }, 100);
   }
 
@@ -57,12 +62,20 @@ export class CircuitService {
     }
   }
 
-  async refreshToken() {
-    await this.http.get(this.restUrl + '/oauth/token/' + localStorage.getItem('access_token'))
+  refreshToken() {
+    this.http.get(this.restUrl + '/oauth/token/' + localStorage.getItem('access_token'))
       .toPromise().then((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
-        this.headers.set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
-      }).catch(err => /** No token in storage or bad connection */ console.log())
+        this.headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+          .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+        this._loggedIn = true;
+      }).catch(() => {
+        this._loggedIn = false;
+        // request user to logIn again
+        // catch error 401
+      });
   }
 
   // API Calls
@@ -76,7 +89,6 @@ export class CircuitService {
 
   startDirectConversation(customer: Customer) {
     return this.http.post(this.restUrl + '/conversations/direct', { 'participant': customer.email }, { headers: this.headers });
-    // open in circuit: https://eu.yourcircuit.com/#/conversation/{convId}
   }
 
   sendMessageToConversation(convId: string, subject: string, content: string, attachments: string[] = []) {

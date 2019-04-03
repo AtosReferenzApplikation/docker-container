@@ -1,37 +1,39 @@
 <h1 style="font-family: Arial">Datenerfassung</h1>
-<button (click)="loginToCircuit()">Circuit LogIn</button>
-<section style="font-family: Arial">
-  <div class="container-fluid" style="margin-top: 15px">
-    <form [formGroup]="CustomerForm" (ngSubmit)="sendCustomer()">
-      <div class="form-group">
-        <label for="name">Vorname</label>
-        <input type="text" class="form-control" id="name" formControlName="name"
-          required placeholder="Vorname" style="max-width: 400px">
-        <small class="form-text text-muted" *ngIf="!CustomerForm.value.name">Der
-          Vorname wird
-          benötigt!</small>
-      </div>
-      <div class="form-group">
-        <label for="surname">Nachname</label>
-        <input type="text" class="form-control" required id="surname"
-          formControlName="surname" placeholder="Nachname"
-          style="max-width: 400px">
-        <small class="form-text text-muted"
-          *ngIf="!CustomerForm.value.surname">Der
-          Nachname wird
-          benötigt!</small>
-      </div>
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input type="email" class="form-control" id="email"
-          formControlName="email" placeholder="E-Mail" style="max-width: 400px">
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-  </div>
-</section>
+<div>
+  <section style="font-family: Arial">
+    <div class="container-fluid" style="margin-top: 15px">
+      <form [formGroup]="CustomerForm" (ngSubmit)="sendCustomer()">
+        <div class="form-group">
+          <label for="name">Vorname</label>
+          <input type="text" class="form-control" id="name"
+            formControlName="name" required placeholder="Vorname"
+            style="max-width: 400px">
+          <!-- <small class="form-text text-muted"
+            *ngIf="!CustomerForm.value.name">Der
+            Vorname wird benötigt!</small> -->
+        </div>
+        <div class="form-group">
+          <label for="surname">Nachname</label>
+          <input type="text" class="form-control" required id="surname"
+            formControlName="surname" placeholder="Nachname"
+            style="max-width: 400px">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" class="form-control" id="email"
+            formControlName="email" placeholder="E-Mail"
+            style="max-width: 400px">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <button (click)="loginToCircuit()"
+    style="margin-left: 15px; margin-top: 20px;">Circuit
+    LogIn</button>
+</div>
 
 <div id="customerTable">
   <div class="searchInput">
@@ -45,6 +47,7 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">E-Mail</th>
+        <th scope="col">Kontakt</th>
         <th scope="col">Optionen</th>
       </tr>
     </thead>
@@ -54,12 +57,30 @@
         <td>{{customer.surname}}, {{customer.name}}</td>
         <td>{{customer.email}}</td>
         <td>
-          <button type="button" class="btn btn-primary btn-sm" id="deleteBtn"
-            (click)="deleteCustomer(customer.id)"
-            ngbTooltip="Kunden entfernen">-</button>
-          <button type="button" class="btn btn-primary btn-sm" id="deleteBtn"
+          <button type="button" class="btn btn-primary btn-sm"
+            ngbTooltip="Kunden eine Nachricht senden">
+            <fa-icon [icon]="faEnvelope"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm"
             (click)="messageCustomer(customer)"
-            ngbTooltip="Kunden eine Nachricht senden">-</button>
+            ngbTooltip="Kunden über Circuit eine Nachricht senden">
+            <fa-icon [icon]="faCommentDots"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm"
+            (click)="callCustomer(customer)"
+            ngbTooltip="Kunden über Circuit anrufen">
+            <fa-icon [icon]="faPhone"></fa-icon>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm"
+            (click)="deleteCustomer(customer.id)" ngbTooltip="Kunden entfernen">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm"
+            (click)="deleteCustomer(customer.id)" ngbTooltip="Kunden entfernen">
+            <fa-icon [icon]="faMinus"></fa-icon>
+          </button>
         </td>
       </tr>
     </tbody>

@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
-import { AppRoutingModule} from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { AtosComponent } from './atos/atos.component';
@@ -28,7 +29,8 @@ import { CircuitComponent } from './circuit/circuit.component';
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,7 +14,10 @@ button {
 }
 
 .btn-sm {
-  padding: 0px 8px;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  margin-right: 10px;
 }
 
 .searchInput {
@@ -31,6 +34,11 @@ button {
 .searchInput input {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+fa-icon {
+  font-size: 90%;
+  margin: auto auto;
 }
 
 

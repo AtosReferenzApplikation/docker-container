@@ -32,13 +32,17 @@ export class CircuitComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.CustomerForm.reset();
     this.getCustomers();
-    this.customerList.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de' }); // SAMPLE DATA
-    this.displayedCustomers.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de' }); // SAMPLE DATA
+    this.customerList.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
+    this.displayedCustomers.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
   }
 
   ngOnDestroy(): void {
     // localStorage.clear();
   }
+
+  public trackByFn(intex: number, item: Customer) {
+    return item.id;
+  } // test/implement trackBy in html if spring connection works
 
   searchCustomers(term: string) {
     this.displayedCustomers = this.customerList.filter((item: Customer) => {

@@ -71,7 +71,7 @@ export class CircuitComponent implements OnInit, OnDestroy {
     this.customerService.deleteCustomerById(id).subscribe(() => this.ngOnInit());
   }
 
-  // circuit api calls
+  // login to circuit account
   loginToCircuit() {
     this.circuitService.authenticateUser();
   }
@@ -87,6 +87,10 @@ export class CircuitComponent implements OnInit, OnDestroy {
 
     this.circuitService.sendMessageToConversation(convId, subject, content)
       .subscribe(res => console.log(res));
+  }
+
+  callCustomer(customer: Customer) {
+    this.circuitService.startCall(customer.email, false);
   }
 
 }

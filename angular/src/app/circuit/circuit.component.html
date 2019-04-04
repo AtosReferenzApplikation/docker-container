@@ -39,6 +39,10 @@
   <button (click)="loginToCircuit()"
     style="margin-left: 15px; margin-top: 20px;">Circuit
     LogIn</button>
+  <ngx-spinner type="pacman" size="medium">
+    <p style="color: white"> Signing in... </p>
+  </ngx-spinner>
+  <!-- type="ball-beat" -->
 </div>
 
 <div id="customerTable">
@@ -91,7 +95,8 @@
         </td>
         <td>
           <button type="button" class="btn btn-primary btn-sm"
-            (click)="deleteCustomer(customer.id)" ngbTooltip="Kunden entfernen">
+            (click)="deleteCustomer(customer.id)"
+            ngbTooltip="Kunden bearbeiten">
             <fa-icon [icon]="faEdit"></fa-icon>
           </button>
           <button type="button" class="btn btn-primary btn-sm"

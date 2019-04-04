@@ -4,7 +4,9 @@ import { Customer } from '../models/customer';
 import { CustomerService } from '../shared/customer.service';
 import { CircuitService } from '../shared/circuit.service';
 
+import { NgxSpinnerService } from 'ngx-spinner';
 import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { MessageContent } from '../models/MessageContent';
 
 @Component({
   selector: 'app-circuit',
@@ -28,13 +30,22 @@ export class CircuitComponent implements OnInit, OnDestroy {
   faEnvelope = faEnvelope; faCommentDots = faCommentDots; faPhone = faPhone;
 
   constructor(private customerService: CustomerService,
-    private circuitService: CircuitService) { }
+    private circuitService: CircuitService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.CustomerForm.reset();
     this.getCustomers();
     this.customerList.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
     this.displayedCustomers.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
+
+    this.circuitService.loggedIn.subscribe(value => {
+      if (value) {
+        this.spinner.hide();
+      } else {
+        this.spinner.show();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -71,22 +82,25 @@ export class CircuitComponent implements OnInit, OnDestroy {
     this.customerService.deleteCustomerById(id).subscribe(() => this.ngOnInit());
   }
 
-  // login to circuit account
   loginToCircuit() {
     this.circuitService.authenticateUser();
   }
 
-  async messageCustomer(customer: Customer/**, subject: string, content: string*/) {
-    // SAMPLE DATA
-    const subject = 'Ihr Feedback';
-    const content = 'Hallo ' + customer.name + ' ' + customer.surname;
+  messageCustomer(customer: Customer) {
+    const content: MessageContent = {
+      content: 'Hallo Herr ' + customer.surname
+    }
+    this.circuitService.sendMessage(customer, content)
+    // // SAMPLE DATA
+    // const subject = 'Ihr Feedback';
+    // const content = 'Hallo ' + customer.name + ' ' + customer.surname;
 
-    const convId = await this.circuitService.startDirectConversation(customer).toPromise()
-      .then((res: any) => res.convId)
-      .catch(err => err.error.convId);
+    // const convId = await this.circuitService.startDirectConversation(customer).toPromise()
+    //   .then((res: any) => res.convId)
+    //   .catch(err => err.error.convId);
 
-    this.circuitService.sendMessageToConversation(convId, subject, content)
-      .subscribe(res => console.log(res));
+    // this.circuitService.sendMessageToConversation(convId, subject, content)
+    //   .subscribe(res => console.log(res));
   }
 
   callCustomer(customer: Customer) {

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Customer } from '../models/customer';
+
 import Circuit from 'circuit-sdk';
-// import * as Circuit from 'circuit-sdk';
+import { BehaviorSubject } from 'rxjs';
+import { userInfo } from 'os';
+import { MessageContent } from '../models/MessageContent';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +20,18 @@ export class CircuitService {
     .set('Accept', 'application/json')
     .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
 
-  // sdk
+  // SDK var declarations
   client; // Circuit SDK instance
   user: any; // Logged on user
   call: any; // Active call object
+  conversation: any; // Active conversation object
   connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
   public addEventListener: Function;
-  // OAuth configuration. Get your own client_id for your app at https://circuit.github.io/oauth.html
+
+  // observes if User is logged in
+  public loggedIn = new BehaviorSubject(false);
+
+  // OAuth configuration
   oauthConfig = {
     domain: 'circuitsandbox.net',
     client_id: '8e3edf9798f341c08ae59b5d8cf74341',
@@ -31,27 +39,31 @@ export class CircuitService {
     scope: 'ALL'
   };
 
+
   constructor(private http: HttpClient) {
     this.refreshToken();
 
-    // Set Circuit SDK internal log level
+    // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
     Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
 
-    // Create the Circuit SDK client using Implicit grant type
-    // See http://circuit.github.com/oauth
+    // create Circuit SDK client implicit
     this.client = new Circuit.Client({
       client_id: this.oauthConfig.client_id,
       domain: this.oauthConfig.domain,
       scope: this.oauthConfig.scope
     });
 
-    // Bind event listener directly to SDK's addEventListener
+    // bind event listener directly to SDK addEventListener
     this.addEventListener = this.client.addEventListener.bind(this);
 
-    // Keep the call object current in this service
+    // keep the call object current in this service
     this.client.addEventListener('callIncoming', evt => this.call = evt.call);
     this.client.addEventListener('callStatus', evt => this.call = evt.call);
     this.client.addEventListener('callEnded', evt => this.call = null);
+  }
+
+  get loggedOnUser() {
+    return this.client.loggedOnUser;
   }
 
   /**************
@@ -60,14 +72,16 @@ export class CircuitService {
    *
    *******************/
 
+  // authentication for User with LogIn Popup
   authenticateUser() {
-    const state = Math.random().toString(36).substr(2, 15);
+    const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
     const url = this.authUrl + '?response_type=token&client_id=' + this.oauthConfig.client_id
       + '&redirect_uri=http://localhost:4200/circuit&scope=' + this.oauthConfig.scope
-      + '&state=' + state;
+      + '&state=' + state; // auth request url
 
     const loginPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
 
+    // close popup if user login was successful
     const checkLogin = setInterval(() => {
       try {
         if (loginPopup.location.href.includes('access_token=')) {
@@ -96,6 +110,7 @@ export class CircuitService {
   }
 
   refreshToken() {
+    this.loggedIn.next(false);
     this.http.get(this.restUrl + '/oauth/token/' + localStorage.getItem('access_token'))
       .toPromise().then((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
@@ -103,11 +118,11 @@ export class CircuitService {
           .set('Content-Type', 'application/json')
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
-
-        this.logonWithSpinner(localStorage.getItem('access_token'));
+        this.logonWithToken(localStorage.getItem('access_token'));
       }).catch(() => {
+        this.loggedIn.next(true);
         // request user to logIn again
-        // catch error 401
+        // catch error 401 => unauthenticated
       });
   }
 
@@ -118,33 +133,82 @@ export class CircuitService {
    *
    *******************/
 
-  // Logon to Circuit using the access token and show spinner while looging in.
-  private logonWithSpinner(token) {
-    // const loading = this.loadingCtrl.create({ content: 'Signing in...' });
-    // loading.present();
+  // logon to circuit using access token
+  private logonWithToken(token) {
     return this.client.logon({ accessToken: token, skipTokenValidation: true })
       .then(user => {
-        // loading.dismiss();
-        console.log('client logon success', user)
+        this.loggedIn.next(true);
         return user;
       })
       .catch(err => {
         window.localStorage.removeItem('access_token');
-        // loading.dismiss();
-        console.log('client logon error', err)
+        this.loggedIn.next(true);
         return Promise.reject(err);
       });
   }
 
-  // Logout of Circuit
   logout() {
     return this.client.logout();
   }
 
-  // Starts video/audio call with the specified user, conversation will be created if it does not exist.
+  /**
+   * Calls
+   */
+  // starts video/audio call with the specified user
+  // conversation will be created if it does not exist
   startCall(email: string, video: boolean): Promise<any> {
-    return this.client.makeCall(email, { audio: true, video: !!video }, true)
+    return this.client.makeCall(email, { audio: true, video: video }, true)
       .then(call => this.call = call)
+      .catch(console.error);
+  }
+
+  // answer an incoming call
+  answerCall(video: boolean) {
+    if (!this.call) {
+      return Promise.reject('No incoming call found');
+    }
+    const mediaType = {
+      audio: true,
+      video: video
+    };
+    return this.client.answerCall(this.call.callId, mediaType);
+  }
+
+  // toggle own video
+  toggleVideo() {
+    if (!this.call) {
+      return Promise.reject('No call found');
+    }
+    return this.client.toggleVideo(this.call.callId);
+  }
+
+  endCall() {
+    if (!this.call) {
+      return Promise.resolve();
+    }
+    return this.client.endCall(this.call.callId);
+  }
+
+  /**
+   * Conversations
+   */
+  sendMessage(user: Customer, content: MessageContent) {
+    this.client.getDirectConversationWithUser(user.email)
+      .then(conversation => {
+        if (conversation) {
+          console.log(conversation.convId);
+          return Promise.resolve(conversation);
+        } else {
+          return this.client.createDirectConversation(user.email);
+        }
+      })
+      .then(conversation => {
+        this.conversation = conversation;
+        return this.client.addTextItem(conversation.convId, content);
+      })
+      .then(item => {
+        return ({ client: this.client, conv: this.conversation, item: item });
+      })
       .catch(console.error);
   }
 

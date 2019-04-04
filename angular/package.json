@@ -30,6 +30,7 @@
     "circuit-sdk": "^1.2.5402",
     "core-js": "2.5.6",
     "css-star-rating": "^1.2.4",
+    "ngx-spinner": "^7.0.0",
     "os": "^0.1.1",
     "rxjs": "6.3.3",
     "rxjs-compat": "^6.0.0-rc.0",

@@ -47,20 +47,31 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">E-Mail</th>
+        <th scope="col">Telefon</th>
         <th scope="col">Kontakt</th>
         <th scope="col">Optionen</th>
       </tr>
     </thead>
     <tbody *ngFor="let customer of displayedCustomers; let i=index">
       <tr>
-        <th scope="row">{{i+1}}</th>
-        <td>{{customer.surname}}, {{customer.name}}</td>
-        <td>{{customer.email}}</td>
+        <th scope="row">
+          <div>{{i+1}}</div>
+        </th>
         <td>
-          <button type="button" class="btn btn-primary btn-sm"
-            ngbTooltip="Kunden eine Nachricht senden">
-            <fa-icon [icon]="faEnvelope"></fa-icon>
-          </button>
+          <div>{{customer.surname}}, {{customer.name}}</div>
+        </td>
+        <td>
+          <div>{{customer.email}}</div>
+        </td>
+        <td class="tableRow">
+          <div>{{customer.phone}}</div>
+        </td>
+        <td>
+          <a href="mailto:{{customer.email}}"><button type="button"
+              class="btn btn-primary btn-sm"
+              ngbTooltip="Kunden eine E-Mail senden">
+              <fa-icon [icon]="faEnvelope"></fa-icon>
+            </button></a>
           <button type="button" class="btn btn-primary btn-sm"
             (click)="messageCustomer(customer)"
             ngbTooltip="Kunden über Circuit eine Nachricht senden">

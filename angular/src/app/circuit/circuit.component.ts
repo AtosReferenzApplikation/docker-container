@@ -20,6 +20,7 @@ export class CircuitComponent implements OnInit, OnDestroy {
     name: new FormControl(null, [Validators.required]),
     surname: new FormControl(null, [Validators.required]),
     email: new FormControl(null),
+    phone: new FormControl(null),
   });
 
   // fontawesome

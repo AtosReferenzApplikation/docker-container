@@ -2,7 +2,7 @@
 <div>
   <section style="font-family: Arial">
     <div class="container-fluid" style="margin-top: 15px">
-      <form [formGroup]="CustomerForm" (ngSubmit)="sendCustomer()">
+      <form [formGroup]="CustomerForm" (ngSubmit)="addCustomerFromForm()">
         <div class="form-group">
           <label for="name">Vorname</label>
           <input type="text" class="form-control" id="name"
@@ -39,7 +39,7 @@
   <button (click)="loginToCircuit()"
     style="margin-left: 15px; margin-top: 20px;">Circuit
     LogIn</button>
-  <ngx-spinner type="pacman" size="medium">
+  <ngx-spinner type="ball-scale-ripple-multiple" size="medium">
     <p style="color: white"> Signing in... </p>
   </ngx-spinner>
   <!-- type="ball-beat" -->

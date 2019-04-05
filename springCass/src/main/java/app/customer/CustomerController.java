@@ -24,11 +24,11 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200") // Allow CORS requests
     @RequestMapping(value = "/addCustomer", consumes = "application/json" ,method = RequestMethod.POST)
     public Customer addCustomer(@RequestBody Customer customer){
         //sendCustomer(customer);
-        customerRepository.save(customer); // kafka endlos schleife umgehen und direkt hier den save
+    	customerRepository.save(customer); // kafka endlos schleife umgehen
         return customer;
     }
 
@@ -45,7 +45,7 @@ public class CustomerController {
     	customerRepository.deleteById(UUID.fromString(itemId));
     }
 
-    //Kafka Producer
+    // Kafka Producer
     @Autowired
     private KafkaTemplate<String, Customer> kafkaTemplateCustomer;
 

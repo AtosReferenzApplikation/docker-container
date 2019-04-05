@@ -5,6 +5,7 @@ import { CustomerService } from '../shared/customer.service';
 import { CircuitService } from '../shared/circuit.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { MessageContent } from '../models/MessageContent';
 
@@ -33,7 +34,8 @@ export class CircuitComponent implements OnInit, OnDestroy {
 
   constructor(private customerService: CustomerService,
     private circuitService: CircuitService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.CustomerForm.reset();
@@ -56,6 +58,10 @@ export class CircuitComponent implements OnInit, OnDestroy {
     return item.id;
   } // test/implement trackBy in html if spring connection works
 
+  openModal(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
   searchCustomers(term: string) {
     this.displayedCustomers = this.customerList.filter((item: Customer) => {
       return (item.name + item.surname).includes(term);
@@ -63,6 +69,7 @@ export class CircuitComponent implements OnInit, OnDestroy {
   }
 
   addCustomerFromForm() {
+    console.log(this.CustomerForm.value)
     if (this.CustomerForm.status === 'VALID') {
       this.customerService.addCustomer(this.CustomerForm.value)
         .subscribe(() => this.ngOnInit());

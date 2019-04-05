@@ -42,9 +42,24 @@ button {
   margin-right: 10px;
 }
 
+.addCustomer {
+  display: block;
+  float: left;
+  margin-bottom: 10px;
+}
+
 fa-icon {
   font-size: 90%;
   margin: auto auto;
+}
+
+.close {
+  background: none;
+  color: black;
+
+  &:hover {
+    background: none;
+  }
 }
 
 

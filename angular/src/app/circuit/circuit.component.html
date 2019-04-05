@@ -1,53 +1,18 @@
 <h1 style="font-family: Arial">Datenerfassung</h1>
-<div>
-  <section style="font-family: Arial">
-    <div class="container-fluid" style="margin-top: 15px">
-      <form [formGroup]="CustomerForm" (ngSubmit)="addCustomerFromForm()">
-        <div class="form-group">
-          <label for="name">Vorname</label>
-          <input type="text" class="form-control" id="name"
-            formControlName="name" required placeholder="Vorname"
-            style="max-width: 400px">
-          <!-- <small class="form-text text-muted"
-            *ngIf="!CustomerForm.value.name">Der
-            Vorname wird benötigt!</small> -->
-        </div>
-        <div class="form-group">
-          <label for="surname">Nachname</label>
-          <input type="text" class="form-control" required id="surname"
-            formControlName="surname" placeholder="Nachname"
-            style="max-width: 400px">
-        </div>
-        <div class="form-group">
-          <label for="email">E-Mail</label>
-          <input type="email" class="form-control" id="email"
-            formControlName="email" placeholder="E-Mail"
-            style="max-width: 400px">
-        </div>
-        <div class="form-group">
-          <label for="phone">Telefon</label>
-          <input type="tel" class="form-control" id="phone"
-            formControlName="phone" placeholder="Telefon"
-            style="max-width: 400px">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </div>
-  </section>
-  <button (click)="loginToCircuit()"
-    style="margin-left: 15px; margin-top: 20px;">Circuit
-    LogIn</button>
-  <ngx-spinner type="ball-scale-ripple-multiple" size="medium">
-    <p style="color: white"> Signing in... </p>
-  </ngx-spinner>
-  <!-- type="ball-beat" -->
-</div>
+
+<button type="button" class="btn btn-light" (click)="loginToCircuit()"
+  style="margin-left: 15px; margin-top: 20px;">Circuit LogIn</button>
+<ngx-spinner type="ball-scale-ripple-multiple" size="medium">
+  <p style="color: white"> Signing in... </p>
+</ngx-spinner>
+<!-- type="pacman" -->
 
 <div id="customerTable">
+  <div>
+    <button class="btn addCustomer" (click)="openModal(content)">Kunden hinzufügen</button>
+  </div>
   <div class="searchInput">
-    <label>Search:</label>
+    <label>Suchen:</label>
     <input type="text" class="form-control"
       (keyup)="searchCustomers($event.target.value)">
   </div>
@@ -108,3 +73,55 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Kunden hinzufügen</h4>
+    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <section style="font-family: Arial">
+        <div class="container-fluid" style="margin-top: 15px">
+          <form id="CustomerForm" [formGroup]="CustomerForm" (ngSubmit)="addCustomerFromForm()">
+            <div class="form-group">
+              <label for="name">Vorname</label>
+              <input type="text" class="form-control" id="name"
+                formControlName="name" required placeholder="Vorname"
+                style="max-width: 400px" ngbAutofocus>
+              <!-- <small class="form-text text-muted"
+                *ngIf="!CustomerForm.value.name">Der
+                Vorname wird benötigt!</small> -->
+            </div>
+            <div class="form-group">
+              <label for="surname">Nachname</label>
+              <input type="text" class="form-control" required id="surname"
+                formControlName="surname" placeholder="Nachname"
+                style="max-width: 400px">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" class="form-control" id="email"
+                formControlName="email" placeholder="E-Mail"
+                style="max-width: 400px">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" class="form-control" id="phone"
+                formControlName="phone" placeholder="Telefon"
+                style="max-width: 400px">
+            </div>
+            <!-- <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div> -->
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" form="CustomerForm" [disabled]="!CustomerForm.valid">Submit</button>
+  </div>
+</ng-template>

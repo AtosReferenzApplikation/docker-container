@@ -21,7 +21,7 @@ export class CustomerService {
     return this.http.get(this.URL + '/getCustomers', httpOptions);
   }
 
-  getCustomersById(id: string) {
+  getCustomerById(id: string) {
     // to be implemented
   }
 
@@ -30,7 +30,11 @@ export class CustomerService {
     return this.http.post<any>(this.URL + '/addCustomer', customer, httpOptions);
   }
 
+  updateCustomerById(id, customer: Customer) {
+    return this.http.put(this.URL + `/updateCustomer/${id}`, customer, httpOptions);
+  }
+
   deleteCustomerById(id: string) {
-    return this.http.delete(this.URL + '/deleteCustomer/' + id, httpOptions);
+    return this.http.delete(this.URL + `/deleteCustomer/${id}`, httpOptions);
   }
 }

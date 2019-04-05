@@ -36,8 +36,6 @@ export class CircuitComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.CustomerForm.reset();
     this.getCustomers();
-    this.customerList.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
-    this.displayedCustomers.push({ name: 'Peter', surname: 'Meier', id: 'TestId192837465', email: 'peter.meier99@gmx.de', phone: '+4915233742229' }); // SAMPLE DATA
 
     this.circuitService.loggedIn.subscribe(value => {
       if (value) {
@@ -62,7 +60,7 @@ export class CircuitComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendCustomer() {
+  addCustomerFromForm() {
     if (this.CustomerForm.status === 'VALID') {
       this.customerService.addCustomer(this.CustomerForm.value)
         .subscribe(() => this.ngOnInit());
@@ -73,9 +71,19 @@ export class CircuitComponent implements OnInit, OnDestroy {
 
   getCustomers() {
     this.customerService.getAllCustomers().subscribe((result: any) => {
+      if (!result) {
+        result.push({
+          name: 'Peter', surname: 'Meier', id: '12SAMPLEuser34',
+          email: 'peter.meier99@gmx.de', phone: '+4915233742229'
+        }); // SAMPLE DATA
+      }
       this.customerList = result;
       this.displayedCustomers = result;
     });
+  }
+
+  updateCustomerById(id, customer: Customer) {
+    this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit())
   }
 
   deleteCustomer(id: string) {

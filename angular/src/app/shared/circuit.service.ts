@@ -4,7 +4,6 @@ import { Customer } from '../models/customer';
 
 import Circuit from 'circuit-sdk';
 import { BehaviorSubject } from 'rxjs';
-import { userInfo } from 'os';
 import { MessageContent } from '../models/MessageContent';
 
 @Injectable({

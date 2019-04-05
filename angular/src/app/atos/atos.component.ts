@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-atos',
   templateUrl: './atos.component.html',
-  styleUrls: ['./atos.component.css']
+  styleUrls: ['./atos.component.scss']
 })
 export class AtosComponent implements OnInit {
 

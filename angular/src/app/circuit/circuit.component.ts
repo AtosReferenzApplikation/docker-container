@@ -8,10 +8,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { MessageContent } from '../models/MessageContent';
 
+import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
+
 @Component({
   selector: 'app-circuit',
   templateUrl: './circuit.component.html',
-  styleUrls: ['./circuit.component.css']
+  styleUrls: ['./circuit.component.scss']
 })
 export class CircuitComponent implements OnInit, OnDestroy {
 
@@ -71,15 +73,13 @@ export class CircuitComponent implements OnInit, OnDestroy {
 
   getCustomers() {
     this.customerService.getAllCustomers().subscribe((result: any) => {
-      if (!result) {
-        result.push({
-          name: 'Peter', surname: 'Meier', id: '12SAMPLEuser34',
-          email: 'peter.meier99@gmx.de', phone: '+4915233742229'
-        }); // SAMPLE DATA
-      }
       this.customerList = result;
       this.displayedCustomers = result;
     });
+
+    // SAMPLE DATA
+    this.customerList = SAMPLE_CUSTOMERS;
+    this.displayedCustomers = SAMPLE_CUSTOMERS;
   }
 
   updateCustomerById(id, customer: Customer) {
@@ -98,17 +98,7 @@ export class CircuitComponent implements OnInit, OnDestroy {
     const content: MessageContent = {
       content: 'Hallo Herr ' + customer.surname
     }
-    this.circuitService.sendMessage(customer, content)
-    // // SAMPLE DATA
-    // const subject = 'Ihr Feedback';
-    // const content = 'Hallo ' + customer.name + ' ' + customer.surname;
-
-    // const convId = await this.circuitService.startDirectConversation(customer).toPromise()
-    //   .then((res: any) => res.convId)
-    //   .catch(err => err.error.convId);
-
-    // this.circuitService.sendMessageToConversation(convId, subject, content)
-    //   .subscribe(res => console.log(res));
+    this.circuitService.sendMessage(customer, content);
   }
 
   callCustomer(customer: Customer) {

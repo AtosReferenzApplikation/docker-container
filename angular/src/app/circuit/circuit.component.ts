@@ -59,12 +59,12 @@ export class CircuitComponent implements OnInit, OnDestroy {
   } // test/implement trackBy in html if spring connection works
 
   openModal(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   searchCustomers(term: string) {
     this.displayedCustomers = this.customerList.filter((item: Customer) => {
-      return (item.name + item.surname).includes(term);
+      return (item.name.toLowerCase() + item.surname.toLowerCase()).includes(term.toLowerCase());
     });
   }
 

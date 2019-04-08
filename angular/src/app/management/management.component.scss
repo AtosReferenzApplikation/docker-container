@@ -1,5 +1,6 @@
 .card {
   margin: 5% auto;
+  margin-top: 90px;
   width: 80%;
   overflow: auto;
 
@@ -73,9 +74,10 @@ fa-icon {
 }
 
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 900px) {
   .card {
     width: 900px;
     margin: 5% auto;
+    margin-top: 90px;
   }
 }

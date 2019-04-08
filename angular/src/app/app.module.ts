@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { CircuitComponent } from './circuit/circuit.component';
+import { ManagementComponent } from './management/management.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 
@@ -21,7 +23,9 @@ import { CircuitComponent } from './circuit/circuit.component';
     AppComponent,
     AtosComponent,
     FeedbackComponent,
-    CircuitComponent
+    CircuitComponent,
+    ManagementComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,

@@ -72,10 +72,4 @@ public class CustomerController {
     public void inputCustomer(Customer customer) {
         customerRepository.save(customer);
     }
-
-
-
-
-
-
 }

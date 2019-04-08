@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Customer } from '../models/customer';
+import { SAMPLE_CUSTOMERS } from './sample-customers';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,7 +23,13 @@ export class CustomerService {
   }
 
   getCustomerById(id: string) {
-    // to be implemented
+    let customer;
+    SAMPLE_CUSTOMERS.forEach(item => {
+      if (item.id == id) {
+        customer = item;
+      }
+    });
+    return customer;
   }
 
   addCustomer(customer: Customer) {

@@ -1,0 +1,81 @@
+.card {
+  margin: 5% auto;
+  width: 80%;
+  overflow: auto;
+
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#customerTable {
+  margin: 2% 5%;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+}
+
+tr div {
+  margin: 5px 0;
+}
+
+button {
+  margin: 5px 0;
+  padding: 7px;
+  border-radius: 5px;
+  border-color: #0066A1;
+  background-color: #0066A1;
+  color: #FFFFFF;
+  font-family: Arial;
+}
+
+.btn-sm {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.searchInput {
+  display: flex;
+  float: right;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.searchInput label {
+  margin: auto 0;
+}
+
+.searchInput input {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.addCustomer {
+  display: block;
+  float: left;
+  margin-bottom: 10px;
+}
+
+fa-icon {
+  font-size: 90%;
+  margin: auto auto;
+}
+
+.close {
+  background: none;
+  color: black;
+
+  &:hover {
+    background: none;
+  }
+}
+
+
+@media screen and (min-width: 800px) {
+  .card {
+    width: 900px;
+    margin: 5% auto;
+  }
+}

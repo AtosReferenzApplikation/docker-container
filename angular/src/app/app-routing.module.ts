@@ -3,14 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
-import { CircuitComponent } from './circuit/circuit.component';
+import { ManagementComponent } from './management/management.component';
+import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'management', pathMatch: 'full' },
   { path: 'home', component: AtosComponent },
   { path: 'feedback', component: FeedbackComponent },
-  { path: 'circuit', component: CircuitComponent },
-  { path: '**', redirectTo: 'home' }
+  { path: 'management', component: ManagementComponent },
+  { path: 'management/customer/:id', component: CustomerComponent },
+  { path: '**', redirectTo: 'management' }
 ];
 
 @NgModule({

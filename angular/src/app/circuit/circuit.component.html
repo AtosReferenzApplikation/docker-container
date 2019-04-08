@@ -1,4 +1,4 @@
-<h1 style="font-family: Arial">Datenerfassung</h1>
+<!-- <h1 style="font-family: Arial">Datenerfassung</h1> -->
 
 <button type="button" class="btn btn-light" (click)="loginToCircuit()"
   style="margin-left: 15px; margin-top: 20px;">Circuit LogIn</button>
@@ -9,7 +9,8 @@
 
 <div id="customerTable">
   <div>
-    <button class="btn addCustomer" (click)="openModal(content)">Kunden hinzufügen</button>
+    <button class="btn addCustomer" (click)="openModal(content)">Kunden
+      hinzufügen</button>
   </div>
   <div class="searchInput">
     <label>Suchen:</label>
@@ -77,7 +78,8 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Kunden hinzufügen</h4>
-    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button class="close" aria-label="Close"
+      (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -85,7 +87,8 @@
     <div>
       <section style="font-family: Arial">
         <div class="container-fluid" style="margin-top: 15px">
-          <form id="CustomerForm" [formGroup]="CustomerForm" (ngSubmit)="addCustomerFromForm()">
+          <form id="CustomerForm" [formGroup]="CustomerForm"
+            (ngSubmit)="addCustomerFromForm()">
             <div class="form-group">
               <label for="name">Vorname</label>
               <input type="text" class="form-control" id="name"
@@ -122,6 +125,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" form="CustomerForm" [disabled]="!CustomerForm.valid">Submit</button>
+    <button type="submit" class="btn btn-primary" form="CustomerForm"
+      [disabled]="!CustomerForm.valid">Submit</button>
   </div>
 </ng-template>

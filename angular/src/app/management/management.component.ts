@@ -7,7 +7,6 @@ import { Customer } from '../models/customer';
 import { CustomerService } from '../shared/customer.service';
 import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
 import { Router } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 
 @Component({

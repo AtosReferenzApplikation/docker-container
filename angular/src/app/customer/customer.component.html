@@ -1,5 +1,5 @@
-<div class="card">
-  <div class="card-header">
+<div class="card" id="card">
+  <div class="card-header" id="card-header">
     <img
       src="https://ui-avatars.com/api/?name={{customer.name}}+{{customer.surname}}"
       class="rounded-circle">
@@ -8,12 +8,12 @@
       <i>Offline</i><br>
     </div>
   </div>
-  <ngb-tabset type="pills">
-    <ngb-tab>
+  <ngb-tabset #t="ngbTabset" type="pills">
+    <ngb-tab id="tab1">
       <ng-template ngbTabTitle class="ngbTab">Kunde</ng-template>
       <ng-template ngbTabContent>
         <hr />
-        <div class="card-body" *ngIf="view==='details'">
+        <!-- <div class="card-body" id="card-body">
           <h5 class="card-title">Kundendetails</h5>
           <h6 class="card-subtitle mb-2 text-muted">Kontakt</h6>
           <div class="card-text">
@@ -30,14 +30,15 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
+        <app-customer-chat></app-customer-chat>
       </ng-template>
     </ngb-tab>
-    <ngb-tab>
+    <ngb-tab id="tab2">
       <ng-template ngbTabTitle class="ngbTab">Konversation</ng-template>
       <ng-template ngbTabContent>
-        <div class="card-body" *ngIf="view==='conversation'">
-
+        <div class="card-body">
+          <!-- <app-customer-chat></app-customer-chat> -->
         </div>
       </ng-template>
     </ngb-tab>

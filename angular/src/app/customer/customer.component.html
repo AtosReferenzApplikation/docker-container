@@ -1,3 +1,53 @@
-<p>
-  {{customer.name}} {{customer.surname}} | id: {{customer.id}}
-</p>
+<div class="card">
+  <div class="card-header">
+    <img
+      src="https://ui-avatars.com/api/?name={{customer.name}}+{{customer.surname}}"
+      class="rounded-circle">
+    <div>
+      {{customer.name}} {{customer.surname}}<br>
+      <i>Offline</i><br>
+    </div>
+  </div>
+  <ngb-tabset type="pills">
+    <ngb-tab>
+      <ng-template ngbTabTitle class="ngbTab">Kunde</ng-template>
+      <ng-template ngbTabContent>
+        <hr />
+        <div class="card-body" *ngIf="view==='details'">
+          <h5 class="card-title">Kundendetails</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Kontakt</h6>
+          <div class="card-text">
+            <table class="table table-sm table-borderless">
+              <tbody>
+                <tr>
+                  <td>E-Mail</td>
+                  <td>{{customer.email}}</td>
+                </tr>
+                <tr>
+                  <td>Telefon</td>
+                  <td>{{customer.phone}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle class="ngbTab">Konversation</ng-template>
+      <ng-template ngbTabContent>
+        <div class="card-body" *ngIf="view==='conversation'">
+
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+
+<!--
+<div class="btn-group btn-group-sm" role="group" aria-label="..."
+  (click)="changeView()">
+  <button type="button" class="btn btn-secondary">Details</button>
+  <button type="button" class="btn btn-secondary">Konversation</button>
+</div> -->

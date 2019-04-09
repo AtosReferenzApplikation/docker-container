@@ -12,7 +12,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppComponent } from './app.component';
 import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
-import { CircuitComponent } from './circuit/circuit.component';
 import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerChatComponent } from './customer-chat/customer-chat.component';
@@ -24,7 +23,6 @@ import { CustomerChatComponent } from './customer-chat/customer-chat.component';
     AppComponent,
     AtosComponent,
     FeedbackComponent,
-    CircuitComponent,
     ManagementComponent,
     CustomerComponent,
     CustomerChatComponent

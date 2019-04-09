@@ -1,4 +1,4 @@
-.card {
+#card {
   margin: 5% auto;
   margin-top: 90px;
   width: 50%;
@@ -8,7 +8,7 @@
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.card-header {
+#card-header {
   display: flex;
   box-shadow: none;
   transition: none;
@@ -21,7 +21,7 @@
   background-color: rgba(0,0,0,0.03)
 }
 
-#ngb-tab-0, #ngb-tab-1 {
+#tab1, #tab2 {
   padding: 5px 10px;
 }
 

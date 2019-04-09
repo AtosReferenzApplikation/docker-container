@@ -1,0 +1,50 @@
+<div id="card-body-chat">
+  <div id="chat-head">
+    <div id="customerInfo">
+      {{customer.name}} {{customer.surname}} ist <i>{{status}}</i><br>
+    </div>
+    <div id="convBtn">
+      <button type="button" class="btn btn-primary rounded-circle">
+        <fa-icon [icon]="faVideo"></fa-icon>
+      </button>
+      <button type="button" class="btn btn-primary rounded-circle">
+        <fa-icon [icon]="faPhone"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div id="chat-body">
+    <div id="chat-body-content" *ngFor="let topic of topics">
+      <div class="message topic">
+        <img id="avatar"
+          src="https://ui-avatars.com/api/?name={{topic.user.name}}+{{topic.user.surname}}"
+          class="rounded-circle">
+        <div class="card card-body talk-bubble topic">
+          <b>{{topic.title}}</b>
+          <hr>
+          {{topic.content}}
+        </div>
+      </div>
+      <div *ngFor="let text of topic.texts">
+        <div class="message text">
+          <img id="avatar"
+            src="https://ui-avatars.com/api/?name={{text.user.name}}+{{text.user.surname}}"
+            class="rounded-circle">
+          <div class="card card-body talk-bubble topic">
+            {{text.content}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="chat-footer">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </span>
+      </div>
+      <input type="text" class="form-control" placeholder="Neues Thema starten"
+        aria-label="Neues Thema starten">
+    </div>
+  </div>
+</div>

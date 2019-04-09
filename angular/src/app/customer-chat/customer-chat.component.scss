@@ -1,0 +1,73 @@
+#card-body-chat {
+  padding: 0;
+  border: 5px solid white;
+
+  display: grid;
+  grid-template-rows: auto 340px auto;
+}
+
+#chat-head {
+  grid-row: 1;
+  padding: 10px;
+  z-index: 1;
+  box-shadow: 0 5px 5px -5px rgba(0,0,0,0.12);
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+#chat-body {
+  grid-row: 2;
+  background-color: #F0F0F0;
+  border: 1px solid rgba(0,0,0,0.12);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#chat-footer {
+  grid-row: 3;
+  box-shadow: 0 -5px 3px -5px rgba(0,0,0,0.12);
+}
+
+.input-group {
+  width: 80%;
+  margin: 1rem auto !important;
+}
+
+#chat-head #customerInfo {
+  margin: auto auto auto 10px;
+}
+
+#convBtn button {
+  margin: 0 5px;
+}
+
+.message {
+  margin: 0 auto;
+  width: 85%;
+
+  display: flex;
+}
+
+.message.topic {
+  margin-top: 20px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin: auto 10px auto 0;
+  }
+  hr {
+    margin: 5px 0;
+  }
+}
+
+.message.text {
+
+  img {
+    width: 30px;
+    height: 30px;
+    margin: auto 15px auto 5px;
+  }
+}

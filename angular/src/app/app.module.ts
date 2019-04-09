@@ -15,6 +15,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { CircuitComponent } from './circuit/circuit.component';
 import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
+import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 
 
 
@@ -25,7 +26,8 @@ import { CustomerComponent } from './customer/customer.component';
     FeedbackComponent,
     CircuitComponent,
     ManagementComponent,
-    CustomerComponent
+    CustomerComponent,
+    CustomerChatComponent
   ],
   imports: [
     BrowserModule,

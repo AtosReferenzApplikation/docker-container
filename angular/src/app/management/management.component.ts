@@ -19,12 +19,16 @@ export class ManagementComponent implements OnInit {
   customerList = []; // contains all customers
   displayedCustomers = []; // contains customers which will be displayed
 
+  inputIsCollapsed = true;
   invalidSubmit = { name: false, surname: false, email: false, phone: false };
   CustomerForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     surname: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     phone: new FormControl(null, [Validators.pattern('[0-9]+')]),
+    postalcode: new FormControl(null),
+    city: new FormControl(null),
+    street: new FormControl(null),
   });
 
   // fontawesomes

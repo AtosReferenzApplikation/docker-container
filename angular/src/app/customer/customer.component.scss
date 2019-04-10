@@ -1,6 +1,5 @@
 #card {
-  margin: 5% auto;
-  margin-top: 90px;
+  margin: 110px auto;
   width: 50%;
   overflow: auto;
 
@@ -13,6 +12,11 @@
   box-shadow: none;
   transition: none;
   border-bottom: 0;
+}
+
+.card-body {
+  padding-top: 10px;
+  padding-bottom: 0;
 }
 
 .nav-pills {
@@ -39,4 +43,12 @@ hr {
 
 .btn-group {
   margin-top: 10px;
+}
+
+.td-badge {
+  display: inline-block;
+
+  span {
+    margin: 0 2.5px;
+  }
 }

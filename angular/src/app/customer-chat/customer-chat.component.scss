@@ -1,6 +1,5 @@
 #card-body-chat {
   padding: 0;
-  border: 5px solid white;
 
   display: grid;
   grid-template-rows: auto 340px auto;
@@ -8,7 +7,7 @@
 
 #chat-head {
   grid-row: 1;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   z-index: 1;
   box-shadow: 0 5px 5px -5px rgba(0,0,0,0.12);
 
@@ -70,4 +69,8 @@
     height: 30px;
     margin: auto 15px auto 5px;
   }
+}
+
+.talk-bubble {
+  padding: 10px 20px;
 }

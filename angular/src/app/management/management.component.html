@@ -70,39 +70,44 @@
                   <input type="text" class="form-control" id="name"
                     formControlName="name" required placeholder="Vorname"
                     style="max-width: 400px" ngbAutofocus>
-                  <!-- <small class="form-text text-muted"
-                    *ngIf="!CustomerForm.value.name">Der
-                    Vorname wird benötigt!</small> -->
+                  <small class="form-text" style="color: #DC3545"
+                    *ngIf="invalidSubmit.name">Vorname wird benötigt!</small>
                 </div>
                 <div class="form-group">
                   <label for="surname">Nachname</label>
                   <input type="text" class="form-control" required id="surname"
                     formControlName="surname" placeholder="Nachname"
                     style="max-width: 400px">
+                  <small class="form-text" style="color: #DC3545"
+                    *ngIf="invalidSubmit.surname">Nachname
+                    wird benötigt!</small>
                 </div>
                 <div class="form-group">
                   <label for="email">E-Mail</label>
                   <input type="email" class="form-control" id="email"
                     formControlName="email" placeholder="E-Mail"
                     style="max-width: 400px">
+                  <small class="form-text" style="color: #DC3545"
+                    *ngIf="invalidSubmit.email">Gültige E-Mail
+                    wird benötigt!</small>
                 </div>
                 <div class="form-group">
                   <label for="phone">Telefon</label>
                   <input type="tel" class="form-control" id="phone"
                     formControlName="phone" placeholder="Telefon"
                     style="max-width: 400px">
+                  <small class="form-text" style="color: #DC3545"
+                    *ngIf="invalidSubmit.phone">Gültige Telefonnummer
+                    wird benötigt!</small>
                 </div>
-                <!-- <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div> -->
               </form>
             </div>
           </section>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" form="CustomerForm"
-          [disabled]="!CustomerForm.valid">Submit</button>
+        <button type="submit" class="btn btn-primary"
+          form="CustomerForm">Submit</button>
       </div>
     </ng-template>
   </div>

@@ -1,5 +1,5 @@
 #card {
-  margin: 110px auto;
+  margin: 0 auto;
   width: 50%;
   overflow: auto;
 
@@ -17,6 +17,7 @@
 .card-body {
   padding-top: 10px;
   padding-bottom: 0;
+  // background-color: $call-color;
 }
 
 .nav-pills {

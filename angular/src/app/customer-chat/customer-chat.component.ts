@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faVideo, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faVideo, faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { CustomerService } from '../shared/customer.service';
@@ -16,11 +16,12 @@ import { MessageContent } from '../models/MessageContent';
 export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone;
+  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash;
 
   // chat props
   topics = [];
   status = 'Offline'; // dynamic
+  call = true; // later contains call object
 
 
   constructor(private activatedRoute: ActivatedRoute,

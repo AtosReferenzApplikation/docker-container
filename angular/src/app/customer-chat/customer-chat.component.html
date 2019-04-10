@@ -3,7 +3,7 @@
 </ngx-spinner> -->
 <!-- type="pacman" -->
 <div id="card-body-chat">
-  <div id="chat-head">
+  <div class="chat-head" *ngIf="!call">
     <div id="customerInfo">
       {{customer.name}} {{customer.surname}} ist <i>{{status}}</i><br>
     </div>
@@ -13,6 +13,19 @@
       </button>
       <button type="button" class="btn btn-primary rounded-circle">
         <fa-icon [icon]="faPhone"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="chat-head" id="call" *ngIf="call">
+    <div id="customerInfo">
+      {{customer.name}} {{customer.surname}} ist <i>{{status}}</i><br>
+    </div>
+    <div id="convBtn">
+      <button type="button" class="btn btn-primary rounded-circle">
+        <fa-icon [icon]="faVideo"></fa-icon>
+      </button>
+      <button type="button" class="btn btn-danger rounded-circle">
+        <fa-icon [icon]="faPhoneSlash"></fa-icon>
       </button>
     </div>
   </div>

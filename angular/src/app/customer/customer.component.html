@@ -13,8 +13,30 @@
       <ng-template ngbTabTitle class="ngbTab">Kunde</ng-template>
       <ng-template ngbTabContent>
         <hr />
-        <div class="card-body" id="card-body">
+        <div class="card-body" id="details">
           <h5 class="card-title">Kundendetails</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Kundendaten</h6>
+          <div class="card-text">
+            <table class="table table-sm table-borderless">
+              <tbody>
+                <tr>
+                  <td>Kunde</td>
+                  <td>{{customer.salutation}} {{customer.name}}
+                    {{customer.surname}}</td>
+                </tr>
+                <tr>
+                  <td>Nationalität</td>
+                  <td>{{customer.nationality}}</td>
+                </tr>
+                <tr>
+                  <td>Adresse</td>
+                  <td>{{customer.address.postalcode}} {{customer.address.city}},
+                    {{customer.address.street}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <h6 class="card-subtitle mb-2 text-muted">Kontakt</h6>
           <div class="card-text">
             <table class="table table-sm table-borderless">
@@ -27,6 +49,15 @@
                   <td>Telefon</td>
                   <td>{{customer.phone}}</td>
                 </tr>
+                <tr>
+                  <td>Kontakt per</td>
+                  <td>
+                    <div class="td-badge"
+                      *ngFor="let form of customer.contactform">
+                      <span class="badge badge-secondary">{{form}}</span>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -36,6 +67,7 @@
     <ngb-tab id="tab2">
       <ng-template ngbTabTitle class="ngbTab">Konversation</ng-template>
       <ng-template ngbTabContent>
+        <hr />
         <div class="card-body">
           <app-customer-chat></app-customer-chat>
         </div>

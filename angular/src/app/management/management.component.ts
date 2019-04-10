@@ -19,14 +19,15 @@ export class ManagementComponent implements OnInit {
   customerList = []; // contains all customers
   displayedCustomers = []; // contains customers which will be displayed
 
+  invalidSubmit = { name: false, surname: false, email: false, phone: false };
   CustomerForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     surname: new FormControl(null, [Validators.required]),
-    email: new FormControl(null),
-    phone: new FormControl(null),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    phone: new FormControl(null, [Validators.pattern('[0-9]+')]),
   });
 
-  // fontawesome
+  // fontawesomes
   faMinus = faMinus; faEdit = faEdit;
   faEnvelope = faEnvelope; faCommentDots = faCommentDots; faPhone = faPhone;
 
@@ -59,10 +60,15 @@ export class ManagementComponent implements OnInit {
 
   addCustomerFromForm() {
     if (this.CustomerForm.status === 'VALID') {
+      this.invalidSubmit = { name: false, surname: false, email: false, phone: false };
       this.customerService.addCustomer(this.CustomerForm.value)
         .subscribe(() => this.ngOnInit());
+      this.CustomerForm.reset();
     } else {
-      console.error('INPUT IS INVALID');
+      if (!this.CustomerForm.get('name').valid) { this.invalidSubmit.name = true; } else { this.invalidSubmit.name = false; }
+      if (!this.CustomerForm.get('surname').valid) { this.invalidSubmit.surname = true; } else { this.invalidSubmit.surname = false; }
+      if (!this.CustomerForm.get('email').valid) { this.invalidSubmit.email = true; } else { this.invalidSubmit.email = false; }
+      if (!this.CustomerForm.get('phone').valid) { this.invalidSubmit.phone = true; } else { this.invalidSubmit.email = false; }
     }
   }
 
@@ -77,7 +83,7 @@ export class ManagementComponent implements OnInit {
   }
 
   updateCustomerById(id, customer: Customer) {
-    this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit())
+    this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit());
   }
 
   deleteCustomer(id: string) {

@@ -1,16 +1,16 @@
 <div class="card">
   <div class="card-body">
     <div id="customerTable">
-      <div>
+      <div id="tableControls">
         <button class="btn addCustomer" (click)="openModal(content)">Kunden
           hinzufügen</button>
+        <div class="searchInput">
+          <label>Suchen:</label>
+          <input type="text" class="form-control"
+            (keyup)="searchCustomers($event.target.value)">
+        </div>
       </div>
-      <div class="searchInput">
-        <label>Suchen:</label>
-        <input type="text" class="form-control"
-          (keyup)="searchCustomers($event.target.value)">
-      </div>
-      <table class="table table-striped ">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -34,31 +34,14 @@
             <td class="tableRow">
               <div>{{customer.phone}}</div>
             </td>
-            <!-- <td>
-              <a href="mailto:{{customer.email}}"><button type="button"
-                  class="btn btn-primary btn-sm"
-                  ngbTooltip="Kunden eine E-Mail senden">
-                  <fa-icon [icon]="faEnvelope"></fa-icon>
-                </button></a>
-              <button type="button" class="btn btn-primary btn-sm"
-                (click)="messageCustomer(customer)"
-                ngbTooltip="Kunden über Circuit eine Nachricht senden">
-                <fa-icon [icon]="faCommentDots"></fa-icon>
-              </button>
-              <button type="button" class="btn btn-primary btn-sm"
-                (click)="callCustomer(customer)"
-                ngbTooltip="Kunden über Circuit anrufen">
-                <fa-icon [icon]="faPhone"></fa-icon>
-              </button>
-            </td> -->
             <td>
               <button type="button" class="btn btn-primary btn-sm"
-                (click)="deleteCustomer(customer.id)"
+                (click)="$event.preventDefault(); $event.stopPropagation(); editCustomer(customer.id)"
                 ngbTooltip="Kunden bearbeiten">
                 <fa-icon [icon]="faEdit"></fa-icon>
               </button>
               <button type="button" class="btn btn-primary btn-sm"
-                (click)="deleteCustomer(customer.id)"
+                (click)="$event.preventDefault(); $event.stopPropagation(); deleteCustomer(customer.id)"
                 ngbTooltip="Kunden entfernen">
                 <fa-icon [icon]="faMinus"></fa-icon>
               </button>

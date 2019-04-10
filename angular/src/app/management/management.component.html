@@ -2,7 +2,8 @@
   <div class="card-body">
     <div id="customerTable">
       <div id="tableControls">
-        <button class="btn addCustomer" (click)="openModal(content)">Kunden
+        <button class="btn btn-primary addCustomer"
+          (click)="openModal(content)">Kunden
           hinzufügen</button>
         <div class="searchInput">
           <label>Suchen:</label>
@@ -100,6 +101,34 @@
                     *ngIf="invalidSubmit.phone">Gültige Telefonnummer
                     wird benötigt!</small>
                 </div>
+
+                <button type="button" class="btn btn-light"
+                  (click)="inputIsCollapsed = !inputIsCollapsed"
+                  [attr.aria-expanded]="!inputIsCollapsed"
+                  aria-controls="collapseAddressInput">
+                  Adresse hinzufügen
+                </button>
+                <div id="collapseAddressInput" [ngbCollapse]="inputIsCollapsed">
+                  <div class="form-group">
+                    <label for="postalcode">Postleitzahl</label>
+                    <input type="text" class="form-control" required
+                      id="postalcode" formControlName="postalcode"
+                      placeholder="Nachname" style="max-width: 400px">
+                  </div>
+                  <div class="form-group">
+                    <label for="city">Stadt</label>
+                    <input type="text" class="form-control" required id="city"
+                      formControlName="city" placeholder="Nachname"
+                      style="max-width: 400px">
+                  </div>
+                  <div class="form-group">
+                    <label for="street">Straße</label>
+                    <input type="text" class="form-control" required id="street"
+                      formControlName="street" placeholder="Nachname"
+                      style="max-width: 400px">
+                  </div>
+                </div>
+
               </form>
             </div>
           </section>

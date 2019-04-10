@@ -4,4 +4,9 @@ export interface Customer {
   surname: string;
   email: string;
   phone: string;
+  address: {
+    postalcode: string;
+    city: string;
+    street: string;
+  }
 }

@@ -1,1 +1,5 @@
 @import "~css-star-rating/css/star-rating.css";
+
+// change bootstrap colors in: '../_variables.scss'
+@import './variables';
+@import '../node_modules/bootstrap/scss/bootstrap.scss'

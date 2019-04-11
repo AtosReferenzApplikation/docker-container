@@ -31,28 +31,34 @@
       </button>
     </div>
   </div>
-  <div id="chat-body">
-    <div id="chat-body-content" *ngFor="let topic of topics">
-      <div class="message topic">
+  <div #scrollChat id="chat-body">
+    <div id="chat-body-content" *ngFor="let thread of threads">
+      <div class="message topic" *ngIf="thread.parentItem.type === 'TEXT'">
         <img id="avatar"
-          src="https://ui-avatars.com/api/?name={{topic.user.name}}+{{topic.user.surname}}"
+          src="https://ui-avatars.com/api/?name={{thread.parentItem.type}}+p"
           class="rounded-circle">
         <div class="card card-body talk-bubble topic">
-          <b>{{topic.title}}</b>
-          <hr>
-          {{topic.content}}
+          <div *ngIf="thread.parentItem.text.subject">
+            <b>
+              <div [innerHTML]="thread.parentItem.text.subject"></div>
+            </b>
+            <hr>
+          </div>
+          <div [innerHTML]="thread.parentItem.text.content"></div>
+
         </div>
       </div>
-      <div *ngFor="let text of topic.texts">
+      <div *ngFor="let text of thread.comments">
         <div class="message text">
           <img id="avatar"
-            src="https://ui-avatars.com/api/?name={{text.user.name}}+{{text.user.surname}}"
+            src="https://ui-avatars.com/api/?name={{text.text.content}}+c"
             class="rounded-circle">
           <div class="card card-body talk-bubble topic">
-            {{text.content}}
+            <div [innerHTML]="text.text.content"></div>
           </div>
         </div>
       </div>
+      <!-- input feld für comments -->
     </div>
   </div>
   <div id="chat-footer">

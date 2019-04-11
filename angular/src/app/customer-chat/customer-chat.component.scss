@@ -3,7 +3,7 @@
   padding: 0;
 
   display: grid;
-  grid-template-rows: auto 340px auto;
+  grid-template-rows: auto 360px auto;
 }
 
 .chat-head {
@@ -16,13 +16,10 @@
   justify-content: flex-end;
 }
 
-.chat-head #call {
-
-}
-
 #chat-body {
   grid-row: 2;
   background-color: #F0F0F0;
+  padding-bottom: 20px;
   border: 1px solid rgba(0,0,0,0.12);
 
   overflow-y: scroll;

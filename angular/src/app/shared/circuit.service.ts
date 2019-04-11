@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Customer } from '../models/customer';
 
-import Circuit from 'circuit-sdk';
+import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
 import { BehaviorSubject } from 'rxjs';
 import { MessageContent } from '../models/MessageContent';
 
@@ -43,7 +43,7 @@ export class CircuitService {
     this.authenticateUser();
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
-    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
+    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Warning);
 
     // create Circuit SDK client implicit
     this.client = new Circuit.Client({
@@ -190,16 +190,15 @@ export class CircuitService {
   /**
    * Conversations
    */
-  sendMessage(user: Customer, content: MessageContent) {
-    this.client.getDirectConversationWithUser(user.email)
+  getConversation(user: Customer) {
+    return this.client.getDirectConversationWithUser(user.email, false)
       .then(conversation => {
-        if (conversation) {
-          console.log(conversation.convId);
-          return Promise.resolve(conversation);
-        } else {
-          return this.client.createDirectConversation(user.email);
-        }
-      })
+        return this.client.getConversationFeed(conversation.convId).then(conv => conv);
+      });
+  }
+
+  sendMessage(user: Customer, content: MessageContent) {
+    this.client.getDirectConversationWithUser(user.email, true)
       .then(conversation => {
         this.conversation = conversation;
         return this.client.addTextItem(conversation.convId, content);

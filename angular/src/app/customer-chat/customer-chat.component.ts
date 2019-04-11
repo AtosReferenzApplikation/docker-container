@@ -53,7 +53,7 @@ export class CustomerChatComponent implements OnInit {
     // localStorage.clear();
   }
 
-  loginToCircuit() {
+  logonToCircuit() {
     this.circuitService.authenticateUser();
   }
 

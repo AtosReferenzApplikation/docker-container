@@ -10,7 +10,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
-import { AtosComponent } from './atos/atos.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
@@ -22,7 +21,6 @@ import { NavigationComponent } from './core/navigation/navigation.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AtosComponent,
     FeedbackComponent,
     ManagementComponent,
     CustomerComponent,

@@ -59,28 +59,8 @@ export class CustomerChatComponent implements OnInit {
 
   async setThreadsOfConversation() {
     const threadObject = await this.circuitService.getConversation(this.customer);
-    this.threads = this.filterTexts(threadObject).threads;
+    this.threads = threadObject.threads;
     this.scrollChatToBottom();
-  }
-
-  convertToPlain(rich) {
-    return new DOMParser().parseFromString(rich.replace('<hr>', '\n'), 'text/html').body.textContent || '';
-  }
-
-  filterTexts(threadObject) {
-    threadObject.threads.forEach(thread => {
-      if (thread.parentItem.type === 'TEXT') {
-        if ('subject' in thread.parentItem.text) {
-          thread.parentItem.text.subject = this.convertToPlain(thread.parentItem.text.subject);
-        }
-        thread.parentItem.text.content = this.convertToPlain(thread.parentItem.text.content);
-      }
-      thread.comments.forEach(text => {
-        text.text.content = this.convertToPlain(text.text.content);
-      });
-    });
-
-    return threadObject;
   }
 
   sendMessage(customer: Customer) {

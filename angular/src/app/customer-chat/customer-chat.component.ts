@@ -40,6 +40,7 @@ export class CustomerChatComponent implements OnInit {
       { title: 'Title of 3rd', content: 'My third Topic', texts: [{ content: '1st text', user: { name: 'S', surname: 'B' } },], user: { name: 'P', surname: 'M' } },
     ]
 
+    this.circuitService.authenticateUser();
     this.circuitService.loggedIn.subscribe(value => {
       if (value) {
         this.spinner.hide();
@@ -49,23 +50,19 @@ export class CustomerChatComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    // localStorage.clear();
-  }
-
-  logonToCircuit() {
-    this.circuitService.authenticateUser();
-  }
-
-  messageCustomer(customer: Customer) {
+  sendMessage(customer: Customer) {
     const content: MessageContent = {
       content: 'Hallo Herr ' + customer.surname
     }
     this.circuitService.sendMessage(customer, content);
   }
 
-  callCustomer(customer: Customer) {
+  startCall(customer: Customer) {
     this.circuitService.startCall(customer.email, false);
+  }
+
+  endCall() {
+    this.circuitService.endCall();
   }
 
 }

@@ -27,7 +27,7 @@ export class CircuitService {
   connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
   public addEventListener: Function;
 
-  // observes if User is logged in
+  // BehaviorSubjects
   public loggedIn = new BehaviorSubject(false);
 
   // OAuth configuration
@@ -40,7 +40,7 @@ export class CircuitService {
 
 
   constructor(private http: HttpClient) {
-    this.refreshToken();
+    this.authenticateUser();
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
     Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
@@ -72,25 +72,23 @@ export class CircuitService {
    *******************/
 
   // authentication for User with LogIn Popup
-  authenticateUser() {
+  logonPopup() {
     const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
     const url = this.authUrl + '?response_type=token&client_id=' + this.oauthConfig.client_id
       + '&redirect_uri=http://localhost:4200/circuit&scope=' + this.oauthConfig.scope
       + '&state=' + state; // auth request url
 
-    const loginPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
+    const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
 
     // close popup if user login was successful
-    const checkLogin = setInterval(() => {
+    const checkLogon = setInterval(() => {
       try {
-        if (loginPopup.location.href.includes('access_token=')) {
-          const callbackUrl = loginPopup.location.href;
-          clearInterval(checkLogin);
-          loginPopup.close();
+        if (logonPopup.location.href.includes('access_token=')) {
+          const callbackUrl = logonPopup.location.href;
+          clearInterval(checkLogon);
+          logonPopup.close();
           const access_token = this.getValueFromString('access_token', callbackUrl);
           localStorage.setItem('access_token', access_token);
-
-          this.refreshToken();
         }
       } catch (error) { } // todo: handle logon error
     }, 100);
@@ -108,7 +106,7 @@ export class CircuitService {
     }
   }
 
-  refreshToken() {
+  authenticateUser() {
     this.loggedIn.next(false);
     this.http.get(this.restUrl + '/oauth/token/' + localStorage.getItem('access_token'))
       .toPromise().then((res: any) => {
@@ -120,7 +118,7 @@ export class CircuitService {
         this.logonWithToken(localStorage.getItem('access_token'));
       }).catch(() => {
         this.loggedIn.next(true);
-        // request user to logIn again
+        this.logonPopup();
         // catch error 401 => unauthenticated
       });
   }
@@ -140,13 +138,13 @@ export class CircuitService {
         return user;
       })
       .catch(err => {
-        window.localStorage.removeItem('access_token');
         this.loggedIn.next(true);
         return Promise.reject(err);
       });
   }
 
   logout() {
+    localStorage.removeItem('access_token');
     this.loggedIn.next(false);
     return this.client.logout();
   }

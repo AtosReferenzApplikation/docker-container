@@ -92,7 +92,7 @@ export class CircuitService {
 
           this.refreshToken();
         }
-      } catch (error) { } // todo: handle login error
+      } catch (error) { } // todo: handle logon error
     }, 100);
   }
 
@@ -102,7 +102,7 @@ export class CircuitService {
     const regex = new RegExp(regexS);
     const results = regex.exec(url);
     if (results == null) {
-      return ''; // todo: handle login error
+      return ''; // todo: handle logon error
     } else {
       return decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
@@ -147,6 +147,7 @@ export class CircuitService {
   }
 
   logout() {
+    this.loggedIn.next(false);
     return this.client.logout();
   }
 

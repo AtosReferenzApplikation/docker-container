@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { CircuitService } from '../../shared/circuit.service';
 
 @Component({
@@ -9,14 +9,16 @@ import { CircuitService } from '../../shared/circuit.service';
 })
 export class NavigationComponent implements OnInit {
 
-  faSignInAlt = faSignInAlt;
+  faSignInAlt = faSignInAlt; faSignOutAlt = faSignOutAlt;
+  loggedIn: boolean;
 
   constructor(private circuitService: CircuitService) { }
 
   ngOnInit() {
+    this.circuitService.loggedIn.subscribe(res => this.loggedIn = res);
   }
 
-  login() {
+  logon() {
     this.circuitService.authenticateUser();
   }
 

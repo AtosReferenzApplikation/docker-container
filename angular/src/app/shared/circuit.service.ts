@@ -43,7 +43,7 @@ export class CircuitService {
     this.authenticateUser();
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
-    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Warning);
+    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Off);
 
     // create Circuit SDK client implicit
     this.client = new Circuit.Client({

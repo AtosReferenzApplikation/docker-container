@@ -82,6 +82,10 @@ export class CustomerChatComponent implements OnInit {
     this.circuitService.endCall();
   }
 
+  toggleVideo() {
+    this.circuitService.toggleVideo();
+  }
+
   // messaging
   sendTopicMessage(subject: string, content: string) {
     if (content.trim() !== '') {

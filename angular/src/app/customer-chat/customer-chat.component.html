@@ -4,7 +4,7 @@
       {{customer.name}} {{customer.surname}} ist <i>{{status}}</i><br>
     </div>
     <div id="convBtn">
-      <button type="button" class="btn btn-primary rounded-circle">
+      <button type="button" class="btn btn-primary rounded-circle" (click)="toggleVideo()">
         <fa-icon [icon]="faVideo"></fa-icon>
       </button>
       <button type="button" class="btn btn-primary rounded-circle" (click)="startCall(customer)">
@@ -17,7 +17,7 @@
       {{customer.name}} {{customer.surname}} ist <i>{{status}}</i><br>
     </div>
     <div id="convBtn">
-      <button type="button" class="btn btn-primary rounded-circle">
+      <button type="button" class="btn btn-primary rounded-circle" (click)="toggleVideo()">
         <fa-icon [icon]="faVideo"></fa-icon>
       </button>
       <button type="button" class="btn btn-danger rounded-circle" (click)="endCall()">

@@ -9,15 +9,6 @@
     </div>
   </div>
   <ngb-tabset #t="ngbTabset" type="pills">
-    <ngb-tab id="tab2">
-      <ng-template ngbTabTitle class="ngbTab">Konversation</ng-template>
-      <ng-template ngbTabContent>
-        <hr />
-        <div class="card-body">
-          <app-customer-chat></app-customer-chat>
-        </div>
-      </ng-template>
-    </ngb-tab>
     <ngb-tab id="tab1">
       <ng-template ngbTabTitle class="ngbTab">Informationen</ng-template>
       <ng-template ngbTabContent>
@@ -73,7 +64,15 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <!-- chat component tab -->
+    <ngb-tab id="tab2">
+        <ng-template ngbTabTitle class="ngbTab">Konversation</ng-template>
+        <ng-template ngbTabContent>
+          <hr />
+          <div class="card-body">
+            <app-customer-chat></app-customer-chat>
+          </div>
+        </ng-template>
+      </ngb-tab>
   </ngb-tabset>
 </div>
 

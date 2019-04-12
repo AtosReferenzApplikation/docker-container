@@ -36,7 +36,7 @@ export class CustomerChatComponent implements OnInit {
       this.customer = this.customerService.getCustomerById(params.id);
     });
 
-    this.circuitService.authenticateUser();
+    // this.circuitService.authenticateUser();
     this.circuitService.loggedIn.subscribe(value => {
       if (value) { this.setThreadsOfConversation(); }
     });

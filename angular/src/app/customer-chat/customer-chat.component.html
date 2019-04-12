@@ -11,8 +11,7 @@
       <button type="button" class="btn btn-primary rounded-circle">
         <fa-icon [icon]="faVideo"></fa-icon>
       </button>
-      <button type="button" class="btn btn-primary rounded-circle"
-        (click)="startCall(customer)">
+      <button type="button" class="btn btn-primary rounded-circle" (click)="startCall(customer)">
         <fa-icon [icon]="faPhone"></fa-icon>
       </button>
     </div>
@@ -25,8 +24,7 @@
       <button type="button" class="btn btn-primary rounded-circle">
         <fa-icon [icon]="faVideo"></fa-icon>
       </button>
-      <button type="button" class="btn btn-danger rounded-circle"
-        (click)="endCall()">
+      <button type="button" class="btn btn-danger rounded-circle" (click)="endCall()">
         <fa-icon [icon]="faPhoneSlash"></fa-icon>
       </button>
     </div>
@@ -34,9 +32,7 @@
   <div #scrollChat id="chat-body" *ngIf="participants">
     <div id="chat-body-content" *ngFor="let thread of threads">
       <div class="message topic" *ngIf="thread.parentItem.type === 'TEXT'">
-        <img id="avatar"
-          src="{{getAvatarByUserId(thread.parentItem.creatorId)}}"
-          class="rounded-circle">
+        <img id="avatar" src="{{getAvatarByUserId(thread.parentItem.creatorId)}}" class="rounded-circle">
         <div class="card card-body talk-bubble topic">
           <div *ngIf="thread.parentItem.text.subject">
             <b>
@@ -49,11 +45,21 @@
       </div>
       <div *ngFor="let text of thread.comments">
         <div class="message text">
-          <img id="avatar" src="{{getAvatarByUserId(text.creatorId)}}"
-            class="rounded-circle">
+          <img id="avatar" src="{{getAvatarByUserId(text.creatorId)}}" class="rounded-circle">
           <div class="card card-body talk-bubble topic">
             <div [innerHTML]="text.text.content"></div>
           </div>
+        </div>
+      </div>
+      <div class="input-group" id="topicInput" *ngIf="thread.parentItem.type === 'TEXT'">
+        <div id="img"></div>
+        <input #smallMessage type="text" class="form-control" (keyup.enter)="appandMessageToThread(smallMessage.value, thread)" placeholder="Auf dieses Thema antworten"
+          aria-label="Auf dieses Thema antworten" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit"
+            (click)="appandMessageToThread(smallMessage.value, thread)">
+            <fa-icon [icon]="faPaperPlane"></fa-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -65,8 +71,7 @@
           <fa-icon [icon]="faEdit"></fa-icon>
         </span>
       </div>
-      <input type="text" class="form-control" placeholder="Neues Thema starten"
-        aria-label="Neues Thema starten">
+      <input type="text" class="form-control" placeholder="Neues Thema starten" aria-label="Neues Thema starten">
     </div>
   </div>
 </div>

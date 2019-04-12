@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faVideo, faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faVideo, faPhone, faPhoneSlash, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { CustomerService } from '../shared/customer.service';
 import { Customer } from '../models/customer';
 import { CircuitService } from '../shared/circuit.service';
 import { MessageContent } from '../models/MessageContent';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-chat',
@@ -17,12 +18,15 @@ export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
   participants = [];
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash;
+  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane =  faPaperPlane;
 
   // chat props
   threads = [];
   status = 'Offline'; // dynamic
 
+  smallMessageForm = new FormGroup({
+    name: new FormControl(null, [Validators.required])
+  });
 
   @ViewChild('scrollChat') private chat: ElementRef<any>;
   constructor(private activatedRoute: ActivatedRoute,
@@ -59,7 +63,7 @@ export class CustomerChatComponent implements OnInit {
   }
 
   async setThreadsOfConversation() {
-    const threadObject = await this.circuitService.getConversation(this.customer);
+    const threadObject = await this.circuitService.getConversation(this.customer.email);
     this.threads = threadObject.threads;
     this.getParticipants();
     this.scrollChatToBottom();
@@ -78,19 +82,21 @@ export class CustomerChatComponent implements OnInit {
   }
 
   // circuit service
-  sendMessage(customer: Customer) {
-    const content: MessageContent = {
-      content: 'Hallo Herr ' + customer.surname
-    }
-    this.circuitService.sendMessage(customer, content);
-  }
-
+  // call
   startCall(customer: Customer) {
     this.circuitService.startCall(customer.email, false);
   }
 
   endCall() {
     this.circuitService.endCall();
+  }
+
+  // messaging
+  appandMessageToThread(message: string, thread: any) {
+    this.circuitService.sendMessage({
+      parentId: thread.parentItem.itemId,
+      content: message
+    }).then(this.setThreadsOfConversation())
   }
 
 }

@@ -16,6 +16,7 @@ import { MessageContent } from '../models/MessageContent';
 export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
+  participants = [];
   faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash;
 
   // chat props
@@ -54,15 +55,29 @@ export class CustomerChatComponent implements OnInit {
   scrollChatToBottom() {
     try {
       this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
-    } catch { console.error }
+    } catch { console.error(); }
   }
 
   async setThreadsOfConversation() {
     const threadObject = await this.circuitService.getConversation(this.customer);
     this.threads = threadObject.threads;
+    this.getParticipants();
     this.scrollChatToBottom();
   }
 
+  getParticipants() {
+    this.circuitService.conversation.participants.forEach(async userId => {
+      this.participants.push(await this.circuitService.getUserById(userId));
+    });
+  }
+
+  getAvatarByUserId(id) {
+    try {
+      return this.participants[this.participants.findIndex(user => user.userId === id)].avatar;
+    } catch (error) { return ''; }
+  }
+
+  // circuit service
   sendMessage(customer: Customer) {
     const content: MessageContent = {
       content: 'Hallo Herr ' + customer.surname

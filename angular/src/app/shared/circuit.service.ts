@@ -23,7 +23,7 @@ export class CircuitService {
   client; // Circuit SDK instance
   user: any; // Logged on user
   call: any; // Active call object
-  conversation: any; // Active conversation object
+  public conversation: any; // Active conversation object
   connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
   public addEventListener: Function;
 
@@ -150,6 +150,14 @@ export class CircuitService {
   }
 
   /**
+   * user management
+   */
+  getUserById(userId: string) {
+    return this.client.getUserById(userId).then(id => id);
+  }
+
+
+  /**
    * Calls
    */
   // starts video/audio call with the specified user
@@ -193,6 +201,7 @@ export class CircuitService {
   getConversation(user: Customer) {
     return this.client.getDirectConversationWithUser(user.email, false)
       .then(conversation => {
+        this.conversation = conversation;
         return this.client.getConversationFeed(conversation.convId).then(conv => conv);
       });
   }

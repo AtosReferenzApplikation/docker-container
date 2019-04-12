@@ -21,6 +21,8 @@ export class CustomerChatComponent implements OnInit {
   // chat props
   threads = [];
   status = 'Offline'; // dynamic
+  messageTopic = '';
+  messageTopicDesc = '';
 
   @ViewChild('scrollChat') private chat: ElementRef<any>;
   constructor(private activatedRoute: ActivatedRoute,
@@ -50,17 +52,20 @@ export class CustomerChatComponent implements OnInit {
     });
   }
 
-  scrollChatToBottom() {
-    try {
-      this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
-    } catch { console.error(); }
-  }
-
   async setThreadsOfConversation() {
     const threadObject = await this.circuitService.getConversation(this.customer.email);
     this.threads = threadObject.threads;
     this.getParticipants();
     this.scrollChatToBottom();
+  }
+
+  scrollChatToBottom() {
+    const checkParticipants = setInterval(() => {
+      if (this.participants) {
+        clearInterval(checkParticipants);
+        this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
+      }
+    }, 100);
   }
 
   getParticipants() {
@@ -86,11 +91,24 @@ export class CustomerChatComponent implements OnInit {
   }
 
   // messaging
-  appandMessageToThread(message: string, thread: any) {
-    if (message.trim() !== '') {
+  sendTopicMessage(subject: string, content: string) {
+    if (content.trim() !== '') {
+      this.circuitService.sendMessage({
+        subject: subject,
+        content: content
+      }).then(() => {
+        this.setThreadsOfConversation();
+        this.messageTopic = '';
+        this.messageTopicDesc = '';
+      });
+    }
+  }
+
+  sendMessage(content: string, thread: any) {
+    if (content.trim() !== '') {
       this.circuitService.sendMessage({
         parentId: thread.parentItem.itemId,
-        content: message
+        content: content
       }).then(this.setThreadsOfConversation());
     }
   }

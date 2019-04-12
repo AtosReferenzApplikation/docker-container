@@ -6,8 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CustomerService } from '../shared/customer.service';
 import { Customer } from '../models/customer';
 import { CircuitService } from '../shared/circuit.service';
-import { MessageContent } from '../models/MessageContent';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-chat',
@@ -23,10 +21,6 @@ export class CustomerChatComponent implements OnInit {
   // chat props
   threads = [];
   status = 'Offline'; // dynamic
-
-  smallMessageForm = new FormGroup({
-    name: new FormControl(null, [Validators.required])
-  });
 
   @ViewChild('scrollChat') private chat: ElementRef<any>;
   constructor(private activatedRoute: ActivatedRoute,
@@ -93,10 +87,12 @@ export class CustomerChatComponent implements OnInit {
 
   // messaging
   appandMessageToThread(message: string, thread: any) {
-    this.circuitService.sendMessage({
-      parentId: thread.parentItem.itemId,
-      content: message
-    }).then(this.setThreadsOfConversation())
+    if (message.trim() !== '') {
+      this.circuitService.sendMessage({
+        parentId: thread.parentItem.itemId,
+        content: message
+      }).then(this.setThreadsOfConversation());
+    }
   }
 
 }

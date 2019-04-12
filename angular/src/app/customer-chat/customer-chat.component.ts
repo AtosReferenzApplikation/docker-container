@@ -31,24 +31,14 @@ export class CustomerChatComponent implements OnInit {
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.activatedRoute.params.subscribe(params => {
       this.customer = this.customerService.getCustomerById(params.id);
     });
 
-    // this.threads = [
-    //   { title: 'Title of 1st', content: 'My first Topic', texts: [{ content: '1st text', user: { name: 'P', surname: 'M' } }, { content: '2nd text', user: { name: 'S', surname: 'B' } }], user: { name: 'S', surname: 'B' } },
-    //   { title: 'Title of 2nd', content: 'My second Topic', texts: [{ content: '1st text', user: { name: 'P', surname: 'M' } }, { content: '2nd text', user: { name: 'P', surname: 'M' } }, { content: '3rd text', user: { name: 'S', surname: 'B' } }], user: { name: 'P', surname: 'M' } },
-    //   { title: 'Title of 3rd', content: 'My third Topic', texts: [{ content: '1st text', user: { name: 'S', surname: 'B' } },], user: { name: 'P', surname: 'M' } },
-    // ]
-
     this.circuitService.authenticateUser();
     this.circuitService.loggedIn.subscribe(value => {
-      if (value) {
-        this.spinner.hide();
-        this.setThreadsOfConversation();
-      } else {
-        this.spinner.show();
-      }
+      if (value) { this.setThreadsOfConversation(); }
     });
   }
 
@@ -56,13 +46,15 @@ export class CustomerChatComponent implements OnInit {
     const threadObject = await this.circuitService.getConversation(this.customer.email);
     this.threads = threadObject.threads;
     this.getParticipants();
-    this.scrollChatToBottom();
+    this.onLoaded();
   }
 
-  scrollChatToBottom() {
+  // last http call is done
+  onLoaded() {
     const checkParticipants = setInterval(() => {
       if (this.participants) {
         clearInterval(checkParticipants);
+        this.spinner.hide();
         this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
       }
     }, 100);

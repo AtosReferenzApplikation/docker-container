@@ -30,7 +30,7 @@ export class CustomerComponent implements OnInit {
 
   generateChatProtocol() {
     this.circuitService.getConversation(this.customer.email).then(threadObject =>{
-      const threadsJson = JSON.stringify(threadObject.threads);
+      const threadsJson = JSON.stringify(this.formatThreads(threadObject.threads));
       const element = document.createElement('a');
       element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));
       element.setAttribute('download', 'chat-protokoll_' + this.customer.surname + '-' + this.customer.name + '.json');
@@ -39,6 +39,11 @@ export class CustomerComponent implements OnInit {
       element.click();
       document.body.removeChild(element);
     });
+  }
+
+  formatThreads(threads) {
+    // format here
+    return threads;
   }
 
 }

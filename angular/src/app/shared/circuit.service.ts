@@ -43,7 +43,7 @@ export class CircuitService {
     this.authenticateUser();
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
-    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
+    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Off);
 
     // create Circuit SDK client implicit
     this.client = new Circuit.Client({
@@ -215,11 +215,9 @@ export class CircuitService {
     return this.client.getDirectConversationWithUser(email)
       .then(conversation => {
         this.conversation = conversation;
-        console.log('hi')
         return this.client.getConversationFeed(conversation.convId).then(conv => conv);
       })
       .catch((err) => {
-        console.log(err,email)
         if (!this.loggedIn.value) { this.authenticateUser(); }
       });
   }

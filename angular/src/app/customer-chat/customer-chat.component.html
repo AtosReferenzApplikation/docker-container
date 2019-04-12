@@ -27,9 +27,9 @@
   </div>
   <div #scrollChat id="chat-body">
     <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple" size="medium">
-      <p style="color: white"> Signing in... </p>
+      <p style="color: white"> Lade Konversation... </p>
     </ngx-spinner>
-    <div *ngIf="participants">
+    <div *ngIf="participants && threads">
       <div id="chat-body-content" *ngFor="let thread of threads">
         <div class="message topic" *ngIf="thread.parentItem.type === 'TEXT'">
           <img id="avatar" src="{{getAvatarByUserId(thread.parentItem.creatorId)}}" class="rounded-circle">

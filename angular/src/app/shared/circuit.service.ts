@@ -74,9 +74,9 @@ export class CircuitService {
   // authentication for User with LogIn Popup
   logonPopup() {
     const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
-    const url = this.authUrl + '?response_type=token&client_id=' + this.oauthConfig.client_id
-      + '&redirect_uri=http://localhost:4200/circuit&scope=' + this.oauthConfig.scope
-      + '&state=' + state; // auth request url
+    const url = this.authUrl + '?response_type=token&client_id=' + this.oauthConfig.client_id +
+      '&redirect_uri=http://localhost:4200/circuit&scope=' + this.oauthConfig.scope +
+      '&state=' + state; // auth request url
 
     const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
 
@@ -89,8 +89,9 @@ export class CircuitService {
           logonPopup.close();
           const access_token = this.getValueFromString('access_token', callbackUrl);
           localStorage.setItem('access_token', access_token);
+          this.loggedIn.next(true);
         }
-      } catch (error) { } // todo: handle logon error
+      } catch (error) {} // todo: handle logon error
     }, 100);
   }
 
@@ -117,9 +118,7 @@ export class CircuitService {
           .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
         this.logonWithToken(localStorage.getItem('access_token'));
       }).catch(() => {
-        this.loggedIn.next(true);
         this.logonPopup();
-        // catch error 401 => unauthenticated
       });
   }
 
@@ -132,13 +131,16 @@ export class CircuitService {
 
   // logon to circuit using access token
   private logonWithToken(token) {
-    return this.client.logon({ accessToken: token, skipTokenValidation: true })
+    return this.client.logon({
+        accessToken: token,
+        skipTokenValidation: true
+      })
       .then(user => {
         this.loggedIn.next(true);
         return user;
       })
       .catch(err => {
-        this.loggedIn.next(true);
+        this.authenticateUser();
         return Promise.reject(err);
       });
   }
@@ -153,7 +155,13 @@ export class CircuitService {
    * user management
    */
   getUserById(userId: string) {
-    return this.client.getUserById(userId).then(id => id);
+    return this.client.getUserById(userId)
+      .then(id => id)
+      .catch(() => {
+        if (!this.loggedIn.value) {
+          this.authenticateUser();
+        }
+      });
   }
 
 
@@ -162,10 +170,15 @@ export class CircuitService {
    */
   // starts video/audio call with the specified user
   // conversation will be created if it does not exist
-  startCall(email: string, video: boolean): Promise<any> {
-    return this.client.makeCall(email, { audio: true, video: video }, true)
+  startCall(email: string, video: boolean): Promise < any > {
+    return this.client.makeCall(email, {
+        audio: true,
+        video: video
+      }, true)
       .then(call => this.call = call)
-      .catch(console.error);
+      .catch(() => {
+        if (!this.loggedIn.value) { this.authenticateUser(); }
+      });
   }
 
   // answer an incoming call
@@ -203,14 +216,23 @@ export class CircuitService {
       .then(conversation => {
         this.conversation = conversation;
         return this.client.getConversationFeed(conversation.convId).then(conv => conv);
+      })
+      .catch(() => {
+        if (!this.loggedIn.value) { this.authenticateUser(); }
       });
   }
 
   sendMessage(content: MessageContent) {
     return this.client.addTextItem(this.conversation.convId, content).then(item => {
-        return ({ client: this.client, conv: this.conversation, item: item });
+        return ({
+          client: this.client,
+          conv: this.conversation,
+          item: item
+        });
       })
-      .catch(console.error);
+      .catch(() => {
+        if (!this.loggedIn.value) { this.authenticateUser(); }
+      });
   }
 
 
@@ -225,20 +247,28 @@ export class CircuitService {
       .set('direction', 'BEFORE')
       .set('results', results);
 
-    return this.http.get(this.restUrl + '/conversations', { headers: this.headers, params: params });
+    return this.http.get(this.restUrl + '/conversations', {
+      headers: this.headers,
+      params: params
+    });
   }
 
   startDirectConversation(customer: Customer) {
-    return this.http.post(this.restUrl + '/conversations/direct', { 'participant': customer.email }, { headers: this.headers });
+    return this.http.post(this.restUrl + '/conversations/direct', {
+      'participant': customer.email
+    }, {
+      headers: this.headers
+    });
   }
 
   sendMessageToConversation(convId: string, subject: string, content: string, attachments: string[] = []) {
-    return this.http.post(this.restUrl + '/conversations/' + convId + '/messages',
-      {
-        subject: subject,
-        content: content,
-        attachments: attachments
-      }, { headers: this.headers });
+    return this.http.post(this.restUrl + '/conversations/' + convId + '/messages', {
+      subject: subject,
+      content: content,
+      attachments: attachments
+    }, {
+      headers: this.headers
+    });
   }
 
 }

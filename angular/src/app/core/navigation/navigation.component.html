@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-primary">
-  <a class="navbar-brand" href="/management">Circuit Referenz Applikation</a>
+  <a class="navbar-brand" routerLink="/management">Circuit Referenz Applikation</a>
   <button type="button" class="btn btn-primary" *ngIf="!loggedIn"
     (click)="logon()">Login <fa-icon [icon]="faSignInAlt"></fa-icon></button>
   <button type="button" class="btn btn-primary" *ngIf="loggedIn"

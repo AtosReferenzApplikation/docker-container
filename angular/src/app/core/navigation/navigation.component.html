@@ -1,16 +1,4 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="" routerLinkActive="active">
-    <img src="../assets/images/Atos.png" style="text-align: right" height="80px">
-  </a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <button style="margin-right: 5px" routerLink="home" routerLinkActive="active">Home</button>
-      <button style="margin-right: 5px" routerLink="feedback" routerLinkActive="active">Feedback</button>
-      <button style="margin-right: 5px" routerLink="circuit" routerLinkActive="active">Circuit</button>
-    </div>
-  </div>
-</nav> -->
-<nav class="navbar navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-dark bg-primary">
   <a class="navbar-brand" href="/management">Circuit Referenz Applikation</a>
   <button type="button" class="btn btn-primary" *ngIf="!loggedIn"
     (click)="logon()">Login <fa-icon [icon]="faSignInAlt"></fa-icon></button>

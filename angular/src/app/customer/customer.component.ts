@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { CustomerService } from '../shared/customer.service';
 import { Customer } from '../models/customer';
@@ -19,8 +18,7 @@ export class CustomerComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private circuitService: CircuitService,
-    private sanitizer: DomSanitizer) { }
+    private circuitService: CircuitService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {

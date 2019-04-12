@@ -198,21 +198,16 @@ export class CircuitService {
   /**
    * Conversations
    */
-  getConversation(user: Customer) {
-    return this.client.getDirectConversationWithUser(user.email, false)
+  getConversation(email) {
+    return this.client.getDirectConversationWithUser(email, false)
       .then(conversation => {
         this.conversation = conversation;
         return this.client.getConversationFeed(conversation.convId).then(conv => conv);
       });
   }
 
-  sendMessage(user: Customer, content: MessageContent) {
-    this.client.getDirectConversationWithUser(user.email, true)
-      .then(conversation => {
-        this.conversation = conversation;
-        return this.client.addTextItem(conversation.convId, content);
-      })
-      .then(item => {
+  sendMessage(content: MessageContent) {
+    return this.client.addTextItem(this.conversation.convId, content).then(item => {
         return ({ client: this.client, conv: this.conversation, item: item });
       })
       .catch(console.error);

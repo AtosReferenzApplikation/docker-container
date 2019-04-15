@@ -1,12 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 
 import { CustomerService } from './customer.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CustomerService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      providers: [CustomerService],
+      imports: [
+        HttpClientTestingModule
+      ]
+    }).compileComponents();
+  }));
 
   it('should be created', () => {
-    const service: CustomerService = TestBed.get(CustomerService);
+    const service = TestBed.get(CustomerService);
     expect(service).toBeTruthy();
   });
 });

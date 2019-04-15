@@ -13,7 +13,7 @@ import { CircuitService } from '../shared/circuit.service';
 })
 export class CustomerComponent implements OnInit {
 
-  customer: Customer;
+  customer: Customer = null;
   downloadJsonHref;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -27,7 +27,7 @@ export class CustomerComponent implements OnInit {
   }
 
   generateChatProtocol() {
-    this.circuitService.getConversation(this.customer.email).then(threadObject =>{
+    this.circuitService.getConversation(this.customer.email).then(threadObject => {
       const threadsJson = JSON.stringify(this.formatThreads(threadObject.threads));
       const element = document.createElement('a');
       element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));

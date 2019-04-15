@@ -13,7 +13,7 @@ describe('CustomerService', () => {
     }).compileComponents();
   }));
 
-  it('should be created', () => {
+  it('service should be created', () => {
     const service = TestBed.get(CustomerService);
     expect(service).toBeTruthy();
   });

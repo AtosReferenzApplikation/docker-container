@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
 
@@ -15,6 +15,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -39,9 +42,13 @@ describe('AppComponent', () => {
   }));
 
 
-  it('should create the app', async(() => {
-    // const fixture = TestBed.createComponent(AppComponent);
-    // const app = fixture.debugElement.componentInstance;
-    // expect(app).toBeTruthy();
-  }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create component', () => {
+    expect(component).toBeTruthy();
+  });
 });

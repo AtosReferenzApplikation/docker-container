@@ -24,7 +24,7 @@ export class CircuitService {
   user: any; // Logged on user
   call: any; // Active call object
   public conversation: any; // Active conversation object
-  connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
+  connectionState: string = Circuit.Enums.ConnectionState.Disconnected; // Unit Test Err - Enums Undefined
   public addEventListener: Function;
 
   // BehaviorSubjects
@@ -58,7 +58,7 @@ export class CircuitService {
     // keep the call object current in this service
     this.client.addEventListener('callIncoming', evt => this.call = evt.call);
     this.client.addEventListener('callStatus', evt => this.call = evt.call);
-    this.client.addEventListener('callEnded', evt => this.call = null);
+    this.client.addEventListener('callEnded', this.call = null);
   }
 
   get loggedOnUser() {
@@ -91,7 +91,7 @@ export class CircuitService {
           localStorage.setItem('access_token', access_token);
           this.loggedIn.next(true);
         }
-      } catch (error) {} // todo: handle logon error
+      } catch (error) { } // todo: handle logon error
     }, 100);
   }
 
@@ -132,9 +132,9 @@ export class CircuitService {
   // logon to circuit using access token
   private logonWithToken(token) {
     return this.client.logon({
-        accessToken: token,
-        skipTokenValidation: true
-      })
+      accessToken: token,
+      skipTokenValidation: true
+    })
       .then(user => {
         this.loggedIn.next(true);
         return user;
@@ -170,11 +170,11 @@ export class CircuitService {
    */
   // starts video/audio call with the specified user
   // conversation will be created if it does not exist
-  startCall(email: string, video: boolean): Promise < any > {
+  startCall(email: string, video: boolean): Promise<any> {
     return this.client.makeCall(email, {
-        audio: true,
-        video: video
-      }, true)
+      audio: true,
+      video: video
+    }, true)
       .then(call => this.call = call)
       .catch(() => {
         if (!this.loggedIn.value) { this.authenticateUser(); }
@@ -224,12 +224,12 @@ export class CircuitService {
 
   sendMessage(content: MessageContent) {
     return this.client.addTextItem(this.conversation.convId, content).then(item => {
-        return ({
-          client: this.client,
-          conv: this.conversation,
-          item: item
-        });
-      })
+      return ({
+        client: this.client,
+        conv: this.conversation,
+        item: item
+      });
+    })
       .catch(() => {
         if (!this.loggedIn.value) { this.authenticateUser(); }
       });
@@ -257,8 +257,8 @@ export class CircuitService {
     return this.http.post(this.restUrl + '/conversations/direct', {
       'participant': customer.email
     }, {
-      headers: this.headers
-    });
+        headers: this.headers
+      });
   }
 
   sendMessageToConversation(convId: string, subject: string, content: string, attachments: string[] = []) {
@@ -267,8 +267,8 @@ export class CircuitService {
       content: content,
       attachments: attachments
     }, {
-      headers: this.headers
-    });
+        headers: this.headers
+      });
   }
 
 }

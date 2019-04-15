@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { CustomerService } from '../shared/customer.service';
 import { Customer } from '../models/customer';
@@ -14,13 +13,12 @@ import { CircuitService } from '../shared/circuit.service';
 })
 export class CustomerComponent implements OnInit {
 
-  customer: Customer;
+  customer: Customer = null;
   downloadJsonHref;
 
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private circuitService: CircuitService,
-    private sanitizer: DomSanitizer) { }
+    private circuitService: CircuitService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -29,7 +27,7 @@ export class CustomerComponent implements OnInit {
   }
 
   generateChatProtocol() {
-    this.circuitService.getConversation(this.customer.email).then(threadObject =>{
+    this.circuitService.getConversation(this.customer.email).then(threadObject => {
       const threadsJson = JSON.stringify(this.formatThreads(threadObject.threads));
       const element = document.createElement('a');
       element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));

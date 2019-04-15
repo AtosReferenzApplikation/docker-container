@@ -13,7 +13,7 @@ describe('CircuitService', () => {
     }).compileComponents();
   }));
 
-  it('should be created', () => {
+  it('service should be created', () => {
     const service: CircuitService = TestBed.get(CircuitService);
     expect(service).toBeTruthy();
   });

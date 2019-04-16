@@ -61,8 +61,8 @@ export class CustomerChatComponent implements OnInit {
   }
 
   getParticipants() {
-    this.circuitService.conversation.participants.forEach(async userId => {
-      this.participants.push(await this.circuitService.getUserById(userId));
+    this.circuitService.conversation.participants.forEach(userId => {
+      this.circuitService.getUserById(userId).then((res: any) => this.participants.push(res));
     });
   }
 

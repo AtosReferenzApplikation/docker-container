@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Customer } from '../models/customer';
 
 import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { MessageContent } from '../models/messageContent';
 
 @Injectable({
@@ -159,13 +159,7 @@ export class CircuitService {
    * user management
    */
   getUserById(userId: string) {
-    return this.client.getUserById(userId)
-      .then(id => id)
-      .catch(() => {
-        if (!this.loggedIn.value) {
-          this.authenticateUser();
-        }
-      });
+    return this.client.getUserById(userId);
   }
 
 

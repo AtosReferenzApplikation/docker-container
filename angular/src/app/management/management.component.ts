@@ -77,9 +77,9 @@ export class ManagementComponent implements OnInit {
   }
 
   getCustomers() {
-    this.customerService.getAllCustomers().subscribe((result: any) => {
-      this.customerList = result;
-      this.displayedCustomers = result;
+    this.customerService.getAllCustomers().subscribe((response: any) => {
+      this.customerList = response;
+      this.displayedCustomers = response;
     }, () => {
       // SAMPLE DATA
       this.customerList = SAMPLE_CUSTOMERS;

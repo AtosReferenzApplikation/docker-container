@@ -14,7 +14,7 @@ import { CircuitService } from '../shared/circuit.service';
 export class CustomerComponent implements OnInit {
 
   customer: Customer = null;
-  downloadJsonHref;
+  downloadJsonHref: any;
 
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,

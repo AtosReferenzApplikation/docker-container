@@ -16,7 +16,7 @@ export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
   participants = [];
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane =  faPaperPlane;
+  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane = faPaperPlane;
 
   // chat props
   threads = [];
@@ -27,7 +27,7 @@ export class CustomerChatComponent implements OnInit {
   @ViewChild('scrollChat') private chat: ElementRef<any>;
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private circuitService: CircuitService,
+    public circuitService: CircuitService,
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {

@@ -14,16 +14,18 @@ const httpOptions = {
 })
 export class CustomerService {
 
-  private URL = '/spring';
-
   constructor(private http: HttpClient) { }
 
+  get URI() {
+    return window.location.href.includes('localost:') ? 'http://localhost:8080' : '/spring';
+  }
+
   getAllCustomers() {
-    return this.http.get(this.URL + '/getCustomers', httpOptions);
+    return this.http.get(this.URI + '/getCustomers', httpOptions);
   }
 
   getCustomerById(id: string) {
-    let customer;
+    let customer: Customer;
     SAMPLE_CUSTOMERS.forEach(item => {
       // tslint:disable-next-line: triple-equals
       if (item.id == id) {
@@ -35,14 +37,14 @@ export class CustomerService {
 
   addCustomer(customer: Customer) {
     // '/spring/addCustomer'
-    return this.http.post<any>(this.URL + '/addCustomer', customer, httpOptions);
+    return this.http.post<any>(this.URI + '/addCustomer', customer, httpOptions);
   }
 
-  updateCustomerById(id, customer: Customer) {
-    return this.http.put(this.URL + `/updateCustomer/${id}`, customer, httpOptions);
+  updateCustomerById(id: any, customer: Customer) {
+    return this.http.put(this.URI + `/updateCustomer/${id}`, customer, httpOptions);
   }
 
   deleteCustomerById(id: string) {
-    return this.http.delete(this.URL + `/deleteCustomer/${id}`, httpOptions);
+    return this.http.delete(this.URI + `/deleteCustomer/${id}`, httpOptions);
   }
 }

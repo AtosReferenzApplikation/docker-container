@@ -31,8 +31,12 @@
 }
 
 .input-group {
-  width: 80%;
-  margin: 1rem auto !important;
+  // display: table;
+  // margin: 1rem auto;
+
+  #newTopicInput {
+    width: 60%;
+  }
 }
 
 .chat-head #customerInfo {

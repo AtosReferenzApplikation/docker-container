@@ -54,6 +54,24 @@
               gelöscht</i>
           </div>
         </div>
+        <div class="message topic" *ngIf="thread.parentItem.type === 'RTC'">
+          <img id="avatar"
+            src="{{getAvatarByUserId(thread.parentItem.creatorId)}}"
+            class="rounded-circle">
+          <div class="card card-body talk-bubble topic">
+            <div *ngIf="">
+              <b>
+                <div [innerHTML]="thread.parentItem.type"></div><i
+                  *ngIf="false">Nachricht
+                  gelöscht</i>
+              </b>
+              <hr>
+            </div>
+            <div [innerHTML]="thread.parentItem.type"></div><i
+              *ngIf="false">Nachricht
+              gelöscht</i>
+          </div>
+        </div>
         <div *ngFor="let text of thread.comments">
           <div class="message text">
             <img id="avatar" src="{{getAvatarByUserId(text.creatorId)}}"
@@ -64,8 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="input-group" id="topicInput"
-          *ngIf="thread.parentItem.type === 'TEXT'">
+        <div class="input-group" id="topicInput">
           <div id="img"></div>
           <input #smallMessage type="text" class="form-control"
             (keyup.enter)="sendMessage(smallMessage.value, thread)"

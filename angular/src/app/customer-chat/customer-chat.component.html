@@ -83,8 +83,8 @@
     </div>
   </div>
   <div id="chat-footer">
-    <div class="input-group">
-      <div class="input-group-prepend">
+    <div class="input-group" style="margin: 15px 0;">
+      <div class="input-group-prepend" style="margin-left: auto">
         <span class="input-group-text" id="basic-addon1">
           <fa-icon [icon]="faEdit"></fa-icon>
         </span>
@@ -96,7 +96,7 @@
         <input type="text" class="form-control" [(ngModel)]="messageTopicDesc"
           placeholder="Themenbeschreibung" aria-label="Themenbeschreibung">
       </div>
-      <div class="input-group-append">
+      <div class="input-group-append" style="margin-right: auto">
         <button class="btn btn-outline-secondary sendBtn" type="button"
           (click)="sendTopicMessage(messageTopic, messageTopicDesc)">
           <fa-icon [icon]="faPaperPlane"></fa-icon>

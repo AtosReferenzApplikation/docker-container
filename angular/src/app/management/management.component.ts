@@ -48,7 +48,7 @@ export class ManagementComponent implements OnInit {
     return item.id;
   } // test/implement trackBy in html if spring connection works
 
-  openModal(content) {
+  openModal(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -80,13 +80,14 @@ export class ManagementComponent implements OnInit {
     this.customerService.getAllCustomers().subscribe((result: any) => {
       this.customerList = result;
       this.displayedCustomers = result;
+    }, () => {
+      // SAMPLE DATA
+      this.customerList = SAMPLE_CUSTOMERS;
+      this.displayedCustomers = SAMPLE_CUSTOMERS;
     });
-    // SAMPLE DATA
-    this.customerList = SAMPLE_CUSTOMERS;
-    this.displayedCustomers = SAMPLE_CUSTOMERS;
   }
 
-  updateCustomerById(id, customer: Customer) {
+  updateCustomerById(id: any, customer: Customer) {
     this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit());
   }
 

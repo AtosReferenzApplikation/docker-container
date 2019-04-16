@@ -25,7 +25,7 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
-    @CrossOrigin(origins = "http://localhost:4200") // Allow CORS requests
+    // @CrossOrigin(origins = "http://192.168.99.100") // Allow CORS requests
     @RequestMapping(value = "/addCustomer", consumes = "application/json" ,method = RequestMethod.POST)
     public Customer addCustomer(@RequestBody Customer customer){
         //sendCustomer(customer);
@@ -33,25 +33,25 @@ public class CustomerController {
     	return customer;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    // @CrossOrigin(origins = "http://192.168.99.100")
     @GetMapping("/getCustomers")
     public @ResponseBody List<Customer> getCustomers() {
     	List<Customer> customerList = Lists.newArrayList(customerRepository.findAll());
       	return customerList;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    // @CrossOrigin(origins = "http://192.168.99.100")
     @RequestMapping(value = "/deleteCustomer/{id}", method = RequestMethod.DELETE)
     public void deleteCustomer(@PathVariable("id") String itemId){
     	customerRepository.deleteById(UUID.fromString(itemId));
     }
-    
-    @CrossOrigin(origins = "http://localhost:4200")
+
+    // @CrossOrigin(origins = "http://192.168.99.100")
     @PutMapping("/updateCustomer/{id}")
     public void saveResource(@RequestBody Customer customer,
       @PathVariable("id") String id) {;
-    	Customer customerInDB = customerRepository.findById(UUID.fromString(id)).get(); 
-    	customerInDB = customer; 
+    	Customer customerInDB = customerRepository.findById(UUID.fromString(id)).get();
+    	customerInDB = customer;
     	customerRepository.save(customerInDB);
     }
 

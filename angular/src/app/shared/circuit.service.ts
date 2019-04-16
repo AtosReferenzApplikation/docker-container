@@ -11,8 +11,8 @@ import { MessageContent } from '../models/messageContent';
 })
 export class CircuitService {
 
-  authUrl = 'https://circuitsandbox.net/oauth/authorize';
-  restUrl = 'https://circuitsandbox.net/rest/v2';
+  authUri = 'https://circuitsandbox.net/oauth/authorize';
+  restUri = 'https://circuitsandbox.net/rest/v2';
 
   headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
@@ -34,7 +34,7 @@ export class CircuitService {
   oauthConfig = {
     domain: 'circuitsandbox.net',
     client_id: '8e3edf9798f341c08ae59b5d8cf74341',
-    redirect_uri: 'http://localhost:4200/circuit',
+    redirect_uri: this.redirectUri,
     scope: 'ALL'
   };
 
@@ -65,6 +65,10 @@ export class CircuitService {
     return this.client.loggedOnUser;
   }
 
+  get redirectUri() {
+    return window.location.href;
+  }
+
   /**************
    *
    * AUTHENTICATION
@@ -74,8 +78,8 @@ export class CircuitService {
   // authentication for User with LogIn Popup
   logonPopup() {
     const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
-    const url = this.authUrl + '?response_type=token&client_id=' + this.oauthConfig.client_id +
-      '&redirect_uri=http://localhost:4200/circuit&scope=' + this.oauthConfig.scope +
+    const url = this.authUri + '?response_type=token&client_id=' + this.oauthConfig.client_id +
+      '&redirect_uri=' + this.redirectUri + '&scope=' + this.oauthConfig.scope +
       '&state=' + state; // auth request url
 
     const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
@@ -109,7 +113,7 @@ export class CircuitService {
 
   authenticateUser() {
     this.loggedIn.next(false);
-    this.http.get(this.restUrl + '/oauth/token/' + localStorage.getItem('access_token'))
+    this.http.get(this.restUri + '/oauth/token/' + localStorage.getItem('access_token'))
       .toPromise().then((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
         this.headers = new HttpHeaders()
@@ -247,14 +251,14 @@ export class CircuitService {
       .set('direction', 'BEFORE')
       .set('results', results);
 
-    return this.http.get(this.restUrl + '/conversations', {
+    return this.http.get(this.restUri + '/conversations', {
       headers: this.headers,
       params: params
     });
   }
 
   startDirectConversation(customer: Customer) {
-    return this.http.post(this.restUrl + '/conversations/direct', {
+    return this.http.post(this.restUri + '/conversations/direct', {
       'participant': customer.email
     }, {
         headers: this.headers
@@ -262,7 +266,7 @@ export class CircuitService {
   }
 
   sendMessageToConversation(convId: string, subject: string, content: string, attachments: string[] = []) {
-    return this.http.post(this.restUrl + '/conversations/' + convId + '/messages', {
+    return this.http.post(this.restUri + '/conversations/' + convId + '/messages', {
       subject: subject,
       content: content,
       attachments: attachments

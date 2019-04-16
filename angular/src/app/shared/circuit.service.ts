@@ -213,9 +213,9 @@ export class CircuitService {
     return this.client.getDirectConversationWithUser(email)
       .then(conversation => {
         this.conversation = conversation;
-        return this.client.getConversationFeed(conversation.convId).then((conv: any) => conv);
+        return this.client.getConversationFeed(conversation.convId).then(conv => conv);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         if (!this.loggedIn.value) { this.authenticateUser(); }
       });
   }

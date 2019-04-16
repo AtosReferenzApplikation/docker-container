@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -37,7 +38,9 @@ describe('AppComponent', () => {
         NgbModule,
         FontAwesomeModule,
         NgxSpinnerModule,
-      ]
+        ToastrModule.forRoot()
+      ],
+      providers: [ToastrService]
     }).compileComponents();
   }));
 

@@ -11,6 +11,6 @@ export interface Customer {
     postalcode: string;
     city: string;
     street: string;
-  }
+  };
   contactform: string[];
 }

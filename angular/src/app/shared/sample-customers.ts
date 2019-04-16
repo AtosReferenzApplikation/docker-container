@@ -26,4 +26,4 @@ export const SAMPLE_CUSTOMERS: Customer[] = [
       country: 'Deutschland', postalcode: '18565', city: 'Insel Hiddensee', street: 'Kirchweg 39'
     }, contactform: ['E-Mail', 'Telefon']
   },
-]
+];

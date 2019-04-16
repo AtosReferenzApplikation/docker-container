@@ -4,7 +4,7 @@ import { Customer } from '../models/customer';
 
 import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
 import { BehaviorSubject } from 'rxjs';
-import { MessageContent } from '../models/MessageContent';
+import { MessageContent } from '../models/messageContent';
 
 @Injectable({
   providedIn: 'root'

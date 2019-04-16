@@ -25,6 +25,7 @@ export class CustomerService {
   getCustomerById(id: string) {
     let customer;
     SAMPLE_CUSTOMERS.forEach(item => {
+      // tslint:disable-next-line: triple-equals
       if (item.id == id) {
         customer = item;
       }

@@ -28,15 +28,21 @@
 #chat-footer {
   grid-row: 3;
   box-shadow: 0 -5px 3px -5px rgba(0, 0, 0, 0.12);
+  display: flex;
 }
 
 .input-group {
-  // display: table;
-  // margin: 1rem auto;
+  margin: 15px 0;
+}
 
-  #newTopicInput {
-    width: 60%;
-  }
+#callBtn {
+  width: 40px;
+  height: 40px;
+  margin: auto 10px auto auto;
+}
+
+.input-group #newTopicInput {
+  width: 70%;
 }
 
 .chat-head #customerInfo {

@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 import { Customer } from '../models/customer';
-import { CustomerService } from '../shared/customer.service';
+import { CustomerService } from '../shared/services/customer.service';
 import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
 import { Router } from '@angular/router';
 

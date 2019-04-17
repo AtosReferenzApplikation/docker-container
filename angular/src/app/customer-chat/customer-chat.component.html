@@ -1,34 +1,4 @@
 <div id="card-body-chat">
-  <div class="chat-head" *ngIf="!circuitService.call">
-    <div id="customerInfo">
-      {{customer?.name}} {{customer?.surname}} ist <i>{{status}}</i><br>
-    </div>
-    <div id="convBtn">
-      <button type="button" class="btn btn-primary rounded-circle"
-        (click)="toggleVideo()">
-        <fa-icon [icon]="faVideo"></fa-icon>
-      </button>
-      <button type="button" class="btn btn-primary rounded-circle"
-        (click)="startCall(customer)">
-        <fa-icon [icon]="faPhone"></fa-icon>
-      </button>
-    </div>
-  </div>
-  <div class="chat-head" id="call" *ngIf="circuitService.call">
-    <div id="customerInfo">
-      {{customer?.name}} {{customer?.surname}} ist <i>{{status}}</i><br>
-    </div>
-    <div id="convBtn">
-      <button type="button" class="btn btn-primary rounded-circle"
-        (click)="toggleVideo()">
-        <fa-icon [icon]="faVideo"></fa-icon>
-      </button>
-      <button type="button" class="btn btn-danger rounded-circle"
-        (click)="endCall()">
-        <fa-icon [icon]="faPhoneSlash"></fa-icon>
-      </button>
-    </div>
-  </div>
   <div #scrollChat id="chat-body">
     <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple"
       size="medium">
@@ -83,7 +53,19 @@
     </div>
   </div>
   <div id="chat-footer">
-    <div class="input-group" style="margin: 15px 0;">
+    <div class="input-group">
+      <div id="callBtn" *ngIf="!circuitService.call">
+        <button type="button" class="btn btn-primary rounded-circle"
+          (click)="startCall(customer)">
+          <fa-icon [icon]="faPhone"></fa-icon>
+        </button>
+      </div>
+      <div id="callBtn" *ngIf="circuitService.call">
+        <button type="button" class="btn btn-danger rounded-circle"
+          (click)="endCall(customer)">
+          <fa-icon [icon]="faPhoneSlash"></fa-icon>
+        </button>
+      </div>
       <div class="input-group-prepend" style="margin-left: auto">
         <span class="input-group-text" id="basic-addon1">
           <fa-icon [icon]="faEdit"></fa-icon>
@@ -104,4 +86,5 @@
       </div>
     </div>
   </div>
+
 </div>

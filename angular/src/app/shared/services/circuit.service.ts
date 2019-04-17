@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Customer } from '../models/customer';
+import { Customer } from '../../models/customer';
 
 import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
-import { BehaviorSubject, Observable } from 'rxjs';
-import { MessageContent } from '../models/messageContent';
+import { BehaviorSubject } from 'rxjs';
+import { MessageContent } from '../../models/messageContent';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,7 @@ export class CircuitService {
 
   // BehaviorSubjects
   public loggedIn = new BehaviorSubject(false);
+  public activeCall = new BehaviorSubject(false);
 
   // OAuth configuration
   oauthConfig = {
@@ -58,7 +59,9 @@ export class CircuitService {
     // keep the call object current in this service
     this.client.addEventListener('callIncoming', evt => this.call = evt.call);
     this.client.addEventListener('callStatus', evt => this.call = evt.call);
-    this.client.addEventListener('callEnded', this.call = null);
+    this.client.addEventListener('callEnded', () => {
+      this.call = null; this.activeCall.next(false);
+    });
   }
 
   get loggedOnUser() {
@@ -156,7 +159,7 @@ export class CircuitService {
   }
 
   /**
-   * user management
+   * User
    */
   getUserById(userId: string) {
     return this.client.getUserById(userId);
@@ -210,7 +213,7 @@ export class CircuitService {
    * Conversations
    */
   getConversation(email) {
-    return this.client.getDirectConversationWithUser(email)
+    return this.client.getDirectConversationWithUser(email, true)
       .then(conversation => {
         this.conversation = conversation;
         return this.client.getConversationFeed(conversation.convId).then(conv => conv);

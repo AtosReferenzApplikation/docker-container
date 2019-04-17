@@ -9,10 +9,10 @@ import {
 import { Component } from '@angular/core';
 import { faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { Toast, ToastrService, ToastPackage } from 'ngx-toastr';
-import { CircuitService } from './shared/circuit.service';
+import { CircuitService } from '../services/circuit.service';
 
 @Component({
-  selector: '[circuit-toast-component]',
+  selector: '[notification-toast-component]',
   styles: [`
     :host {
       background-color: #0096e8;
@@ -51,11 +51,11 @@ import { CircuitService } from './shared/circuit.service';
     </div>
     <div *ngIf="options.disableTimeOut" style="display: flex">
       <button type="button" *ngIf="!options.closeButton" style="margin-right: 5px" class="btn btn-primary rounded-circle"
-        (click)="$event.preventDefault(); $event.stopPropagation(); acceptCall();">
+        (click)="acceptCall();">
         <fa-icon [icon]="faPhone"></fa-icon>
       </button>
       <button type="button" *ngIf="!options.closeButton" style="margin-right: 5px" class="btn btn-primary rounded-circle"
-        (click)="$event.preventDefault(); $event.stopPropagation(); declineCall();">
+        (click)="declineCall();">
         <fa-icon [icon]="faPhoneSlash"></fa-icon>
       </button>
       <a *ngIf="options.closeButton" (click)="remove()" class="btn btn-pink btn-sm">
@@ -103,7 +103,7 @@ import { CircuitService } from './shared/circuit.service';
   ],
   preserveWhitespaces: false,
 })
-export class CircuitToast extends Toast {
+export class NotificationToast extends Toast {
   // used for demo purposes
   faPhone = faPhone; faPhoneSlash = faPhoneSlash;
 

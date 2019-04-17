@@ -17,7 +17,8 @@ import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
-import { CircuitToast } from './circuit.toast';
+import { NotificationToast } from './shared/toasts/notification.toast';
+import { ActivecallToast } from './shared/toasts/activecall.toast';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CircuitToast } from './circuit.toast';
     CustomerComponent,
     CustomerChatComponent,
     NavigationComponent,
-    CircuitToast
+    NotificationToast,
+    ActivecallToast
   ],
   imports: [
     BrowserModule,
@@ -41,9 +43,9 @@ import { CircuitToast } from './circuit.toast';
     FontAwesomeModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({ toastComponent: CircuitToast })
+    ToastrModule.forRoot()
   ],
-  entryComponents: [CircuitToast],
+  entryComponents: [NotificationToast, ActivecallToast],
   providers: [],
   bootstrap: [AppComponent]
 })

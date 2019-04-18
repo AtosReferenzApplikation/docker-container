@@ -38,10 +38,11 @@ export class AppComponent implements OnInit {
         this.incomingToast = null;
       }
     });
-    this.circuitService.addEventListener('callStatus', evt => {
+    this.circuitService.addEventListener('callStatus', (evt: any) => {
       if (evt.call.state === 'Active') {
         if (this.helpCallState !== 'Active') {
-          this.toastrService.remove(this.callToast.toastId);
+          if (this.callToast) { this.toastrService.remove(this.callToast.toastId); }
+          this.callToast = null;
           this.helpCallState = 'Active';
           this.activeCall(evt.call, true);
         }
@@ -63,12 +64,7 @@ export class AppComponent implements OnInit {
       { disableTimeOut: true, tapToDismiss: false, toastComponent: NotificationToast }
     );
 
-    this.incomingToast.onTap.subscribe(() => {
-      if (!this.router.url.includes(user.userId)) {
-        this.router.navigateByUrl('/management/customer/' + user.userId);
-      }
-      this.toastrService.remove(this.incomingToast.toastId);
-    });
+    this.onTapNavigateToUser(this.incomingToast, '/management/customer/', user.userId, true);
   }
 
   async incomingMessage(message: any) {
@@ -78,32 +74,33 @@ export class AppComponent implements OnInit {
       { enableHtml: true, toastComponent: NotificationToast }
     );
 
-    messageToast.onTap.subscribe(() => {
-      if (!this.router.url.includes(user.userId)) {
-        this.router.navigateByUrl('/management/customer/' + user.userId);
-      }
-      this.toastrService.remove(messageToast.toastId);
-    });
+    this.onTapNavigateToUser(messageToast, '/management/customer/', user.userId, true);
   }
 
   async activeCall(call: any, active: boolean) {
     const user = await this.circuitService.getUserById(call.peerUser.userId).then((res: any) => res);
+
     if (active) {
       this.callToast = this.toastrService.info(
         'mit ' + user.displayName, 'Telefonat läuft',
         { disableTimeOut: true, tapToDismiss: false, toastComponent: ActivecallToast }
       );
-    } else {
+      this.onTapNavigateToUser(this.callToast, '/management/customer/', user.userId, false);
+    } else if (call.direction === 'outgoing') {
       this.callToast = this.toastrService.info(
         'an ' + user.displayName, 'Anruf',
         { disableTimeOut: true, tapToDismiss: false, toastComponent: ActivecallToast }
       );
+      this.onTapNavigateToUser(this.callToast, '/management/customer/', user.userId, false);
     }
+  }
 
-    this.callToast.onTap.subscribe(() => {
-      if (!this.router.url.includes(user.userId)) {
-        this.router.navigateByUrl('/management/customer/' + user.userId);
+  onTapNavigateToUser(toast: any, uri: string, userId: string, remove: boolean) {
+    toast.onTap.subscribe(() => {
+      if (!this.router.url.includes(userId)) {
+        this.router.navigateByUrl(uri + userId);
       }
+      if (remove) { this.toastrService.remove(toast.toastId); }
     });
   }
 }

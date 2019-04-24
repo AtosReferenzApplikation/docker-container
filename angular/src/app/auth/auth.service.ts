@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CircuitService } from "../shared/services/circuit.service";
+import { CircuitService } from '../shared/services/circuit.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,8 @@ export class AuthService {
   redirectUrl: string;
 
   constructor(private circuitService: CircuitService) {
+    this.circuitService.loggedIn.subscribe(loggedIn => this.isLoggedIn = loggedIn);
+
     this.circuitService.authenticateUser();
   }
 
@@ -18,6 +20,6 @@ export class AuthService {
   }
 
   logout() {
-    this.isLoggedIn = false;
+    this.circuitService.logout();
   }
 }

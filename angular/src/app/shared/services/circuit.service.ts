@@ -79,40 +79,40 @@ export class CircuitService {
    *******************/
 
   // authentication for User with LogIn Popup
-  logonPopup() {
-    const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
-    const url = this.authUri + '?response_type=token&client_id=' + this.oauthConfig.client_id +
-      '&redirect_uri=' + this.redirectUri + '&scope=' + this.oauthConfig.scope +
-      '&state=' + state; // auth request url
+  // logonPopup() {
+  //   const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
+  //   const url = this.authUri + '?response_type=token&client_id=' + this.oauthConfig.client_id +
+  //     '&redirect_uri=' + this.redirectUri + '&scope=' + this.oauthConfig.scope +
+  //     '&state=' + state; // auth request url
 
-    const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
+  //   const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
 
-    // close popup if user login was successful
-    const checkLogon = setInterval(() => {
-      try {
-        if (logonPopup.location.href.includes('access_token=')) {
-          const callbackUrl = logonPopup.location.href;
-          clearInterval(checkLogon);
-          logonPopup.close();
-          const access_token = this.getValueFromString('access_token', callbackUrl);
-          localStorage.setItem('access_token', access_token);
-          this.loggedIn.next(true);
-        }
-      } catch (error) { } // todo: handle logon error
-    }, 100);
-  }
+  //   // close popup if user login was successful
+  //   const checkLogon = setInterval(() => {
+  //     try {
+  //       if (logonPopup.location.href.includes('access_token=')) {
+  //         const callbackUrl = logonPopup.location.href;
+  //         clearInterval(checkLogon);
+  //         logonPopup.close();
+  //         const access_token = this.getValueFromString('access_token', callbackUrl);
+  //         localStorage.setItem('access_token', access_token);
+  //         this.loggedIn.next(true);
+  //       }
+  //     } catch (error) { } // todo: handle logon error
+  //   }, 100);
+  // }
 
-  getValueFromString(value: string, url: string) {
-    value = value.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
-    const regexS = '[\\?&]' + value + '=([^&#]*)';
-    const regex = new RegExp(regexS);
-    const results = regex.exec(url);
-    if (results == null) {
-      return ''; // todo: handle logon error
-    } else {
-      return decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-  }
+  // getValueFromString(value: string, url: string) {
+  //   value = value.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+  //   const regexS = '[\\?&]' + value + '=([^&#]*)';
+  //   const regex = new RegExp(regexS);
+  //   const results = regex.exec(url);
+  //   if (results == null) {
+  //     return ''; // todo: handle logon error
+  //   } else {
+  //     return decodeURIComponent(results[1].replace(/\+/g, ' '));
+  //   }
+  // }
 
   authenticateUser() {
     this.loggedIn.next(false);
@@ -124,8 +124,6 @@ export class CircuitService {
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
         this.logonWithToken(localStorage.getItem('access_token'));
-      }).catch(() => {
-        this.logonPopup();
       });
   }
 
@@ -135,6 +133,20 @@ export class CircuitService {
    * CIRCUIT SDK
    *
    *******************/
+
+  // logon to circuit using emial n password
+  logonWithCredentials(username: string, password: string) {
+    return this.client.logon({
+      username: username,
+      password: password,
+      skipTokenValidation: true
+    })
+      .then(user => {
+        this.loggedIn.next(true);
+        return true;
+      })
+      .catch(false);
+  }
 
   // logon to circuit using access token
   private logonWithToken(token) {

@@ -19,6 +19,7 @@ import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { NotificationToast } from './shared/toasts/notification.toast';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
+import { LoginComponent } from './auth/login/login.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ActivecallToast } from './shared/toasts/activecall.toast';
     CustomerChatComponent,
     NavigationComponent,
     NotificationToast,
-    ActivecallToast
+    ActivecallToast,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

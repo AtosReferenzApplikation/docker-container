@@ -51,11 +51,11 @@ import { CircuitService } from '../services/circuit.service';
     </div>
     <div *ngIf="options.disableTimeOut" style="display: flex">
       <button type="button" *ngIf="!options.closeButton" style="margin-right: 5px" class="btn btn-primary rounded-circle"
-        (click)="acceptCall();">
+        (click)="$event.preventDefault(); $event.stopPropagation(); acceptCall();">
         <fa-icon [icon]="faPhone"></fa-icon>
       </button>
       <button type="button" *ngIf="!options.closeButton" style="margin-right: 5px" class="btn btn-primary rounded-circle"
-        (click)="declineCall();">
+        (click)="$event.preventDefault(); $event.stopPropagation(); declineCall();">
         <fa-icon [icon]="faPhoneSlash"></fa-icon>
       </button>
       <a *ngIf="options.closeButton" (click)="remove()" class="btn btn-pink btn-sm">
@@ -124,6 +124,7 @@ export class NotificationToast extends Toast {
 
   acceptCall() {
     this.circuitService.answerCall(false);
+    this.remove();
   }
 
   declineCall() {

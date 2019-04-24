@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { CircuitService } from './shared/services/circuit.service';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
 import { NotificationToast } from './shared/toasts/notification.toast';
+import { Logger } from './models/logger';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   incomingToast = null;
   callToast = null;
   helpCallState = '';
+
+  sessionLogger: Logger;
 
   constructor(private circuitService: CircuitService,
     private toastrService: ToastrService,
@@ -23,6 +26,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => this.initToasts());
+    this.logSession();
+  }
+
+  ngOnDestroy(): void {
+    this.sessionLogger.saveSession();
   }
 
   initToasts() {
@@ -54,6 +62,7 @@ export class AppComponent implements OnInit {
       if (evt.item.type === 'TEXT' && evt.item.creatorId !== this.circuitService.client.loggedOnUser.userId) {
         this.incomingMessage(evt.item);
       }
+      this.sessionLogger.log(evt);
     });
   }
 
@@ -64,7 +73,7 @@ export class AppComponent implements OnInit {
       { disableTimeOut: true, tapToDismiss: false, toastComponent: NotificationToast }
     );
 
-    this.onTapNavigateToUser(this.incomingToast, '/management/customer/', user.userId, true);
+    this.onTapNavigateToUser(this.incomingToast, '/management/customer/', user.userId, false);
   }
 
   async incomingMessage(message: any) {
@@ -86,6 +95,7 @@ export class AppComponent implements OnInit {
         { disableTimeOut: true, tapToDismiss: false, toastComponent: ActivecallToast }
       );
       this.onTapNavigateToUser(this.callToast, '/management/customer/', user.userId, false);
+      this.incomingToast = null;
     } else if (call.direction === 'outgoing') {
       this.callToast = this.toastrService.info(
         'an ' + user.displayName, 'Anruf',
@@ -102,5 +112,11 @@ export class AppComponent implements OnInit {
       }
       if (remove) { this.toastrService.remove(toast.toastId); }
     });
+  }
+
+  async logSession() {
+    console.log(this.circuitService.client.loggedOnUser)
+    //const username = await this.circuitService.getUserById(this.circuitService.loggedOnUser.userId).then((res: any) => res);
+    this.sessionLogger = new Logger('user', 'chat-protokoll_' + 'user')
   }
 }

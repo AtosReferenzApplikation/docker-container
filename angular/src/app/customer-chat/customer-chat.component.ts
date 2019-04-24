@@ -40,6 +40,10 @@ export class CustomerChatComponent implements OnInit {
     this.circuitService.loggedIn.subscribe(value => {
       if (value) { this.setThreadsOfConversation(); }
     });
+
+    this.circuitService.addEventListener('itemAdded', () => {
+      this.setThreadsOfConversation();
+    })
   }
 
   async setThreadsOfConversation() {
@@ -93,7 +97,6 @@ export class CustomerChatComponent implements OnInit {
         subject: subject,
         content: content
       }).then(() => {
-        this.setThreadsOfConversation();
         this.messageTopic = '';
         this.messageTopicDesc = '';
       });
@@ -105,7 +108,7 @@ export class CustomerChatComponent implements OnInit {
       this.circuitService.sendMessage({
         parentId: thread.parentItem.itemId,
         content: content
-      }).then(this.setThreadsOfConversation());
+      });
     }
   }
 

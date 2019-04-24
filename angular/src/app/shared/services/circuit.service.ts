@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Customer } from '../../models/customer';
 
-import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
+import Circuit from 'circuit-sdk';
 import { BehaviorSubject } from 'rxjs';
 import { MessageContent } from '../../models/messageContent';
 
@@ -24,7 +24,7 @@ export class CircuitService {
   user: any; // Logged on user
   call: any; // Active call object
   public conversation: any; // Active conversation object
-  connectionState: string = Circuit.Enums.ConnectionState.Disconnected; // Unit Test Err - Enums Undefined
+  connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
   public addEventListener: Function;
 
   // BehaviorSubjects
@@ -44,7 +44,7 @@ export class CircuitService {
     this.authenticateUser();
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
-    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Off);
+    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
 
     // create Circuit SDK client implicit
     this.client = new Circuit.Client({
@@ -114,19 +114,6 @@ export class CircuitService {
   //   }
   // }
 
-  authenticateUser() {
-    this.loggedIn.next(false);
-    this.http.get(this.restUri + '/oauth/token/' + localStorage.getItem('access_token'))
-      .toPromise().then((res: any) => {
-        localStorage.setItem('access_token', res.accessToken);
-        this.headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Accept', 'application/json')
-          .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
-        this.logonWithToken(localStorage.getItem('access_token'));
-      });
-  }
-
 
   /**************
    *
@@ -134,33 +121,53 @@ export class CircuitService {
    *
    *******************/
 
-  // logon to circuit using emial n password
+  // try to logon with cached credentails/token
+  authenticateUser() {
+    this.loggedIn.next(false);
+    // this.logonWithToken();
+  }
+
+  // logon to circuit using email n password
   logonWithCredentials(username: string, password: string) {
     return this.client.logon({
       username: username,
-      password: password,
-      skipTokenValidation: true
-    })
-      .then(user => {
-        this.loggedIn.next(true);
-        return true;
-      })
-      .catch(false);
+      password: password
+    }).then(user => {
+      this.loggedIn.next(true);
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      return user;
+    }).catch(err => {
+      // clear localStorage
+      Promise.reject(err);
+    });
   }
 
   // logon to circuit using access token
-  private logonWithToken(token) {
+  private logonWithToken() {
     return this.client.logon({
-      accessToken: token,
-      skipTokenValidation: true
-    })
-      .then(user => {
-        this.loggedIn.next(true);
-        return user;
-      })
-      .catch(err => {
-        this.authenticateUser();
-        return Promise.reject(err);
+      accessToken: localStorage.getItem('access_token'),
+      skipTokenValidation: true,
+      prompt: true
+    }).then(user => {
+      this.loggedIn.next(true);
+      this.refreshAccessToken();
+      return user;
+    }).catch(err => {
+
+      Promise.reject(err);
+    });
+  }
+
+  refreshAccessToken() {
+    // replace with client.renewToken()
+    this.http.get(this.restUri + '/oauth/token/' + localStorage.getItem('access_token'))
+      .toPromise().then((res: any) => {
+        localStorage.setItem('access_token', res.accessToken);
+        this.headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+          .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
       });
   }
 

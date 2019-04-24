@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   logon() {
     this.message = 'Trying to log in ...';
 
-    this.authService.logon().subscribe(() => {
+    this.authService.logon().then(() => {
       this.setMessage();
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { CircuitService } from './shared/services/circuit.service';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
 import { NotificationToast } from './shared/toasts/notification.toast';
-import { Logger } from './models/logger';
+import { SessionLogger } from './utils/sessionLogger';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   callToast = null;
   helpCallState = '';
 
-  sessionLogger: Logger;
+  sessionLogger = new SessionLogger();
 
   constructor(private circuitService: CircuitService,
     private toastrService: ToastrService,
@@ -26,16 +26,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     setTimeout(() => this.initToasts());
-    this.logSession();
+    this.sessionLogger.inititalize();
+
   }
 
   ngOnDestroy(): void {
-    this.sessionLogger.saveSession();
+    this.circuitService.getUserById(this.circuitService.loggedOnUser.userId).then(user => {
+      this.sessionLogger.saveSession(user.displayName);
+    });
   }
 
   initToasts() {
     this.circuitService.addEventListener('callIncoming', evt => (evt.call.convType === 'DIRECT') ? this.incomingCall(evt.call) : null);
-    this.circuitService.addEventListener('callEnded', () => {
+    this.circuitService.addEventListener('callEnded', (evt: any) => {
       if (this.callToast) {
         this.helpCallState = '';
         this.toastrService.remove(this.callToast.toastId);
@@ -62,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (evt.item.type === 'TEXT' && evt.item.creatorId !== this.circuitService.client.loggedOnUser.userId) {
         this.incomingMessage(evt.item);
       }
-      this.sessionLogger.log(evt);
+      this.logConversationItem(evt.item);
     });
   }
 
@@ -114,9 +117,22 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  async logSession() {
-    console.log(this.circuitService.client.loggedOnUser)
-    //const username = await this.circuitService.getUserById(this.circuitService.loggedOnUser.userId).then((res: any) => res);
-    this.sessionLogger = new Logger('user', 'chat-protokoll_' + 'user')
+  async logConversationItem(item: any) {
+    const date = new Date(+item.creationTime);
+
+    if (item.type === 'RTC' && item.rtc.type !== 'MISSED') {
+      const client = item.rtc.rtcParticipants[1].displayName;
+      const duration = +item.rtc.ended.duration;
+      this.sessionLogger.logCall(date, client, duration);
+    } else if (item.type === 'TEXT') {
+      const client = await this.circuitService.getUserById(item.creatorId);
+      const content = item.text.content;
+      this.sessionLogger.logText(date, client.displayName, content);
+    }
+  }
+
+  async saveSession() {
+    const user = await this.circuitService.getUserById(this.circuitService.loggedOnUser.userId);
+    console.log(this.sessionLogger.saveSession(user.displayName))
   }
 }

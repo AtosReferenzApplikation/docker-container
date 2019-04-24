@@ -51,7 +51,7 @@ import { CircuitService } from '../services/circuit.service';
     </div>
     <div *ngIf="options.disableTimeOut" style="display: flex">
       <button type="button" *ngIf="!options.closeButton" style="margin-right: 5px" class="btn btn-primary rounded-circle"
-        (click)="endCall()">
+        (click)="$event.preventDefault(); $event.stopPropagation(); endCall()">
         <fa-icon [icon]="faPhoneSlash"></fa-icon>
       </button>
       <a *ngIf="options.closeButton" (click)="remove()" class="btn btn-pink btn-sm">

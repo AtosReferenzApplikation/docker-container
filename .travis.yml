@@ -6,8 +6,7 @@ jdk:
 - oraclejdk8
 #specifies the languages that are used.
 node_js:
-- "node"
-# specifies that the latest version of node_js should be used.
+- "8"
 services:
   - cassandra
 addons:

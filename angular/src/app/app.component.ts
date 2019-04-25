@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { CircuitService } from './shared/services/circuit.service';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
-import { NotificationToast } from './shared/toasts/notification.toast';
+import { NotificationToast } from './shared/toasts/NotificationToast';
 import { SessionLogger } from './utils/sessionLogger';
 
 @Component({
@@ -133,6 +133,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async saveSession() {
     const user = await this.circuitService.getUserById(this.circuitService.loggedOnUser.userId);
-    console.log(this.sessionLogger.saveSession(user.displayName))
+    console.log(this.sessionLogger.saveSession(user.displayName));
   }
 }

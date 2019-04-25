@@ -43,7 +43,7 @@ export class CustomerChatComponent implements OnInit {
 
     this.circuitService.addEventListener('itemAdded', () => {
       this.setThreadsOfConversation();
-    })
+    });
   }
 
   async setThreadsOfConversation() {

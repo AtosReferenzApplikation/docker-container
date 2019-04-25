@@ -5,6 +5,7 @@ import { Customer } from '../../models/customer';
 import Circuit from 'circuit-sdk';
 import { BehaviorSubject } from 'rxjs';
 import { MessageContent } from '../../models/messageContent';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -40,17 +41,17 @@ export class CircuitService {
   };
 
 
-  constructor(private http: HttpClient) {
-    this.authenticateUser();
+  constructor(private http: HttpClient, private router: Router) {
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
-    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Debug);
+    Circuit.logger.setLevel(Circuit.Enums.LogLevel.Off);
 
     // create Circuit SDK client implicit
     this.client = new Circuit.Client({
       client_id: this.oauthConfig.client_id,
       domain: this.oauthConfig.domain,
-      scope: this.oauthConfig.scope
+      scope: this.oauthConfig.scope,
+      autoRenewToken: true
     });
 
     // bind event listener directly to SDK addEventListener
@@ -124,12 +125,14 @@ export class CircuitService {
   // try to logon with cached credentails/token
   authenticateUser() {
     this.loggedIn.next(false);
-    // this.logonWithToken();
+    return this.logonWithToken();
   }
 
   // logon to circuit using email n password
   logonWithCredentials(username: string, password: string) {
     return this.client.logon({
+      prompt: false,
+      logonChecked: true,
       username: username,
       password: password
     }).then(user => {
@@ -144,18 +147,14 @@ export class CircuitService {
   }
 
   // logon to circuit using access token
-  private logonWithToken() {
+  logonWithToken() {
     return this.client.logon({
-      accessToken: localStorage.getItem('access_token'),
-      skipTokenValidation: true,
-      prompt: true
+      skipTokenValidation: true
     }).then(user => {
       this.loggedIn.next(true);
-      this.refreshAccessToken();
       return user;
     }).catch(err => {
-
-      Promise.reject(err);
+      return Promise.reject(err);
     });
   }
 
@@ -171,10 +170,11 @@ export class CircuitService {
       });
   }
 
+  // force user logout
   logout() {
-    localStorage.removeItem('access_token');
     this.loggedIn.next(false);
-    return this.client.logout();
+    this.router.navigate(['/login']);
+    return this.client.logout(true);
   }
 
   /**

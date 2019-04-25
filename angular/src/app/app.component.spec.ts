@@ -14,6 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoginComponent } from './auth/login/login.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -27,7 +28,8 @@ describe('AppComponent', () => {
         ManagementComponent,
         CustomerComponent,
         CustomerChatComponent,
-        NavigationComponent
+        NavigationComponent,
+        LoginComponent
       ],
       imports: [
         AppRoutingModule,

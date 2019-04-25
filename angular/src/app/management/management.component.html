@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card-body">
     <div id="customerTable">
+      <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple"
+        size="medium">
+        <p style="color: white"> Lade Kunden... </p>
+      </ngx-spinner>
       <div id="tableControls">
         <button class="btn btn-primary addCustomer"
           (click)="openModal(content)">Kunden

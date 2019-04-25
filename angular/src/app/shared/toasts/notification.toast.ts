@@ -12,6 +12,7 @@ import { Toast, ToastrService, ToastPackage } from 'ngx-toastr';
 import { CircuitService } from '../services/circuit.service';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: '[notification-toast-component]',
   styles: [`
     :host {
@@ -103,6 +104,7 @@ import { CircuitService } from '../services/circuit.service';
   ],
   preserveWhitespaces: false,
 })
+// tslint:disable-next-line: component-class-suffix
 export class NotificationToast extends Toast {
   // used for demo purposes
   faPhone = faPhone; faPhoneSlash = faPhoneSlash;

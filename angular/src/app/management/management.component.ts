@@ -37,7 +37,8 @@ export class ManagementComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
     private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router,
+    /*ngx-spinner*/) { }
 
   ngOnInit() {
     this.CustomerForm.reset();

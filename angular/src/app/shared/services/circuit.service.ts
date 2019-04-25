@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Customer } from '../../models/customer';
 
-import Circuit from 'circuit-sdk'; // docs: '.\angular\node_modules\circuit-sdk\docs'
+import Circuit from 'circuit-sdk';
 import { BehaviorSubject } from 'rxjs';
 import { MessageContent } from '../../models/messageContent';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class CircuitService {
   user: any; // Logged on user
   call: any; // Active call object
   public conversation: any; // Active conversation object
-  connectionState: string = Circuit.Enums.ConnectionState.Disconnected; // Unit Test Err - Enums Undefined
+  connectionState: string = Circuit.Enums.ConnectionState.Disconnected;
   public addEventListener: Function;
 
   // BehaviorSubjects
@@ -40,8 +41,7 @@ export class CircuitService {
   };
 
 
-  constructor(private http: HttpClient) {
-    this.authenticateUser();
+  constructor(private http: HttpClient, private router: Router) {
 
     // set Circuit SDK internal log level: Debug, Error, Info, Off, Warning
     Circuit.logger.setLevel(Circuit.Enums.LogLevel.Off);
@@ -50,7 +50,8 @@ export class CircuitService {
     this.client = new Circuit.Client({
       client_id: this.oauthConfig.client_id,
       domain: this.oauthConfig.domain,
-      scope: this.oauthConfig.scope
+      scope: this.oauthConfig.scope,
+      autoRenewToken: true
     });
 
     // bind event listener directly to SDK addEventListener
@@ -79,55 +80,40 @@ export class CircuitService {
    *******************/
 
   // authentication for User with LogIn Popup
-  logonPopup() {
-    const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
-    const url = this.authUri + '?response_type=token&client_id=' + this.oauthConfig.client_id +
-      '&redirect_uri=' + this.redirectUri + '&scope=' + this.oauthConfig.scope +
-      '&state=' + state; // auth request url
+  // logonPopup() {
+  //   const state = Math.random().toString(36).substr(2, 15); // to prevent cross-site request forgery
+  //   const url = this.authUri + '?response_type=token&client_id=' + this.oauthConfig.client_id +
+  //     '&redirect_uri=' + this.redirectUri + '&scope=' + this.oauthConfig.scope +
+  //     '&state=' + state; // auth request url
 
-    const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
+  //   const logonPopup = window.open(url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504');
 
-    // close popup if user login was successful
-    const checkLogon = setInterval(() => {
-      try {
-        if (logonPopup.location.href.includes('access_token=')) {
-          const callbackUrl = logonPopup.location.href;
-          clearInterval(checkLogon);
-          logonPopup.close();
-          const access_token = this.getValueFromString('access_token', callbackUrl);
-          localStorage.setItem('access_token', access_token);
-          this.loggedIn.next(true);
-        }
-      } catch (error) { } // todo: handle logon error
-    }, 100);
-  }
+  //   // close popup if user login was successful
+  //   const checkLogon = setInterval(() => {
+  //     try {
+  //       if (logonPopup.location.href.includes('access_token=')) {
+  //         const callbackUrl = logonPopup.location.href;
+  //         clearInterval(checkLogon);
+  //         logonPopup.close();
+  //         const access_token = this.getValueFromString('access_token', callbackUrl);
+  //         localStorage.setItem('access_token', access_token);
+  //         this.loggedIn.next(true);
+  //       }
+  //     } catch (error) { } // todo: handle logon error
+  //   }, 100);
+  // }
 
-  getValueFromString(value: string, url: string) {
-    value = value.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
-    const regexS = '[\\?&]' + value + '=([^&#]*)';
-    const regex = new RegExp(regexS);
-    const results = regex.exec(url);
-    if (results == null) {
-      return ''; // todo: handle logon error
-    } else {
-      return decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-  }
-
-  authenticateUser() {
-    this.loggedIn.next(false);
-    this.http.get(this.restUri + '/oauth/token/' + localStorage.getItem('access_token'))
-      .toPromise().then((res: any) => {
-        localStorage.setItem('access_token', res.accessToken);
-        this.headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Accept', 'application/json')
-          .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
-        this.logonWithToken(localStorage.getItem('access_token'));
-      }).catch(() => {
-        this.logonPopup();
-      });
-  }
+  // getValueFromString(value: string, url: string) {
+  //   value = value.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+  //   const regexS = '[\\?&]' + value + '=([^&#]*)';
+  //   const regex = new RegExp(regexS);
+  //   const results = regex.exec(url);
+  //   if (results == null) {
+  //     return ''; // todo: handle logon error
+  //   } else {
+  //     return decodeURIComponent(results[1].replace(/\+/g, ' '));
+  //   }
+  // }
 
 
   /**************
@@ -136,26 +122,59 @@ export class CircuitService {
    *
    *******************/
 
-  // logon to circuit using access token
-  private logonWithToken(token) {
+  // try to logon with cached credentails/token
+  authenticateUser() {
+    this.loggedIn.next(false);
+    return this.logonWithToken();
+  }
+
+  // logon to circuit using email n password
+  logonWithCredentials(username: string, password: string) {
     return this.client.logon({
-      accessToken: token,
+      prompt: false,
+      logonChecked: true,
+      username: username,
+      password: password
+    }).then(user => {
+      this.loggedIn.next(true);
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      return user;
+    }).catch(err => {
+      // clear localStorage
+      Promise.reject(err);
+    });
+  }
+
+  // logon to circuit using access token
+  logonWithToken() {
+    return this.client.logon({
       skipTokenValidation: true
-    })
-      .then(user => {
-        this.loggedIn.next(true);
-        return user;
-      })
-      .catch(err => {
-        this.authenticateUser();
-        return Promise.reject(err);
+    }).then(user => {
+      this.loggedIn.next(true);
+      return user;
+    }).catch(err => {
+      return Promise.reject(err);
+    });
+  }
+
+  refreshAccessToken() {
+    // replace with client.renewToken()
+    this.http.get(this.restUri + '/oauth/token/' + localStorage.getItem('access_token'))
+      .toPromise().then((res: any) => {
+        localStorage.setItem('access_token', res.accessToken);
+        this.headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+          .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
       });
   }
 
+  // force user logout
   logout() {
-    localStorage.removeItem('access_token');
     this.loggedIn.next(false);
-    return this.client.logout();
+    this.router.navigate(['/login']);
+    return this.client.logout(true);
   }
 
   /**

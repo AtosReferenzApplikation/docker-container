@@ -1,0 +1,44 @@
+$blue : #0069D9;
+
+#login {
+  margin: 10% auto;
+  text-align: center;
+}
+
+@mixin buttonBG($bg) {
+  border: 2px solid $bg;
+  color: $bg;
+  &:hover {
+    background-color: $bg;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.skewBtn{
+  width: 180px;
+  height: 80px;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  transition: .5s;
+  font-size: 24px;
+  border-radius: 5px;
+  font-family: "Lato",sans-serif;
+  &:hover{
+    border: none;
+    color: white;
+    font-size: 28px;
+    transform:scale(1.1);
+  }
+
+}
+
+.loginBtn{
+  @include buttonBG($blue);
+}
+
+p {
+  margin-top: 20px;
+  font-size: 90%;
+  font-style: italic;
+}

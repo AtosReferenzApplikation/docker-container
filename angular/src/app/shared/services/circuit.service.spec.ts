@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { CircuitService } from './circuit.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CircuitService', () => {
   beforeEach(async(() => {
@@ -9,6 +10,7 @@ describe('CircuitService', () => {
       providers: [CircuitService],
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule
       ]
     }).compileComponents();
   }));

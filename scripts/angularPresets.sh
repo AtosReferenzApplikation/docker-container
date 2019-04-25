@@ -9,7 +9,8 @@ npm install --save-dev karma@3.0.0
 #needed since it makes the command "npm audit fix" able to fix 14 dependency vulnerabilities.
 
 npm install
-npm install -f node-sass@latest
+npm uninstall node-sass
+npm install node-sass@3.8.0
 # install all dependecies for Angular
 
 npm run build

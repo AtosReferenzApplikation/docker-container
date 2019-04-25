@@ -11,12 +11,11 @@ export class AuthService {
 
   constructor(private circuitService: CircuitService) {
     this.circuitService.loggedIn.subscribe(loggedIn => this.isLoggedIn = loggedIn);
-
-    this.circuitService.authenticateUser();
   }
 
   logon() {
-    return this.circuitService.logonWithCredentials('lucas.golenia@atos.net', 'em53EvBX6ArvwWgY');
+    // return this.circuitService.logonWithCredentials('lucas.golenia@atos.net', 'em53EvBX6ArvwWgY');
+    return this.circuitService.authenticateUser();
   }
 
   logout() {

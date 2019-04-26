@@ -70,7 +70,7 @@ export class CustomerChatComponent implements OnInit {
     });
   }
 
-  getAvatarByUserId(id) {
+  getAvatarByUserId(id: any) {
     try {
       return this.participants[this.participants.findIndex(user => user.userId === id)].avatar;
     } catch { return 'https://ui-avatars.com/api/?name=?'; }

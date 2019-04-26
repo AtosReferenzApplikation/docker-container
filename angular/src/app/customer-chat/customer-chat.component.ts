@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { faEdit, faVideo, faPhone, faPhoneSlash, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { CustomerService } from '../shared/customer.service';
+import { CustomerService } from '../shared/services/customer.service';
 import { Customer } from '../models/customer';
-import { CircuitService } from '../shared/circuit.service';
+import { CircuitService } from '../shared/services/circuit.service';
 
 @Component({
   selector: 'app-customer-chat',
@@ -16,7 +16,7 @@ export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
   participants = [];
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane =  faPaperPlane;
+  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane = faPaperPlane;
 
   // chat props
   threads = [];
@@ -27,7 +27,7 @@ export class CustomerChatComponent implements OnInit {
   @ViewChild('scrollChat') private chat: ElementRef<any>;
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private circuitService: CircuitService,
+    public circuitService: CircuitService,
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -39,6 +39,10 @@ export class CustomerChatComponent implements OnInit {
     // this.circuitService.authenticateUser();
     this.circuitService.loggedIn.subscribe(value => {
       if (value) { this.setThreadsOfConversation(); }
+    });
+
+    this.circuitService.addEventListener('itemAdded', () => {
+      this.setThreadsOfConversation();
     });
   }
 
@@ -61,8 +65,8 @@ export class CustomerChatComponent implements OnInit {
   }
 
   getParticipants() {
-    this.circuitService.conversation.participants.forEach(async userId => {
-      this.participants.push(await this.circuitService.getUserById(userId));
+    this.circuitService.conversation.participants.forEach(userId => {
+      this.circuitService.getUserById(userId).then((res: any) => this.participants.push(res));
     });
   }
 
@@ -93,7 +97,6 @@ export class CustomerChatComponent implements OnInit {
         subject: subject,
         content: content
       }).then(() => {
-        this.setThreadsOfConversation();
         this.messageTopic = '';
         this.messageTopicDesc = '';
       });
@@ -105,7 +108,7 @@ export class CustomerChatComponent implements OnInit {
       this.circuitService.sendMessage({
         parentId: thread.parentItem.itemId,
         content: content
-      }).then(this.setThreadsOfConversation());
+      });
     }
   }
 

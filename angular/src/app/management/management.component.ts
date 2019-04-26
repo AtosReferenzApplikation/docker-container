@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 import { Customer } from '../models/customer';
-import { CustomerService } from '../shared/customer.service';
+import { CustomerService } from '../shared/services/customer.service';
 import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
 import { Router } from '@angular/router';
 
@@ -37,7 +37,8 @@ export class ManagementComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
     private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router,
+    /*ngx-spinner*/) { }
 
   ngOnInit() {
     this.CustomerForm.reset();
@@ -48,7 +49,7 @@ export class ManagementComponent implements OnInit {
     return item.id;
   } // test/implement trackBy in html if spring connection works
 
-  openModal(content) {
+  openModal(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -77,16 +78,17 @@ export class ManagementComponent implements OnInit {
   }
 
   getCustomers() {
-    this.customerService.getAllCustomers().subscribe((result: any) => {
-      this.customerList = result;
-      this.displayedCustomers = result;
+    this.customerService.getAllCustomers().subscribe((response: any) => {
+      this.customerList = response;
+      this.displayedCustomers = response;
+    }, () => {
+      // SAMPLE DATA
+      this.customerList = SAMPLE_CUSTOMERS;
+      this.displayedCustomers = SAMPLE_CUSTOMERS;
     });
-    // SAMPLE DATA
-    this.customerList = SAMPLE_CUSTOMERS;
-    this.displayedCustomers = SAMPLE_CUSTOMERS;
   }
 
-  updateCustomerById(id, customer: Customer) {
+  updateCustomerById(id: any, customer: Customer) {
     this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit());
   }
 

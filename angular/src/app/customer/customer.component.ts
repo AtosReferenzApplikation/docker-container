@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { CustomerService } from '../shared/customer.service';
+import { CustomerService } from '../shared/services/customer.service';
 import { Customer } from '../models/customer';
-import { CircuitService } from '../shared/circuit.service';
+import { CircuitService } from '../shared/services/circuit.service';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss'],
-  encapsulation: ViewEncapsulation.None // for styling .nav-pills
+  encapsulation: ViewEncapsulation.None // styling .nav-pills
 })
 export class CustomerComponent implements OnInit {
 
-  customer: Customer;
-  downloadJsonHref;
+  customer: Customer = null;
+  downloadJsonHref: any;
 
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
@@ -27,7 +27,7 @@ export class CustomerComponent implements OnInit {
   }
 
   generateChatProtocol() {
-    this.circuitService.getConversation(this.customer.email).then(threadObject =>{
+    this.circuitService.getConversation(this.customer.email).then((threadObject: { threads: any; }) => {
       const threadsJson = JSON.stringify(this.formatThreads(threadObject.threads));
       const element = document.createElement('a');
       element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));
@@ -39,7 +39,7 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  formatThreads(threads) {
+  formatThreads(threads: any) {
     // format here
     return threads;
   }

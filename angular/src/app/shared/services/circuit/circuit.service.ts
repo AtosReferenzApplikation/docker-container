@@ -130,7 +130,7 @@ export class CircuitService {
 
   validateAccessToken() {
     return this.client.validateToken(localStorage.getItem('access_token'))
-      .then(() => this.loggedIn.next(true))
+      .then(() => this.logonWithToken())
       .catch(() => this.logonPopup());
   }
 

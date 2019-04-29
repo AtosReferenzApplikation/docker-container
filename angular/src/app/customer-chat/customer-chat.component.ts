@@ -84,7 +84,8 @@ export class CustomerChatComponent implements OnInit {
 
   getMinutesAndSeconds(ms: string): string {
     const min = Math.floor((+ms >= 1000) ? +ms / 1000 / 60 : 0);
-    const sec = Math.floor((+ms >= 10000) ? +ms / 1000 : +ms / 1000);
+    let sec = Math.floor((+ms >= 10000) ? +ms / 1000 : +ms / 1000);
+    sec = sec - min * 60;
     return `${min}:${(sec < 10) ? '0' + sec : sec}`;
   }
 

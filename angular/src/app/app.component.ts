@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
-import { CircuitService } from './shared/services/circuit.service';
+import { CircuitService } from './shared/services/circuit/circuit.service';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
 import { NotificationToast } from './shared/toasts/NotificationToast';
 import { SessionLogger } from './utils/sessionLogger';

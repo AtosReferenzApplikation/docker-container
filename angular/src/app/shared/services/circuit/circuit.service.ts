@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Customer } from '../../models/customer';
+import { Customer } from '../../../models/customer';
 
 import Circuit from 'circuit-sdk';
 import { BehaviorSubject } from 'rxjs';
-import { MessageContent } from '../../models/messageContent';
+import { MessageContent } from '../../../models/messageContent';
 import { Router } from '@angular/router';
 
 @Injectable({

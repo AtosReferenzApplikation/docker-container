@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { CircuitService } from '../../shared/services/circuit.service';
+import { CircuitService } from '../../shared/services/circuit/circuit.service';
 
 @Component({
   selector: 'app-login',

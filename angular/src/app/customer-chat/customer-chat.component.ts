@@ -76,6 +76,18 @@ export class CustomerChatComponent implements OnInit {
     } catch { return 'https://ui-avatars.com/api/?name=?'; }
   }
 
+  getParticipantById(id: any) {
+    try {
+      return this.participants[this.participants.findIndex(user => user.userId === id)].displayName;
+    } catch { return 'Kunde'; }
+  }
+
+  getMinutesAndSeconds(ms: string): string {
+    const min = Math.floor((+ms >= 1000) ? +ms / 1000 / 60 : 0);
+    const sec = Math.floor((+ms >= 10000) ? +ms / 1000 : +ms / 1000);
+    return `${min}:${(sec < 10) ? '0' + sec : sec}`;
+  }
+
   // circuit service
   // call
   startCall(customer: Customer) {

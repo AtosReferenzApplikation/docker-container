@@ -7,11 +7,18 @@
     <div *ngIf="participants && threads">
       <div id="chat-body-content" *ngFor="let thread of threads">
         <div class="rtc" *ngIf="thread.parentItem.type === 'RTC'">
-          <p *ngIf="thread.parentItem.rtc.type === 'MISSED'">Verspasster Anruf
+          <p *ngIf="thread.parentItem.rtc.type === 'MISSED'"
+            style="float: left;">
+            Verspasster Anruf
             von {{getParticipantById(thread.parentItem.creatorId)}}</p>
-          <p *ngIf="thread.parentItem.rtc.type === 'ENDED'">Telefonat
+          <p *ngIf=" thread.parentItem.rtc.type==='ENDED'"
+            style=" float: left;">
+            Telefonat
             mit {{getParticipantById(thread.parentItem.creatorId)}}
-            ({{getMinutesAndSeconds(thread.parentItem.rtc.ended.duration)}})</p>
+            ({{getMinutesAndSeconds(thread.parentItem.rtc.ended.duration)}})
+          </p>
+          <p style="float: right">{{msToDate(thread.parentItem.creationTime)}}
+          </p>
         </div>
         <div class="message topic" *ngIf="thread.parentItem.type === 'TEXT'">
           <img id="avatar"

@@ -14,7 +14,7 @@ import { CircuitService } from '../shared/services/circuit/circuit.service';
 export class CustomerComponent implements OnInit {
 
   customer: Customer = null;
-  downloadJsonHref: any;
+  avatarUrl = '';
 
   constructor(private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
@@ -23,25 +23,14 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.customer = this.customerService.getCustomerById(params.id);
+      this.getAvatarOfCustomer(this.customer);
     });
   }
 
-  generateChatProtocol() {
-    this.circuitService.getConversation(this.customer.email).then((threadObject: { threads: any; }) => {
-      const threadsJson = JSON.stringify(this.formatThreads(threadObject.threads));
-      const element = document.createElement('a');
-      element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));
-      element.setAttribute('download', 'chat-protokoll_' + this.customer.surname + '-' + this.customer.name + '.json');
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    });
-  }
-
-  formatThreads(threads: any) {
-    // format here
-    return threads;
+  getAvatarOfCustomer(customer: any) {
+    this.circuitService.getUserById(customer.id).then(user => {
+      this.avatarUrl = user.avatar;
+    }).catch(() => this.avatarUrl = `https://ui-avatars.com/api/name=${customer.name}+${customer.surname}`);
   }
 
 }

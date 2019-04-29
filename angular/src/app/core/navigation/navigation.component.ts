@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { CircuitService } from '../../shared/services/circuit.service';
+import { CircuitService } from '../../shared/services/circuit/circuit.service';
 
 @Component({
   selector: 'app-navigation',

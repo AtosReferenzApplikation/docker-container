@@ -9,7 +9,7 @@ import {
 import { Component } from '@angular/core';
 import { faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { Toast, ToastrService, ToastPackage } from 'ngx-toastr';
-import { CircuitService } from '../services/circuit.service';
+import { CircuitService } from '../services/circuit/circuit.service';
 
 @Component({
   // tslint:disable-next-line: component-selector

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Customer } from '../../models/customer';
-import { SAMPLE_CUSTOMERS } from '../sample-customers';
+import { Customer } from '../../../models/customer';
+import { SAMPLE_CUSTOMERS } from '../../sample-customers';
 
 const httpOptions = {
   headers: new HttpHeaders({

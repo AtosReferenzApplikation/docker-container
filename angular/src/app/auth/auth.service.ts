@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CircuitService } from '../shared/services/circuit.service';
+import { CircuitService } from '../shared/services/circuit/circuit.service';
 
 @Injectable({
   providedIn: 'root'

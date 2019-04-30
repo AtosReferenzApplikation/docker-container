@@ -12,6 +12,8 @@ export class NavigationComponent implements OnInit {
   faSignInAlt = faSignInAlt; faSignOutAlt = faSignOutAlt;
   loggedIn: boolean;
 
+  toggleNavbar = true;
+
   constructor(private circuitService: CircuitService) { }
 
   ngOnInit() {

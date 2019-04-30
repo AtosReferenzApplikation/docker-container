@@ -180,6 +180,7 @@ export class CircuitService {
   // force user logout
   logout() {
     this.loggedIn.next(false);
+    localStorage.removeItem('access_token');
     this.router.navigate(['/login']);
     return this.client.logout(true);
   }

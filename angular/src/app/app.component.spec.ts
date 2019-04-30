@@ -10,6 +10,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,6 +39,7 @@ describe('AppComponent', () => {
         ReactiveFormsModule,
         StarRatingModule,
         NgbModule,
+        NgbCollapseModule,
         FontAwesomeModule,
         NgxSpinnerModule,
         ToastrModule.forRoot()

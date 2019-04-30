@@ -6,28 +6,7 @@ import { CircuitService } from '../services/circuit/circuit.service';
 @Component({
   // tslint:disable-next-line: component-selector
   selector: '[notification-toast-component]',
-  styles: [`
-    :host {
-      background-color: #0096e8;
-      position: relative;
-      overflow: hidden;
-      margin: 0 0 6px;
-      padding: 10px 10px 10px 10px;
-      width: auto !important;
-      border-radius: 3px 3px 3px 3px;
-      color: white;
-      pointer-events: all;
-      cursor: pointer;
-    }
-    .btn-pink {
-      -webkit-backface-visibility: hidden;
-      -webkit-transform: translateZ(0);
-    }
-    .content {
-      margin-left: 15px;
-      margin-right: 15px;
-    }
-  `],
+  styleUrls: ['./toast.scss'],
   template: `
   <div class="row" [style.display]="state.value === 'inactive' ? 'none' : ''">
     <div class="content">

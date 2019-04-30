@@ -1,0 +1,24 @@
+@import '../../../variables';
+
+:host {
+  background: $primary;
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 10px 10px 10px 10px;
+  width: auto !important;
+  border-radius: 3px 3px 3px 3px;
+  color: white;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.btn-pink {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+}
+
+.content {
+  margin-left: 15px;
+  margin-right: 15px;
+}

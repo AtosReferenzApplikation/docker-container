@@ -16,6 +16,6 @@
   }
 
 @import "~css-star-rating/css/star-rating.css";
-@import './_variables'; // change bootstrap colors in: '../_variables.scss'
+@import './variables'; // change bootstrap colors in: '../_variables.scss'
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import '~ngx-toastr/toastr.css';

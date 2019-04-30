@@ -1,4 +1,4 @@
-$blue : #0069D9;
+@import '../../../_variables';
 
 #login {
   margin: 10% auto;
@@ -34,7 +34,7 @@ $blue : #0069D9;
 }
 
 .loginBtn{
-  @include buttonBG($blue);
+  @include buttonBG($primary);
 }
 
 p {

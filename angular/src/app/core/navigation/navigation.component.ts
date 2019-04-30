@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { CircuitService } from '../../shared/services/circuit/circuit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -14,7 +15,8 @@ export class NavigationComponent implements OnInit {
 
   toggleNavbar = true;
 
-  constructor(private circuitService: CircuitService) { }
+  constructor(private circuitService: CircuitService,
+    public router: Router) { }
 
   ngOnInit() {
     this.circuitService.loggedIn.subscribe(res => this.loggedIn = res);

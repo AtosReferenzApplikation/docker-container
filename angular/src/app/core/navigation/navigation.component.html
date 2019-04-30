@@ -11,7 +11,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup"
     [ngbCollapse]="toggleNavbar">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/management">Kundenverwaltung</a>
+      <a class="nav-item nav-link active" routerLink="/management"
+        *ngIf="!router.url.includes('customer')">Kundenverwaltung</a>
+      <a class="nav-item nav-link" routerLink="/management"
+        *ngIf="router.url.includes('customer')">Kundenverwaltung</a>
     </div>
   </div>
   <button type="button" class="btn btn-primary" *ngIf="!loggedIn"

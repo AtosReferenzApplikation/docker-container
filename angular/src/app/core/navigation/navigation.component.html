@@ -1,5 +1,17 @@
-<nav class="navbar navbar-dark bg-primary">
-  <a class="navbar-brand" routerLink="/management">Circuit Referenz Applikation</a>
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" routerLink="/management">Circuit Referenz
+    Applikation</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/management">Home <span
+          class="sr-only">(current)</span></a>
+    </div>
+  </div>
   <button type="button" class="btn btn-primary" *ngIf="!loggedIn"
     (click)="logon()">Login <fa-icon [icon]="faSignInAlt"></fa-icon></button>
   <button type="button" class="btn btn-primary" *ngIf="loggedIn"

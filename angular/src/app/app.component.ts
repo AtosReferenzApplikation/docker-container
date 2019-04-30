@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     setTimeout(() => this.initToasts());
     this.sessionLogger.inititalize();
-    // this.circuitService.authenticateUser();
+    this.circuitService.authenticateUser();
   }
 
   ngOnDestroy(): void {

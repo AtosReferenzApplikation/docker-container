@@ -2,15 +2,16 @@
   <a class="navbar-brand" routerLink="/management"><img
       src="../../../assets/images/header-ba-white.png"
       style="margin-right: 10px;">Servicecenter 2020</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
+  <button class="navbar-toggler" type="button"
+    (click)="toggleNavbar = !toggleNavbar" data-toggle="collapse"
     data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup"
+    [ngbCollapse]="toggleNavbar">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/management">Kundenverwaltung
-        <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" routerLink="/management">Kundenverwaltung</a>
     </div>
   </div>
   <button type="button" class="btn btn-primary" *ngIf="!loggedIn"

@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { FeedbackComponent } from './feedback/feedback.component';
@@ -41,6 +42,7 @@ import { LoginComponent } from './auth/login/login.component';
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule,
+    NgbCollapseModule,
     StarRatingModule.forRoot(),
     FontAwesomeModule,
     NgxSpinnerModule,

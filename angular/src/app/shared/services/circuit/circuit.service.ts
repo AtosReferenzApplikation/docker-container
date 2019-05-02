@@ -201,7 +201,7 @@ export class CircuitService {
   startCall(email: string, video: boolean): Promise<any> {
     return this.client.makeCall(email, {
       audio: true,
-      video: video
+      video: !!video
     }, true)
       .then(call => this.call = call)
       .catch(() => {
@@ -216,7 +216,7 @@ export class CircuitService {
     }
     const mediaType = {
       audio: true,
-      video: video
+      video: !!video
     };
     return this.client.answerCall(this.call.callId, mediaType);
   }

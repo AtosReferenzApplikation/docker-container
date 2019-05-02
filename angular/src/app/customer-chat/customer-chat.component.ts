@@ -97,8 +97,8 @@ export class CustomerChatComponent implements OnInit {
 
   // circuit service
   // call
-  startCall(customer: Customer) {
-    this.circuitService.startCall(customer.email, false);
+  startCall(customer: Customer, video = false) {
+    this.circuitService.startCall(customer.email, video);
   }
 
   endCall() {
@@ -129,6 +129,23 @@ export class CustomerChatComponent implements OnInit {
         content: content
       });
     }
+  }
+
+  // video
+  get callState(): string {
+    return this.circuitService.call && this.circuitService.call.state;
+  }
+
+  get localVideoStream(): Object {
+    return this.circuitService.call && this.circuitService.call.localVideoStream || null;
+  }
+
+  get remoteAudioStream(): Object {
+    return this.circuitService.call && this.circuitService.call.remoteAudioStream || null;
+  }
+
+  get remoteVideoStream(): Object {
+    return this.circuitService.call && this.circuitService.call.participants.length && this.circuitService.call.participants[0].videoStream || null;
   }
 
 }

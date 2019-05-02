@@ -1,9 +1,21 @@
 <div id="card-body-chat">
+    <div id="video-wrapper" *ngIf="localVideoStream && remoteVideoStream">
+        <div id="video">
+            <div class="videoOverlay">{{loggedOnUser.displayName}}</div>
+            <video autoplay playsinline muted [srcObject]="localVideoStream" [hidden]="!localVideoStream">Bitte benutzen sie einen anderen Browser</video>
+        </div>
+        <div id="video">
+          <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
+            <video autoplay playsinline muted [srcObject]="remoteVideoStream"  [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen Browser</video>
+            <audio autoplay [srcObject]="remoteAudioStream"></audio>
+        </div>
+      </div>
   <div #scrollChat id="chat-body">
     <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple"
       size="medium">
       <p style="color: white"> Lade Konversation... </p>
     </ngx-spinner>
+    
     <div *ngIf="participants && threads">
       <div id="chat-body-content" *ngFor="let thread of threads">
         <div class="rtc" *ngIf="thread.parentItem.type === 'RTC'">
@@ -105,11 +117,3 @@
 
 </div>
 
-<div style="margin-top: auto;">
-  <p>Call state: <b>{{callState}}</b></p>
-  <video autoplay playsinline muted [srcObject]="localVideoStream" [hidden]="!localVideoStream">aaa</video>
-  <button (click)="toggleVideo()">toggle vid</button>
-  <video autoplay playsinline muted [srcObject]="remoteVideoStream" [hidden]="!remoteVideoStream">bbb</video>
-  <audio autoplay [srcObject]="remoteAudioStream"></audio>
-  
-</div>

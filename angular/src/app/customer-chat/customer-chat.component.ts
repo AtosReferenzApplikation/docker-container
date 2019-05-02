@@ -34,6 +34,7 @@ export class CustomerChatComponent implements OnInit {
     this.spinner.show();
     this.activatedRoute.params.subscribe(params => {
       this.customer = this.customerService.getCustomerById(params.id);
+      // getParticipantById()??
     });
 
     // this.circuitService.authenticateUser();
@@ -62,6 +63,10 @@ export class CustomerChatComponent implements OnInit {
         this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
       }
     }, 100);
+  }
+
+  get loggedOnUser() {
+    return this.circuitService.loggedOnUser;
   }
 
   getParticipants() {
@@ -98,7 +103,7 @@ export class CustomerChatComponent implements OnInit {
   // circuit service
   // call
   startCall(customer: Customer, video = false) {
-    this.circuitService.startCall(customer.email, video);
+    this.circuitService.startCall(customer.email, true);
   }
 
   endCall() {

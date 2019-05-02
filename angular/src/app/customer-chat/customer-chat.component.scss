@@ -1,3 +1,23 @@
+#video-wrapper {
+  margin: 5px;
+  display: flex;
+  text-align: center;
+
+  #video {
+    margin: 0 auto;
+
+    video {
+      width: auto;
+      height: 150px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.videoOverlay {
+  z-index: 2147483647;
+}
+
 #card-body-chat {
   padding: 0;
 
@@ -82,7 +102,6 @@
 }
 
 .message.text {
-
 
   img {
     width: 30px;

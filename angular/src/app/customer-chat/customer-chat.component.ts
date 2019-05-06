@@ -92,7 +92,7 @@ export class CustomerChatComponent implements OnInit {
     const min = Math.floor((+ms >= 1000) ? +ms / 1000 / 60 : 0);
     let sec = Math.floor((+ms >= 10000) ? +ms / 1000 : +ms / 1000);
     sec = sec - min * 60;
-    return `${min}:${(sec < 10) ? '0' + sec : sec}`;
+    return `${(min < 10) ? '0' + min : min}:${(sec < 10) ? '0' + sec : sec}`;
   }
 
   msToDate(ms: any) {

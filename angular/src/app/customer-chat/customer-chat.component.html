@@ -29,9 +29,8 @@
             von {{getParticipantById(thread.parentItem.creatorId)}}</p>
           <p *ngIf=" thread.parentItem.rtc.type==='ENDED'"
             style=" float: left;">
-            Telefonat
-            mit {{getParticipantById(thread.parentItem.creatorId)}}
-            ({{getMinutesAndSeconds(thread.parentItem.rtc.ended.duration)}})
+            Telefonat &nbsp;·&nbsp; Dauer:
+            {{getMinutesAndSeconds(thread.parentItem.rtc.ended.duration)}}
           </p>
           <p style="float: right">{{msToDate(thread.parentItem.creationTime)}}
           </p><br>

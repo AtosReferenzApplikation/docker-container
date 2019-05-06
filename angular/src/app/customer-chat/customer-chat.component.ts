@@ -98,7 +98,7 @@ export class CustomerChatComponent implements OnInit {
   msToDate(ms: any) {
     const date = new Date(ms);
     const minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes().toString() : date.getMinutes();
-    return date.toLocaleDateString() + ' - ' + date.getHours() + ':' + minutes;
+    return date.toLocaleDateString() + ' - ' + ((date.getHours() < 10) ? '0' + date.getHours() : date.getHours()) + ':' + minutes;
   }
 
   // circuit service

@@ -1,21 +1,25 @@
 <div id="card-body-chat">
-    <div id="video-wrapper" *ngIf="localVideoStream && remoteVideoStream">
-        <div id="video">
-            <div class="videoOverlay">{{loggedOnUser.displayName}}</div>
-            <video autoplay playsinline muted [srcObject]="localVideoStream" [hidden]="!localVideoStream">Bitte benutzen sie einen anderen Browser</video>
-        </div>
-        <div id="video">
-          <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
-            <video autoplay playsinline muted [srcObject]="remoteVideoStream"  [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen Browser</video>
-            <audio autoplay [srcObject]="remoteAudioStream"></audio>
-        </div>
-      </div>
+  <div id="video-wrapper" *ngIf="localVideoStream || remoteVideoStream">
+    <div id="video" *ngIf="localVideoStream">
+      <video autoplay playsinline muted [srcObject]="localVideoStream"
+        [hidden]="!localVideoStream">Bitte benutzen sie einen anderen
+        Browser</video>
+      <div class="videoOverlay">{{loggedOnUser.displayName}}</div>
+    </div>
+    <div id="video" *ngIf="remoteVideoStream">
+      <video autoplay playsinline muted [srcObject]="remoteVideoStream"
+        [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen
+        Browser</video>
+      <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
+      <audio autoplay [srcObject]="remoteAudioStream"></audio>
+    </div>
+  </div>
   <div #scrollChat id="chat-body">
     <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple"
       size="medium">
       <p style="color: white"> Lade Konversation... </p>
     </ngx-spinner>
-    
+
     <div *ngIf="participants && threads">
       <div id="chat-body-content" *ngFor="let thread of threads">
         <div class="rtc" *ngIf="thread.parentItem.type === 'RTC'">
@@ -82,7 +86,7 @@
     <div class="input-group">
       <div id="callBtn" *ngIf="!circuitService.call">
         <button type="button" class="btn btn-primary rounded-circle"
-          (click)="startCall(customer)">
+          (click)="startCall(customer, false)">
           <fa-icon [icon]="faPhone"></fa-icon>
         </button>
       </div>
@@ -90,6 +94,23 @@
         <button type="button" class="btn btn-danger rounded-circle"
           (click)="endCall(customer)">
           <fa-icon [icon]="faPhoneSlash"></fa-icon>
+        </button>
+      </div>
+      <div id="callBtn" *ngIf="!localVideoStream">
+        <button type="button" *ngIf="!circuitService.call"
+          class="btn btn-primary rounded-circle"
+          (click)="startCall(customer, true)">
+          <fa-icon [icon]="faVideo"></fa-icon>
+        </button>
+        <button type="button" *ngIf="circuitService.call"
+          class="btn btn-primary rounded-circle" (click)="toggleVideo()">
+          <fa-icon [icon]="faVideo"></fa-icon>
+        </button>
+      </div>
+      <div id="callBtn" *ngIf="circuitService.call && localVideoStream">
+        <button type="button" class="btn btn-danger rounded-circle"
+          (click)="toggleVideo()">
+          <fa-icon [icon]="faVideoSlash"></fa-icon>
         </button>
       </div>
       <div class="input-group-prepend" style="margin-left: auto">
@@ -113,7 +134,5 @@
     </div>
   </div>
 
-  
 
 </div>
-

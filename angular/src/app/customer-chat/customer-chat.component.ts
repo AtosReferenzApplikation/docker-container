@@ -1,6 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faVideo, faPhone, faPhoneSlash, faPaperPlane, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faVideo,
+  faPhone,
+  faPhoneSlash,
+  faPaperPlane,
+  faVideoSlash
+} from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { CustomerService } from '../shared/services/customer/customer.service';
@@ -13,11 +20,16 @@ import { CircuitService } from '../shared/services/circuit/circuit.service';
   styleUrls: ['./customer-chat.component.scss']
 })
 export class CustomerChatComponent implements OnInit {
-
   customer: Customer;
   participants = [];
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash;
-  faPaperPlane = faPaperPlane; faVideoSlash = faVideoSlash;
+
+  // fontawesome vars
+  faEdit = faEdit;
+  faVideo = faVideo;
+  faPhone = faPhone;
+  faPhoneSlash = faPhoneSlash;
+  faPaperPlane = faPaperPlane;
+  faVideoSlash = faVideoSlash;
 
   // chat props
   threads = [];
@@ -26,10 +38,12 @@ export class CustomerChatComponent implements OnInit {
   messageTopicDesc = '';
 
   @ViewChild('scrollChat') private chat: ElementRef<any>;
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     public circuitService: CircuitService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.spinner.show();
@@ -40,7 +54,9 @@ export class CustomerChatComponent implements OnInit {
 
     // this.circuitService.authenticateUser();
     this.circuitService.loggedIn.subscribe(value => {
-      if (value) { this.setThreadsOfConversation(); }
+      if (value) {
+        this.setThreadsOfConversation();
+      }
     });
 
     this.circuitService.addEventListener('itemAdded', () => {
@@ -49,7 +65,9 @@ export class CustomerChatComponent implements OnInit {
   }
 
   async setThreadsOfConversation() {
-    const threadObject = await this.circuitService.getConversation(this.customer.email);
+    const threadObject = await this.circuitService.getConversation(
+      this.customer.email
+    );
     this.threads = threadObject.threads;
     this.getParticipants();
     this.onLoaded();
@@ -72,33 +90,52 @@ export class CustomerChatComponent implements OnInit {
 
   getParticipants() {
     this.circuitService.conversation.participants.forEach(userId => {
-      this.circuitService.getUserById(userId).then((res: any) => this.participants.push(res));
+      this.circuitService
+        .getUserById(userId)
+        .then((res: any) => this.participants.push(res));
     });
   }
 
   getAvatarByUserId(id: any) {
     try {
-      return this.participants[this.participants.findIndex(user => user.userId === id)].avatar;
-    } catch { return 'https://ui-avatars.com/api/?name=?'; }
+      return this.participants[
+        this.participants.findIndex(user => user.userId === id)
+      ].avatar;
+    } catch {
+      return 'https://ui-avatars.com/api/?name=?';
+    }
   }
 
   getParticipantById(id: any) {
     try {
-      return this.participants[this.participants.findIndex(user => user.userId === id)].displayName;
-    } catch { return 'Kunde'; }
+      return this.participants[
+        this.participants.findIndex(user => user.userId === id)
+      ].displayName;
+    } catch {
+      return 'Kunde';
+    }
   }
 
   getMinutesAndSeconds(ms: string): string {
-    const min = Math.floor((+ms >= 1000) ? +ms / 1000 / 60 : 0);
-    let sec = Math.floor((+ms >= 10000) ? +ms / 1000 : +ms / 1000);
+    const min = Math.floor(+ms >= 1000 ? +ms / 1000 / 60 : 0);
+    let sec = Math.floor(+ms >= 10000 ? +ms / 1000 : +ms / 1000);
     sec = sec - min * 60;
-    return `${(min < 10) ? '0' + min : min}:${(sec < 10) ? '0' + sec : sec}`;
+    return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
   }
 
   msToDate(ms: any) {
     const date = new Date(ms);
-    const minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes().toString() : date.getMinutes();
-    return date.toLocaleDateString() + ' - ' + ((date.getHours() < 10) ? '0' + date.getHours() : date.getHours()) + ':' + minutes;
+    const minutes =
+      date.getMinutes() < 10
+        ? '0' + date.getMinutes().toString()
+        : date.getMinutes();
+    return (
+      date.toLocaleDateString() +
+      ' - ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      minutes
+    );
   }
 
   // circuit service
@@ -118,13 +155,15 @@ export class CustomerChatComponent implements OnInit {
   // messaging
   sendTopicMessage(subject: string, content: string) {
     if (content.trim() !== '') {
-      this.circuitService.sendMessage({
-        subject: subject,
-        content: content
-      }).then(() => {
-        this.messageTopic = '';
-        this.messageTopicDesc = '';
-      });
+      this.circuitService
+        .sendMessage({
+          subject: subject,
+          content: content
+        })
+        .then(() => {
+          this.messageTopic = '';
+          this.messageTopicDesc = '';
+        });
     }
   }
 
@@ -143,16 +182,27 @@ export class CustomerChatComponent implements OnInit {
   }
 
   get localVideoStream(): Object {
-    return this.circuitService.call && this.circuitService.call.localVideoStream || null;
+    return (
+      (this.circuitService.call && this.circuitService.call.localVideoStream) ||
+      null
+    );
   }
 
   get remoteAudioStream(): Object {
-    return this.circuitService.call && this.circuitService.call.remoteAudioStream || null;
+    return (
+      (this.circuitService.call &&
+        this.circuitService.call.remoteAudioStream) ||
+      null
+    );
   }
 
   get remoteVideoStream(): Object {
     // tslint:disable-next-line: max-line-length
-    return this.circuitService.call && this.circuitService.call.participants.length && this.circuitService.call.participants[0].videoStream || null;
+    return (
+      (this.circuitService.call &&
+        this.circuitService.call.participants.length &&
+        this.circuitService.call.participants[0].videoStream) ||
+      null
+    );
   }
-
 }

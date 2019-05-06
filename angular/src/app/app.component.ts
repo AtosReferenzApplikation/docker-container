@@ -13,16 +13,17 @@ import { SessionLogger } from './utils/sessionLogger';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   incomingToast = null;
   callToast = null;
   helpCallState = '';
 
   sessionLogger = new SessionLogger();
 
-  constructor(private circuitService: CircuitService,
+  constructor(
+    private circuitService: CircuitService,
     private toastrService: ToastrService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => this.initToasts());
@@ -31,13 +32,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.circuitService.getUserById(this.circuitService.loggedOnUser.userId).then(user => {
-      this.sessionLogger.saveSession(user.displayName);
-    });
+    this.circuitService
+      .getUserById(this.circuitService.loggedOnUser.userId)
+      .then(user => {
+        this.sessionLogger.saveSession(user.displayName);
+      });
   }
 
   initToasts() {
-    this.circuitService.addEventListener('callIncoming', evt => (evt.call.convType === 'DIRECT') ? this.incomingCall(evt.call) : null);
+    this.circuitService.addEventListener('callIncoming', evt =>
+      evt.call.convType === 'DIRECT' ? this.incomingCall(evt.call) : null
+    );
     this.circuitService.addEventListener('callEnded', (evt: any) => {
       if (this.callToast) {
         this.helpCallState = '';
@@ -52,17 +57,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.circuitService.addEventListener('callStatus', (evt: any) => {
       if (evt.call.state === 'Active') {
         if (this.helpCallState !== 'Active') {
-          if (this.callToast) { this.toastrService.remove(this.callToast.toastId); }
+          if (this.callToast) {
+            this.toastrService.remove(this.callToast.toastId);
+          }
           this.callToast = null;
           this.helpCallState = 'Active';
           this.activeCall(evt.call, true);
         }
       } else {
-        if (!this.callToast) { this.activeCall(evt.call, false); this.helpCallState = evt.call.state; }
+        if (!this.callToast) {
+          this.activeCall(evt.call, false);
+          this.helpCallState = evt.call.state;
+        }
       }
     });
     this.circuitService.addEventListener('itemAdded', evt => {
-      if (evt.item.type === 'TEXT' && evt.item.creatorId !== this.circuitService.client.loggedOnUser.userId) {
+      if (
+        evt.item.type === 'TEXT' &&
+        evt.item.creatorId !== this.circuitService.client.loggedOnUser.userId
+      ) {
         this.incomingMessage(evt.item);
       }
       this.logConversationItem(evt.item);
@@ -70,50 +83,99 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async incomingCall(call: any) {
-    const user = await this.circuitService.getUserById(call.peerUser.userId).then((res: any) => res);
+    const user = await this.circuitService
+      .getUserById(call.peerUser.userId)
+      .then((res: any) => res);
     this.incomingToast = this.toastrService.info(
-      'von ' + user.displayName, 'Eingehender Anruf',
-      { disableTimeOut: true, tapToDismiss: false, toastComponent: NotificationToast }
+      'von ' + user.displayName,
+      'Eingehender Anruf',
+      {
+        disableTimeOut: true,
+        tapToDismiss: false,
+        toastComponent: NotificationToast
+      }
     );
 
-    this.onTapNavigateToUser(this.incomingToast, '/management/customer/', user.userId, false);
+    this.onTapNavigateToUser(
+      this.incomingToast,
+      '/management/customer/',
+      user.userId,
+      false
+    );
   }
 
   async incomingMessage(message: any) {
-    const user = await this.circuitService.getUserById(message.creatorId).then((res: any) => res);
+    const user = await this.circuitService
+      .getUserById(message.creatorId)
+      .then((res: any) => res);
     const messageToast = this.toastrService.info(
-      message.text.content, user.displayName,
+      message.text.content,
+      user.displayName,
       { enableHtml: true, toastComponent: NotificationToast }
     );
 
-    this.onTapNavigateToUser(messageToast, '/management/customer/', user.userId, true);
+    this.onTapNavigateToUser(
+      messageToast,
+      '/management/customer/',
+      user.userId,
+      true
+    );
   }
 
   async activeCall(call: any, active: boolean) {
-    const user = await this.circuitService.getUserById(call.peerUser.userId).then((res: any) => res);
+    const user = await this.circuitService
+      .getUserById(call.peerUser.userId)
+      .then((res: any) => res);
 
     if (active) {
       this.callToast = this.toastrService.info(
-        'mit ' + user.displayName, 'Telefonat läuft',
-        { disableTimeOut: true, tapToDismiss: false, toastComponent: ActivecallToast }
+        'mit ' + user.displayName,
+        'Telefonat läuft',
+        {
+          disableTimeOut: true,
+          tapToDismiss: false,
+          toastComponent: ActivecallToast
+        }
       );
-      this.onTapNavigateToUser(this.callToast, '/management/customer/', user.userId, false);
+      this.onTapNavigateToUser(
+        this.callToast,
+        '/management/customer/',
+        user.userId,
+        false
+      );
       this.incomingToast = null;
     } else if (call.direction === 'outgoing') {
       this.callToast = this.toastrService.info(
-        'an ' + user.displayName, 'Anruf',
-        { disableTimeOut: true, tapToDismiss: false, toastComponent: ActivecallToast }
+        'an ' + user.displayName,
+        'Anruf',
+        {
+          disableTimeOut: true,
+          tapToDismiss: false,
+          toastComponent: ActivecallToast
+        }
       );
-      this.onTapNavigateToUser(this.callToast, '/management/customer/', user.userId, false);
+      this.onTapNavigateToUser(
+        this.callToast,
+        '/management/customer/',
+        user.userId,
+        false
+      );
     }
   }
 
-  onTapNavigateToUser(toast: any, uri: string, userId: string, remove: boolean) {
+  onTapNavigateToUser(
+    toast: any,
+    uri: string,
+    userId: string,
+    remove: boolean
+  ) {
     toast.onTap.subscribe(() => {
       if (!this.router.url.includes(userId)) {
         this.router.navigateByUrl(uri + userId);
       }
-      if (remove) { this.toastrService.remove(toast.toastId); }
+      if (remove) {
+        this.toastrService.remove(toast.toastId);
+      }
     });
   }
 
@@ -132,7 +194,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async saveSession() {
-    const user = await this.circuitService.getUserById(this.circuitService.loggedOnUser.userId);
+    const user = await this.circuitService.getUserById(
+      this.circuitService.loggedOnUser.userId
+    );
     console.log(this.sessionLogger.saveSession(user.displayName));
   }
 }

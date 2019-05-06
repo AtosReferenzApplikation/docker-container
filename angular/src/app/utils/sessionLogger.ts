@@ -1,5 +1,4 @@
 export class SessionLogger {
-
   private startDate: Date;
 
   private content: Object;
@@ -21,33 +20,51 @@ export class SessionLogger {
   }
 
   logText(date: Date, clientName: string, content: string) {
-    this.messageLog.push({ datum: date, kanal: 'Nachricht', kunde: clientName, nachricht: content });
+    this.messageLog.push({
+      datum: date,
+      kanal: 'Nachricht',
+      kunde: clientName,
+      nachricht: content
+    });
   }
 
   logCall(date: Date, clientName: string, duration: any) {
     duration = this.msToTime(duration);
-    this.callLog.push({ datum: date, kanal: 'Anruf', kunde: clientName, dauer: duration });
+    this.callLog.push({
+      datum: date,
+      kanal: 'Anruf',
+      kunde: clientName,
+      dauer: duration
+    });
   }
 
   /**
    * End the session.
    */
-  public saveSession(clerk: string): Object { // rename: endLogging
+  public saveSession(clerk: string): Object {
+    // rename: endLogging
     const duration = new Date(new Date().getTime() - this.startDate.getTime());
 
-    return this.content = {
+    return (this.content = {
       sachbearbeiter: clerk,
-      session: `${new Date().toLocaleDateString()} - ${duration.getHours() - 1}:${duration.getMinutes()}:${duration.getSeconds()}`,
+      session: `${new Date().toLocaleDateString()} - ${duration.getHours() -
+        1}:${duration.getMinutes()}:${duration.getSeconds()}`,
       nachrichten: this.messageLog,
       anrufe: this.callLog
-    };
+    });
   }
 
   public downloadSessionLog() {
     const threadsJson = JSON.stringify(this.content);
     const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson));
-    element.setAttribute('download', 'chat-protocol_' + new Date().getMilliseconds() + '.json');
+    element.setAttribute(
+      'href',
+      'data:text/json;charset=UTF-8,' + encodeURIComponent(threadsJson)
+    );
+    element.setAttribute(
+      'download',
+      'chat-protocol_' + new Date().getMilliseconds() + '.json'
+    );
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
@@ -61,5 +78,4 @@ export class SessionLogger {
 
     return hours + ':' + minutes + ':' + seconds;
   }
-
 }

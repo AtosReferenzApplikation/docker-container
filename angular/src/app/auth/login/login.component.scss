@@ -14,26 +14,25 @@
   }
 }
 
-.skewBtn{
+.skewBtn {
   width: 180px;
   height: 80px;
   outline: none;
   cursor: pointer;
   background: none;
-  transition: .5s;
+  transition: 0.5s;
   font-size: 24px;
   border-radius: 5px;
-  font-family: "Lato",sans-serif;
-  &:hover{
+  font-family: 'Lato', sans-serif;
+  &:hover {
     border: none;
     color: white;
     font-size: 25px;
-    transform:scale(1.05);
+    transform: scale(1.05);
   }
-
 }
 
-.loginBtn{
+.loginBtn {
   @include buttonBG($primary);
 }
 

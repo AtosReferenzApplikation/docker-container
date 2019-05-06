@@ -1,5 +1,11 @@
 <div id="login">
-  <button type="button" class="btn btn-primary btn-lg skewBtn loginBtn"
-    (click)="logon()" *ngIf="!authService.isLoggedIn">Login</button>
-  <p>{{message}}</p>
+  <button
+    type="button"
+    class="btn btn-primary btn-lg skewBtn loginBtn"
+    (click)="logon()"
+    *ngIf="!authService.isLoggedIn"
+  >
+    Login
+  </button>
+  <p>{{ message }}</p>
 </div>

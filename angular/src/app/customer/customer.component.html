@@ -1,9 +1,9 @@
 <div class="card" id="card">
   <div class="card-header" id="card-header">
-    <img src="{{avatarUrl}}" class="rounded-circle">
+    <img src="{{ avatarUrl }}" class="rounded-circle" />
     <div>
-      {{customer?.name}} {{customer?.surname}}<br>
-      <i>Online</i><br>
+      {{ customer?.name }} {{ customer?.surname }}<br />
+      <i>Online</i><br />
     </div>
   </div>
   <ngb-tabset #t="ngbTabset" type="pills">
@@ -19,18 +19,21 @@
               <tbody>
                 <tr>
                   <td>Kunde</td>
-                  <td>{{customer?.salutation}} {{customer?.name}}
-                    {{customer?.surname}}</td>
+                  <td>
+                    {{ customer?.salutation }} {{ customer?.name }}
+                    {{ customer?.surname }}
+                  </td>
                 </tr>
                 <tr>
                   <td>Nationalität</td>
-                  <td>{{customer?.nationality}}</td>
+                  <td>{{ customer?.nationality }}</td>
                 </tr>
                 <tr>
                   <td>Adresse</td>
-                  <td>{{customer?.address.postalcode}}
-                    {{customer?.address.city}},
-                    {{customer?.address.street}}
+                  <td>
+                    {{ customer?.address.postalcode }}
+                    {{ customer?.address.city }},
+                    {{ customer?.address.street }}
                   </td>
                 </tr>
               </tbody>
@@ -42,24 +45,25 @@
               <tbody>
                 <tr>
                   <td>E-Mail</td>
-                  <td>{{customer?.email}}</td>
+                  <td>{{ customer?.email }}</td>
                 </tr>
                 <tr>
                   <td>Telefon</td>
-                  <td>{{customer?.phone}}</td>
+                  <td>{{ customer?.phone }}</td>
                 </tr>
                 <tr>
                   <td>Kontakt per</td>
                   <td>
-                    <div class="td-badge"
-                      *ngFor="let form of customer?.contactform">
-                      <span class="badge badge-secondary">{{form}}</span>
+                    <div
+                      class="td-badge"
+                      *ngFor="let form of customer?.contactform"
+                    >
+                      <span class="badge badge-secondary">{{ form }}</span>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-
           </div>
         </div>
       </ng-template>

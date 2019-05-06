@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faVideo, faPhone, faPhoneSlash, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faVideo, faPhone, faPhoneSlash, faPaperPlane, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { CustomerService } from '../shared/services/customer/customer.service';
@@ -16,7 +16,8 @@ export class CustomerChatComponent implements OnInit {
 
   customer: Customer;
   participants = [];
-  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash; faPaperPlane = faPaperPlane;
+  faEdit = faEdit; faVideo = faVideo; faPhone = faPhone; faPhoneSlash = faPhoneSlash;
+  faPaperPlane = faPaperPlane; faVideoSlash = faVideoSlash;
 
   // chat props
   threads = [];
@@ -102,8 +103,8 @@ export class CustomerChatComponent implements OnInit {
 
   // circuit service
   // call
-  startCall(customer: Customer, video = false) {
-    this.circuitService.startCall(customer.email, true);
+  startCall(customer: Customer, video: boolean) {
+    this.circuitService.startCall(customer.email, video);
   }
 
   endCall() {
@@ -150,6 +151,7 @@ export class CustomerChatComponent implements OnInit {
   }
 
   get remoteVideoStream(): Object {
+    // tslint:disable-next-line: max-line-length
     return this.circuitService.call && this.circuitService.call.participants.length && this.circuitService.call.participants[0].videoStream || null;
   }
 

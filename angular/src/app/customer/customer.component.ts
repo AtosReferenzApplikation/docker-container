@@ -12,13 +12,14 @@ import { CircuitService } from '../shared/services/circuit/circuit.service';
   encapsulation: ViewEncapsulation.None // styling .nav-pills
 })
 export class CustomerComponent implements OnInit {
-
   customer: Customer = null;
   avatarUrl = '';
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private circuitService: CircuitService) { }
+    private circuitService: CircuitService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -28,9 +29,16 @@ export class CustomerComponent implements OnInit {
   }
 
   getAvatarOfCustomer(customer: any) {
-    this.circuitService.getUserById(customer.id).then(user => {
-      this.avatarUrl = user.avatar;
-    }).catch(() => this.avatarUrl = `https://ui-avatars.com/api/name=${customer.name}+${customer.surname}`);
+    this.circuitService
+      .getUserById(customer.id)
+      .then(user => {
+        this.avatarUrl = user.avatar;
+      })
+      .catch(
+        () =>
+          (this.avatarUrl = `https://ui-avatars.com/api/name=${customer.name}+${
+            customer.surname
+          }`)
+      );
   }
-
 }

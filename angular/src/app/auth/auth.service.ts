@@ -5,12 +5,13 @@ import { CircuitService } from '../shared/services/circuit/circuit.service';
   providedIn: 'root'
 })
 export class AuthService {
-
   isLoggedIn = false;
   redirectUrl: string;
 
   constructor(private circuitService: CircuitService) {
-    this.circuitService.loggedIn.subscribe(loggedIn => this.isLoggedIn = loggedIn);
+    this.circuitService.loggedIn.subscribe(
+      loggedIn => (this.isLoggedIn = loggedIn)
+    );
   }
 
   logon() {

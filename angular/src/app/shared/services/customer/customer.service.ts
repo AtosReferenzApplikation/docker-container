@@ -13,11 +13,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CustomerService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   get URI() {
-    return window.location.href.includes('localost:') ? 'http://localhost:8080' : '/spring';
+    return window.location.href.includes('localost:')
+      ? 'http://localhost:8080'
+      : '/spring';
   }
 
   getAllCustomers() {
@@ -37,11 +38,19 @@ export class CustomerService {
 
   addCustomer(customer: Customer) {
     // '/spring/addCustomer'
-    return this.http.post<any>(this.URI + '/addCustomer', customer, httpOptions);
+    return this.http.post<any>(
+      this.URI + '/addCustomer',
+      customer,
+      httpOptions
+    );
   }
 
   updateCustomerById(id: any, customer: Customer) {
-    return this.http.put(this.URI + `/updateCustomer/${id}`, customer, httpOptions);
+    return this.http.put(
+      this.URI + `/updateCustomer/${id}`,
+      customer,
+      httpOptions
+    );
   }
 
   deleteCustomerById(id: string) {

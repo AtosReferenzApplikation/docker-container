@@ -13,8 +13,6 @@
       border-radius: 3px;
       position: relative;
       z-index: 0;
-      // background-image: url('../../assets/images/depositphotos_154332600-stock-video-webcam-video-chat-talking-woman.jpg');
-      // background-size: cover;
     }
   }
 }
@@ -25,7 +23,7 @@
   left: 0;
   padding: 5px;
   z-index: 1;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: rgba(33, 33, 33, 0.3);
   border-radius: 3px;
 }
@@ -49,7 +47,7 @@
 
 #chat-body {
   grid-row: 2;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   padding-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.12);
 
@@ -87,9 +85,9 @@
 
 .talk-bubble {
   padding: 10px 20px;
-  background-color: #FFFFFF;
-  border-top: 0.5px solid #F0F0FF;
-  border-bottom: 0.5px solid #F0F0FF;
+  background-color: #ffffff;
+  border-top: 0.5px solid #f0f0ff;
+  border-bottom: 0.5px solid #f0f0ff;
 }
 
 .message {
@@ -114,7 +112,6 @@
 }
 
 .message.text {
-
   img {
     width: 30px;
     height: 30px;
@@ -134,10 +131,10 @@
 }
 
 .sendBtn {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
   &:hover {
-    background-color: #6C757D;
+    background-color: #6c757d;
   }
 }
 

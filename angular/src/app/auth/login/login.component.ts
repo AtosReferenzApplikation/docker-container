@@ -11,15 +11,20 @@ import { CircuitService } from '../../shared/services/circuit/circuit.service';
 export class LoginComponent implements OnInit {
   message: string;
 
-  constructor(public authService: AuthService, public router: Router,
-    private circuitService: CircuitService) {
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    private circuitService: CircuitService
+  ) {
     this.setMessage();
   }
 
   ngOnInit() {
     this.circuitService.loggedIn.subscribe(loggedIn => {
       if (loggedIn) {
-        const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/management';
+        const redirect = this.authService.redirectUrl
+          ? this.router.parseUrl(this.authService.redirectUrl)
+          : '/management';
         this.router.navigateByUrl(redirect);
       }
     });
@@ -37,7 +42,9 @@ export class LoginComponent implements OnInit {
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/management';
+        const redirect = this.authService.redirectUrl
+          ? this.router.parseUrl(this.authService.redirectUrl)
+          : '/management';
 
         // Redirect the user
         this.router.navigateByUrl(redirect);
@@ -49,5 +56,4 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
     this.setMessage();
   }
-
 }

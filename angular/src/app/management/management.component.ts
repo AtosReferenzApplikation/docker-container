@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faMinus, faCommentDots, faEnvelope, faEdit, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMinus,
+  faCommentDots,
+  faEnvelope,
+  faEdit,
+  faPhone
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Customer } from '../models/customer';
 import { CustomerService } from '../shared/services/customer/customer.service';
 import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-management',
@@ -15,7 +20,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent implements OnInit {
-
   customerList = []; // contains all customers
   displayedCustomers = []; // contains customers which will be displayed
 
@@ -28,17 +32,21 @@ export class ManagementComponent implements OnInit {
     phone: new FormControl(null, [Validators.pattern('[0-9]+')]),
     postalcode: new FormControl(null),
     city: new FormControl(null),
-    street: new FormControl(null),
+    street: new FormControl(null)
   });
 
-  // fontawesomes
-  faMinus = faMinus; faEdit = faEdit;
-  faEnvelope = faEnvelope; faCommentDots = faCommentDots; faPhone = faPhone;
+  // fontawesome vars
+  faMinus = faMinus;
+  faEdit = faEdit;
+  faEnvelope = faEnvelope;
+  faCommentDots = faCommentDots;
+  faPhone = faPhone;
 
-  constructor(private customerService: CustomerService,
+  constructor(
+    private customerService: CustomerService,
     private modalService: NgbModal,
-    private router: Router,
-    /*ngx-spinner*/) { }
+    private router: Router
+  ) /*ngx-spinner*/ {}
 
   ngOnInit() {
     this.CustomerForm.reset();
@@ -59,41 +67,71 @@ export class ManagementComponent implements OnInit {
 
   searchCustomers(term: string) {
     this.displayedCustomers = this.customerList.filter((item: Customer) => {
-      return (item.name.toLowerCase() + item.surname.toLowerCase()).includes(term.toLowerCase());
+      return (item.name.toLowerCase() + item.surname.toLowerCase()).includes(
+        term.toLowerCase()
+      );
     });
   }
 
   addCustomerFromForm() {
     if (this.CustomerForm.status === 'VALID') {
-      this.invalidSubmit = { name: false, surname: false, email: false, phone: false };
-      this.customerService.addCustomer(this.CustomerForm.value)
+      this.invalidSubmit = {
+        name: false,
+        surname: false,
+        email: false,
+        phone: false
+      };
+      this.customerService
+        .addCustomer(this.CustomerForm.value)
         .subscribe(() => this.ngOnInit());
       this.CustomerForm.reset();
     } else {
-      if (!this.CustomerForm.get('name').valid) { this.invalidSubmit.name = true; } else { this.invalidSubmit.name = false; }
-      if (!this.CustomerForm.get('surname').valid) { this.invalidSubmit.surname = true; } else { this.invalidSubmit.surname = false; }
-      if (!this.CustomerForm.get('email').valid) { this.invalidSubmit.email = true; } else { this.invalidSubmit.email = false; }
-      if (!this.CustomerForm.get('phone').valid) { this.invalidSubmit.phone = true; } else { this.invalidSubmit.email = false; }
+      if (!this.CustomerForm.get('name').valid) {
+        this.invalidSubmit.name = true;
+      } else {
+        this.invalidSubmit.name = false;
+      }
+      if (!this.CustomerForm.get('surname').valid) {
+        this.invalidSubmit.surname = true;
+      } else {
+        this.invalidSubmit.surname = false;
+      }
+      if (!this.CustomerForm.get('email').valid) {
+        this.invalidSubmit.email = true;
+      } else {
+        this.invalidSubmit.email = false;
+      }
+      if (!this.CustomerForm.get('phone').valid) {
+        this.invalidSubmit.phone = true;
+      } else {
+        this.invalidSubmit.email = false;
+      }
     }
   }
 
   getCustomers() {
-    this.customerService.getAllCustomers().subscribe((response: any) => {
-      this.customerList = response;
-      this.displayedCustomers = response;
-    }, () => {
-      // SAMPLE DATA
-      this.customerList = SAMPLE_CUSTOMERS;
-      this.displayedCustomers = SAMPLE_CUSTOMERS;
-    });
+    this.customerService.getAllCustomers().subscribe(
+      (response: any) => {
+        this.customerList = response;
+        this.displayedCustomers = response;
+      },
+      () => {
+        // SAMPLE DATA
+        this.customerList = SAMPLE_CUSTOMERS;
+        this.displayedCustomers = SAMPLE_CUSTOMERS;
+      }
+    );
   }
 
   updateCustomerById(id: any, customer: Customer) {
-    this.customerService.updateCustomerById(id, customer).subscribe(() => this.ngOnInit());
+    this.customerService
+      .updateCustomerById(id, customer)
+      .subscribe(() => this.ngOnInit());
   }
 
   deleteCustomer(id: string) {
-    this.customerService.deleteCustomerById(id).subscribe(() => this.ngOnInit());
+    this.customerService
+      .deleteCustomerById(id)
+      .subscribe(() => this.ngOnInit());
   }
-
 }

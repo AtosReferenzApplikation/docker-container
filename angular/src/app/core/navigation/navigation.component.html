@@ -1,24 +1,56 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-  <a class="navbar-brand" routerLink="/management"><img
+  <a class="navbar-brand" routerLink="/management"
+    ><img
       src="../../../assets/images/header-ba-white.png"
-      style="margin-right: 10px;">Servicecenter 2020</a>
-  <button class="navbar-toggler" type="button"
-    (click)="toggleNavbar = !toggleNavbar" data-toggle="collapse"
-    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-    aria-expanded="false" aria-label="Toggle navigation">
+      style="margin-right: 10px;"
+    />Servicecenter 2020</a
+  >
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="toggleNavbar = !toggleNavbar"
+    data-toggle="collapse"
+    data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup"
-    [ngbCollapse]="toggleNavbar">
+  <div
+    class="collapse navbar-collapse"
+    id="navbarNavAltMarkup"
+    [ngbCollapse]="toggleNavbar"
+  >
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" routerLink="/management"
-        *ngIf="!router.url.includes('customer')">Kundenverwaltung</a>
-      <a class="nav-item nav-link" routerLink="/management"
-        *ngIf="router.url.includes('customer')">Kundenverwaltung</a>
+      <a
+        class="nav-item nav-link active"
+        routerLink="/management"
+        *ngIf="!router.url.includes('customer')"
+        >Kundenverwaltung</a
+      >
+      <a
+        class="nav-item nav-link"
+        routerLink="/management"
+        *ngIf="router.url.includes('customer')"
+        >Kundenverwaltung</a
+      >
     </div>
   </div>
-  <button type="button" class="btn btn-primary" *ngIf="!loggedIn"
-    (click)="logon()">Login <fa-icon [icon]="faSignInAlt"></fa-icon></button>
-  <button type="button" class="btn btn-primary" *ngIf="loggedIn"
-    (click)="logout()">Logout <fa-icon [icon]="faSignOutAlt"></fa-icon></button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    *ngIf="!loggedIn"
+    (click)="logon()"
+  >
+    Login <fa-icon [icon]="faSignInAlt"></fa-icon>
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    *ngIf="loggedIn"
+    (click)="logout()"
+  >
+    Logout <fa-icon [icon]="faSignOutAlt"></fa-icon>
+  </button>
 </nav>

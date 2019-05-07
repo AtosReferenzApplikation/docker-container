@@ -15,10 +15,19 @@ export class SessionLogger {
     this.messageLog = [];
   }
 
+  /**
+   * Inititalizes session logger.
+   */
   inititalize() {
     this.startDate = new Date();
   }
 
+  /**
+   * Logs a text message.
+   * @param date Creation date & time of message.
+   * @param clientName Name of messaged client.
+   * @param content Content of message.
+   */
   logText(date: Date, clientName: string, content: string) {
     this.messageLog.push({
       datum: date,
@@ -28,6 +37,12 @@ export class SessionLogger {
     });
   }
 
+  /**
+   * Logs a call.
+   * @param date Start date & time of call.
+   * @param clientName Name of called client.
+   * @param duration Duration of call.
+   */
   logCall(date: Date, clientName: string, duration: any) {
     duration = this.msToTime(duration);
     this.callLog.push({
@@ -40,6 +55,8 @@ export class SessionLogger {
 
   /**
    * End the session.
+   * @param clerk Full name of current clerk.
+   * @returns Full logged session.
    */
   public saveSession(clerk: string): Object {
     // rename: endLogging

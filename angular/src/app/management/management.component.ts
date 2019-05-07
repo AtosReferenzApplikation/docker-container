@@ -29,7 +29,7 @@ export class ManagementComponent implements OnInit {
     name: new FormControl(null, [Validators.required]),
     surname: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
-    phone: new FormControl(null, [Validators.pattern('[0-9]+')]),
+    phone: new FormControl(null, [Validators.required]),
     postalcode: new FormControl(null),
     city: new FormControl(null),
     street: new FormControl(null)

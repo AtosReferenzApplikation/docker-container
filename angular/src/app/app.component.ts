@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { CircuitService } from './shared/services/circuit/circuit.service';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
-import { NotificationToast } from './shared/toasts/NotificationToast';
+import { NotificationToast } from './shared/toasts/notification.toast';
 import { SessionLogger } from './utils/sessionLogger';
 
 @Component({

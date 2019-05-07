@@ -18,10 +18,9 @@ import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
-import { NotificationToast } from './shared/toasts/NotificationToast';
+import { NotificationToast } from './shared/toasts/notification.toast';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
 import { LoginComponent } from './auth/login/login.component';
-
 
 @NgModule({
   declarations: [
@@ -53,4 +52,4 @@ import { LoginComponent } from './auth/login/login.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

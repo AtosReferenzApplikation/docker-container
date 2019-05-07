@@ -30,9 +30,9 @@ export class ManagementComponent implements OnInit {
     surname: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     phone: new FormControl(null, [Validators.required]),
-    postalcode: new FormControl(null),
-    city: new FormControl(null),
-    street: new FormControl(null)
+    postalcode: new FormControl(),
+    city: new FormControl(),
+    street: new FormControl()
   });
 
   // fontawesome vars
@@ -106,6 +106,8 @@ export class ManagementComponent implements OnInit {
       } else {
         this.invalidSubmit.email = false;
       }
+
+      console.error(this.CustomerForm.status);
     }
   }
 

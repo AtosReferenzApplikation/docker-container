@@ -1,116 +1,79 @@
 <div id="card-body-chat">
   <div id="video-wrapper" *ngIf="localVideoStream || remoteVideoStream">
     <div id="video" *ngIf="localVideoStream">
-      <video
-        autoplay
-        playsinline
-        muted
-        [srcObject]="localVideoStream"
-        [hidden]="!localVideoStream"
-      >
-        Bitte benutzen sie einen anderen Browser
-      </video>
-      <div class="videoOverlay">{{ loggedOnUser.displayName }}</div>
+      <video autoplay playsinline muted [srcObject]="localVideoStream"
+        [hidden]="!localVideoStream">Bitte benutzen sie einen anderen
+        Browser</video>
+      <div class="videoOverlay">{{loggedOnUser.displayName}}</div>
     </div>
     <div id="video" *ngIf="remoteVideoStream">
-      <video
-        autoplay
-        playsinline
-        muted
-        [srcObject]="remoteVideoStream"
-        [hidden]="!remoteVideoStream"
-      >
-        Bitte benutzen sie einen anderen Browser
-      </video>
-      <div class="videoOverlay">{{ getParticipantById(customer.id) }}</div>
+      <video autoplay playsinline muted [srcObject]="remoteVideoStream"
+        [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen
+        Browser</video>
+      <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
       <audio autoplay [srcObject]="remoteAudioStream"></audio>
     </div>
   </div>
   <div #scrollChat id="chat-body">
-    <ngx-spinner
-      [fullScreen]="false"
-      type="ball-scale-ripple-multiple"
-      size="medium"
-    >
-      <p style="color: white">Lade Konversation...</p>
+    <ngx-spinner [fullScreen]="false" type="ball-scale-ripple-multiple"
+      size="medium">
+      <p style="color: white"> Lade Konversation... </p>
     </ngx-spinner>
 
     <div *ngIf="participants && threads">
       <div id="chat-body-content" *ngFor="let thread of threads">
         <div class="rtc" *ngIf="thread.parentItem.type === 'RTC'">
-          <p
-            *ngIf="thread.parentItem.rtc.type === 'MISSED'"
-            style="float: left;"
-          >
-            Verspasster Anruf von
-            {{ getParticipantById(thread.parentItem.creatorId) }}
-          </p>
-          <p
-            *ngIf="thread.parentItem.rtc.type === 'ENDED'"
-            style=" float: left;"
-          >
+          <p *ngIf="thread.parentItem.rtc.type === 'MISSED'"
+            style="float: left;">
+            Verspasster Anruf
+            von {{getParticipantById(thread.parentItem.creatorId)}}</p>
+          <p *ngIf=" thread.parentItem.rtc.type==='ENDED'"
+            style=" float: left;">
             Telefonat &nbsp;·&nbsp; Dauer:
-            {{ getMinutesAndSeconds(thread.parentItem.rtc.ended.duration) }}
+            {{getMinutesAndSeconds(thread.parentItem.rtc.ended.duration)}}
           </p>
-          <p style="float: right">
-            {{ msToDate(thread.parentItem.creationTime) }}
-          </p>
-          <br />
+          <p style="float: right">{{msToDate(thread.parentItem.creationTime)}}
+          </p><br>
         </div>
         <div class="message topic" *ngIf="thread.parentItem.type === 'TEXT'">
-          <img
-            id="avatar"
-            src="{{ getAvatarByUserId(thread.parentItem.creatorId) }}"
-            class="rounded-circle"
-          />
+          <img id="avatar"
+            src="{{getAvatarByUserId(thread.parentItem.creatorId)}}"
+            class="rounded-circle">
           <div class="card card-body talk-bubble topic">
             <div *ngIf="thread.parentItem.text.subject">
               <b>
-                <div [innerHTML]="thread.parentItem.text.subject"></div>
-                <i *ngIf="!thread.parentItem.text.subject"
-                  >Nachricht gelöscht</i
-                >
+                <div [innerHTML]="thread.parentItem.text.subject"></div><i
+                  *ngIf="!thread.parentItem.text.subject">Nachricht
+                  gelöscht</i>
               </b>
-              <hr />
+              <hr>
             </div>
-            <div [innerHTML]="thread.parentItem.text.content"></div>
-            <i *ngIf="!thread.parentItem.text.content">Nachricht gelöscht</i>
+            <div [innerHTML]="thread.parentItem.text.content"></div><i
+              *ngIf="!thread.parentItem.text.content">Nachricht
+              gelöscht</i>
           </div>
         </div>
         <div *ngFor="let text of thread.comments">
           <div class="message text">
-            <img
-              id="avatar"
-              src="{{ getAvatarByUserId(text.creatorId) }}"
-              class="rounded-circle"
-            />
+            <img id="avatar" src="{{getAvatarByUserId(text.creatorId)}}"
+              class="rounded-circle">
             <div class="card card-body talk-bubble topic">
-              <div [innerHTML]="text.text.content"></div>
-              <i *ngIf="!text.text.content">Nachricht gelöscht</i>
+              <div [innerHTML]="text.text.content"></div><i
+                *ngIf="!text.text.content">Nachricht gelöscht</i>
             </div>
           </div>
         </div>
-        <div
-          class="input-group"
-          id="topicInput"
-          *ngIf="thread.parentItem.type === 'TEXT'"
-        >
+        <div class="input-group" id="topicInput"
+          *ngIf="thread.parentItem.type === 'TEXT'">
           <div id="img"></div>
-          <input
-            #smallMessage
-            type="text"
-            class="form-control"
+          <input #smallMessage type="text" class="form-control"
             (keyup.enter)="sendMessage(smallMessage.value, thread)"
             placeholder="Auf dieses Thema antworten"
             aria-label="Auf dieses Thema antworten"
-            aria-describedby="basic-addon2"
-          />
+            aria-describedby="basic-addon2">
           <div class="input-group-append">
-            <button
-              class="btn btn-outline-secondary sendBtn"
-              type="button"
-              (click)="sendMessage(smallMessage.value, thread)"
-            >
+            <button class="btn btn-outline-secondary sendBtn" type="button"
+              (click)="sendMessage(smallMessage.value, thread)">
               <fa-icon [icon]="faPaperPlane"></fa-icon>
             </button>
           </div>
@@ -121,47 +84,31 @@
   <div id="chat-footer">
     <div class="input-group">
       <div id="callBtn" *ngIf="!circuitService.call">
-        <button
-          type="button"
-          class="btn btn-primary rounded-circle"
-          (click)="startCall(customer, false)"
-        >
+        <button type="button" class="btn btn-primary rounded-circle"
+          (click)="startCall(customer, false)">
           <fa-icon [icon]="faPhone"></fa-icon>
         </button>
       </div>
       <div id="callBtn" *ngIf="circuitService.call">
-        <button
-          type="button"
-          class="btn btn-danger rounded-circle"
-          (click)="endCall(customer)"
-        >
+        <button type="button" class="btn btn-danger rounded-circle"
+          (click)="endCall(customer)">
           <fa-icon [icon]="faPhoneSlash"></fa-icon>
         </button>
       </div>
       <div id="callBtn" *ngIf="!localVideoStream">
-        <button
-          type="button"
-          *ngIf="!circuitService.call"
+        <button type="button" *ngIf="!circuitService.call"
           class="btn btn-primary rounded-circle"
-          (click)="startCall(customer, true)"
-        >
+          (click)="startCall(customer, true)">
           <fa-icon [icon]="faVideo"></fa-icon>
         </button>
-        <button
-          type="button"
-          *ngIf="circuitService.call"
-          class="btn btn-primary rounded-circle"
-          (click)="toggleVideo()"
-        >
+        <button type="button" *ngIf="circuitService.call"
+          class="btn btn-primary rounded-circle" (click)="toggleVideo()">
           <fa-icon [icon]="faVideo"></fa-icon>
         </button>
       </div>
       <div id="callBtn" *ngIf="circuitService.call && localVideoStream">
-        <button
-          type="button"
-          class="btn btn-danger rounded-circle"
-          (click)="toggleVideo()"
-        >
+        <button type="button" class="btn btn-danger rounded-circle"
+          (click)="toggleVideo()">
           <fa-icon [icon]="faVideoSlash"></fa-icon>
         </button>
       </div>
@@ -171,30 +118,20 @@
         </span>
       </div>
       <div id="newTopicInput">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="messageTopic"
+        <input type="text" class="form-control" [(ngModel)]="messageTopic"
           placeholder="Titel des neuen Themas"
-          aria-label="Titel des neuen Themas"
-        />
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="messageTopicDesc"
-          placeholder="Themenbeschreibung"
-          aria-label="Themenbeschreibung"
-        />
+          aria-label="Titel des neuen Themas">
+        <input type="text" class="form-control" [(ngModel)]="messageTopicDesc"
+          placeholder="Themenbeschreibung" aria-label="Themenbeschreibung">
       </div>
       <div class="input-group-append" style="margin-right: auto">
-        <button
-          class="btn btn-outline-secondary sendBtn"
-          type="button"
-          (click)="sendTopicMessage(messageTopic, messageTopicDesc)"
-        >
+        <button class="btn btn-outline-secondary sendBtn" type="button"
+          (click)="sendTopicMessage(messageTopic, messageTopicDesc)">
           <fa-icon [icon]="faPaperPlane"></fa-icon>
         </button>
       </div>
     </div>
   </div>
+
+
 </div>

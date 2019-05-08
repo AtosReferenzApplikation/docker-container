@@ -16,7 +16,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.toastService.initializeToasts();
     this.sessionLogger.inititalize();
-    this.circuitService.authenticateUser();
   }
 
   ngOnDestroy(): void {

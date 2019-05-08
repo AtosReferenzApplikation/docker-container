@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../core';
 import { Router } from '@angular/router';
-import { CircuitService } from '../shared';
 
 @Component({
   selector: 'app-login',
@@ -9,26 +8,23 @@ import { CircuitService } from '../shared';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   constructor(
     public authService: AuthenticationService,
-    public router: Router,
-    private circuitService: CircuitService
+    public router: Router
   ) { }
 
   ngOnInit() {
-    this.circuitService.loggedIn.subscribe(loggedIn => {
-      if (loggedIn) {
-        this.redirectUser();
-      }
-    });
+    this.logon();
   }
 
   logon() {
-    this.authService.logon().then(() => {
-      if (this.authService.isLoggedIn) {
-        this.redirectUser();
-      }
-    });
+    this.authService.logon()
+      .then(() => {
+        if (this.authService.isLoggedIn) {
+          this.redirectUser();
+        }
+      });
   }
 
   logout() {

@@ -8,11 +8,10 @@ import {
   faEdit,
   faPhone
 } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 import { Customer } from '../models/customer';
-import { CustomerService } from '../shared/services/customer/customer.service';
-import { SAMPLE_CUSTOMERS } from '../shared/sample-customers';
-import { Router } from '@angular/router';
+import { SAMPLE_CUSTOMERS, CustomerService } from '../shared';
 
 @Component({
   selector: 'app-management',
@@ -26,10 +25,10 @@ export class ManagementComponent implements OnInit {
   inputIsCollapsed = true;
   invalidSubmit = { name: false, surname: false, email: false, phone: false };
   CustomerForm = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    surname: new FormControl(null, [Validators.required]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    phone: new FormControl(null, [Validators.required]),
+    name: new FormControl(Validators.required),
+    surname: new FormControl(Validators.required),
+    email: new FormControl([Validators.required, Validators.email]),
+    phone: new FormControl(Validators.required),
     postalcode: new FormControl(),
     city: new FormControl(),
     street: new FormControl()

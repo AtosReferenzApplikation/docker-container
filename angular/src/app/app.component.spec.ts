@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerChatComponent } from './customer-chat/customer-chat.component';
+import { CustomerChatComponent } from './customer/customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './login/login.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { CustomerService } from '../shared/services/customer/customer.service';
+import { CircuitService, CustomerService } from '../shared';
 import { Customer } from '../models/customer';
-import { CircuitService } from '../shared/services/circuit/circuit.service';
 
 @Component({
   selector: 'app-customer',

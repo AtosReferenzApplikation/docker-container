@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SAMPLE_CUSTOMERS } from './sample-customers';
 import { CustomerService } from './services/customer/customer.service';
 import { CircuitService } from './services/circuit/circuit.service';
+import { ToastService } from './services/toast/toast.service';
 import { ActivecallToast } from './toasts/activecall.toast';
 import { NotificationToast } from './toasts/notification.toast';
 
@@ -24,7 +25,8 @@ import { NotificationToast } from './toasts/notification.toast';
   providers: [
     SAMPLE_CUSTOMERS,
     CustomerService,
-    CircuitService
+    CircuitService,
+    ToastService
   ]
 })
 export class SharedModule {}

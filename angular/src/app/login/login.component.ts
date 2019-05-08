@@ -9,51 +9,40 @@ import { CircuitService } from '../shared';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  message: string;
-
   constructor(
     public authService: AuthenticationService,
     public router: Router,
     private circuitService: CircuitService
-  ) {
-    this.setMessage();
-  }
+  ) { }
 
   ngOnInit() {
     this.circuitService.loggedIn.subscribe(loggedIn => {
       if (loggedIn) {
-        const redirect = this.authService.redirectUrl
-          ? this.router.parseUrl(this.authService.redirectUrl)
-          : '/management';
-        this.router.navigateByUrl(redirect);
+        this.redirectUser();
       }
     });
   }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
-
   logon() {
-    this.message = 'Trying to log in ...';
-
     this.authService.logon().then(() => {
-      this.setMessage();
       if (this.authService.isLoggedIn) {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        const redirect = this.authService.redirectUrl
-          ? this.router.parseUrl(this.authService.redirectUrl)
-          : '/management';
-
-        // Redirect the user
-        this.router.navigateByUrl(redirect);
+        this.redirectUser();
       }
     });
   }
 
   logout() {
     this.authService.logout();
-    this.setMessage();
+  }
+
+  private redirectUser() {
+    // Get the redirect URL from the auth service
+    // If no redirect has been set, use the default
+    const redirect = this.authService.redirectUrl
+      ? this.router.parseUrl(this.authService.redirectUrl)
+      : '/management';
+
+    // Redirect the user
+    this.router.navigateByUrl(redirect);
   }
 }

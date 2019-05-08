@@ -26,8 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
   async logConversationItem(item: any) {
     const date = new Date(+item.creationTime);
 

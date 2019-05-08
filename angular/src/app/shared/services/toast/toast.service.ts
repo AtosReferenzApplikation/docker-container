@@ -43,9 +43,11 @@ export class ToastService {
 
     // Track the call status and remove/display toasts
     this.circuitService.addEventListener('callStatus', (evt: any) => {
-      // ifs are catching multiple same events getting triggered
       if (evt.call.state === 'Active') {
+        // catch multiple events which have call.state == 'Active'
+        // only the first one will be displayed
         if (this.helpCallState !== 'Active') {
+          // the 'calling' toast has to be removed (if there is one)
           if (this.callToast) {
             this.toastrService.remove(this.callToast.toastId);
           }

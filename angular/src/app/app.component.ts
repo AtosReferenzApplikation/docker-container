@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.circuitService
       .getUserById(this.circuitService.loggedOnUser.userId)
-      .then(user => {
+      .then((user: any) => {
         this.sessionLogger.saveSession(user.displayName);
       });
   }

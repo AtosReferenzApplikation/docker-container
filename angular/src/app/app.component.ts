@@ -64,11 +64,9 @@ export class AppComponent implements OnInit, OnDestroy {
           this.helpCallState = 'Active';
           this.activeCall(evt.call, true);
         }
-      } else {
-        if (!this.callToast) {
-          this.activeCall(evt.call, false);
-          this.helpCallState = evt.call.state;
-        }
+      } else if (!this.callToast) {
+        this.activeCall(evt.call, false);
+        this.helpCallState = evt.call.state;
       }
     });
     this.circuitService.addEventListener('itemAdded', evt => {

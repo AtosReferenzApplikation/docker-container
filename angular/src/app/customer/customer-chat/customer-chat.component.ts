@@ -10,9 +10,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { CustomerService } from '../shared/services/customer/customer.service';
-import { Customer } from '../models/customer';
-import { CircuitService } from '../shared/services/circuit/circuit.service';
+import { CircuitService, CustomerService } from '../../shared';
+import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-customer-chat',

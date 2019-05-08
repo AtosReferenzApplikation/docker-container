@@ -16,11 +16,11 @@ import { AppComponent } from './app.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ManagementComponent } from './management/management.component';
 import { CustomerComponent } from './customer/customer.component';
-import { CustomerChatComponent } from './customer-chat/customer-chat.component';
+import { CustomerChatComponent } from './customer/customer-chat/customer-chat.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { NotificationToast } from './shared/toasts/notification.toast';
 import { ActivecallToast } from './shared/toasts/activecall.toast';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [

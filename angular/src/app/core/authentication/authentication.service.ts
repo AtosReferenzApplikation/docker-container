@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CircuitService } from '../shared/services/circuit/circuit.service';
+import { CircuitService } from '../../shared';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
   isLoggedIn = false;
   redirectUrl: string;
 

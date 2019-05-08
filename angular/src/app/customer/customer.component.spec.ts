@@ -4,7 +4,7 @@ import { CustomerComponent } from './customer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CustomerChatComponent } from '../customer-chat/customer-chat.component';
+import { CustomerChatComponent } from './customer-chat/customer-chat.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';

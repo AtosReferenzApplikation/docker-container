@@ -8,11 +8,15 @@ import { CircuitService } from './services/circuit/circuit.service';
 import { ToastService } from './services/toast/toast.service';
 import { ActivecallToast } from './toasts/activecall.toast';
 import { NotificationToast } from './toasts/notification.toast';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule,
+    ToastrModule.forRoot(),
   ],
   declarations: [
     ActivecallToast,
@@ -23,10 +27,13 @@ import { NotificationToast } from './toasts/notification.toast';
     NotificationToast
   ],
   providers: [
-    SAMPLE_CUSTOMERS,
     CustomerService,
     CircuitService,
-    ToastService
+    ToastService,
+    {
+      provide: SAMPLE_CUSTOMERS,
+      useValue: SAMPLE_CUSTOMERS
+    }
   ]
 })
 export class SharedModule {}

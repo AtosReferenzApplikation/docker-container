@@ -1,0 +1,15 @@
+<div id="video-wrapper" *ngIf="localVideoStream || remoteVideoStream">
+  <div id="video" *ngIf="localVideoStream">
+    <video autoplay playsinline muted [srcObject]="localVideoStream"
+      [hidden]="!localVideoStream">Bitte benutzen sie einen anderen
+      Browser</video>
+    <div class="videoOverlay">{{loggedOnUser.displayName}}</div>
+  </div>
+  <div id="video" *ngIf="remoteVideoStream">
+    <video autoplay playsinline muted [srcObject]="remoteVideoStream"
+      [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen
+      Browser</video>
+    <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
+    <audio autoplay [srcObject]="remoteAudioStream"></audio>
+  </div>
+</div>

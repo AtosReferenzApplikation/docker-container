@@ -11,7 +11,7 @@ import { Customer } from '../models/customer';
   encapsulation: ViewEncapsulation.None // styling .nav-pills
 })
 export class CustomerComponent implements OnInit {
-  customer: Customer = null;
+  customer: Customer;
   avatarUrl = '';
 
   constructor(
@@ -34,10 +34,7 @@ export class CustomerComponent implements OnInit {
         this.avatarUrl = user.avatar;
       })
       .catch(
-        () =>
-          (this.avatarUrl = `https://ui-avatars.com/api/name=${customer.name}+${
-            customer.surname
-          }`)
+        () => (this.avatarUrl = `https://ui-avatars.com/api/name=${customer.name}+${customer.surname}`)
       );
   }
 }

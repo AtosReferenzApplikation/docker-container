@@ -15,11 +15,10 @@ export class AuthenticationService {
   }
 
   logon() {
-    // return this.circuitService.logonWithCredentials('lucas.golenia@atos.net', 'em53EvBX6ArvwWgY');
     return this.circuitService.authenticateUser();
   }
 
   logout() {
-    this.circuitService.logout();
+    return this.circuitService.logout();
   }
 }

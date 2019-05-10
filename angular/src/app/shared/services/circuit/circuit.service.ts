@@ -148,27 +148,6 @@ export class CircuitService {
       .catch(() => this.logonPopup());
   }
 
-  // logon to circuit using email and password
-  logonWithCredentials(username: string, password: string) {
-    return this.client
-      .logon({
-        prompt: false,
-        logonChecked: true,
-        username: username,
-        password: password
-      })
-      .then(user => {
-        this.loggedIn.next(true);
-        localStorage.setItem('username', username);
-        localStorage.setItem('password', password);
-        return user;
-      })
-      .catch(err => {
-        // clear localStorage
-        Promise.reject(err);
-      });
-  }
-
   // logon to circuit using access token stored in localStorage
   logonWithToken() {
     return this.client

@@ -14,41 +14,29 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { FeedbackComponent } from './feedback/feedback.component';
-import { ManagementComponent } from './management/management.component';
-import { CustomerComponent } from './customer/customer.component';
-import { CustomerChatComponent } from './customer/customer-chat/customer-chat.component';
-import { NavigationComponent } from './core/navigation/navigation.component';
-import { NotificationToast } from './shared/toasts/notification.toast';
-import { ActivecallToast } from './shared/toasts/activecall.toast';
-import { LoginComponent } from './login/login.component';
+import { ManagementModule } from './management/management.module';
+import { CustomerModule } from './customer/customer.module';
+import { CoreModule } from './core';
+import { LoginModule } from './login/login.module';
+import { SharedModule } from './shared';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FeedbackComponent,
-    ManagementComponent,
-    CustomerComponent,
-    CustomerChatComponent,
-    NavigationComponent,
-    NotificationToast,
-    ActivecallToast,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    NgbModule,
-    NgbCollapseModule,
-    StarRatingModule.forRoot(),
-    FontAwesomeModule,
-    NgxSpinnerModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    HttpClientModule,
+    CoreModule,
+    LoginModule,
+    ManagementModule,
+    CustomerModule,
+    SharedModule,
+    FeedbackModule,
+    AppRoutingModule
   ],
-  entryComponents: [NotificationToast, ActivecallToast],
   providers: [],
   bootstrap: [AppComponent]
 })

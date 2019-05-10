@@ -1,0 +1,29 @@
+#video-wrapper {
+  margin: 5px;
+  display: flex;
+  text-align: center;
+
+  #video {
+    margin: 0 auto;
+    position: relative;
+
+    video {
+      width: auto;
+      height: 150px;
+      border-radius: 3px;
+      position: relative;
+      z-index: 0;
+    }
+  }
+}
+
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  z-index: 1;
+  color: #ffffff;
+  background-color: rgba(33, 33, 33, 0.3);
+  border-radius: 3px;
+}

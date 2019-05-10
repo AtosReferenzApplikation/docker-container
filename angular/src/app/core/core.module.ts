@@ -4,10 +4,14 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationGuard } from './authentication/authentication.guard';
 import { AuthenticationService } from './authentication/authentication.service';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule,
+    NgbModule
   ],
   declarations: [
     NavigationComponent

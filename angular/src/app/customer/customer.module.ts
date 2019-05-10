@@ -3,19 +3,26 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared';
 
 import { CustomerComponent } from './customer.component';
-import { CustomerChatComponent } from './customer-chat/customer-chat.component';
+import { CustomerChatModule } from './customer-chat/customer-chat.module';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    CustomerChatModule,
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     CustomerComponent,
-    CustomerChatComponent
+    CustomerInfoComponent
   ],
   exports: [
-    CustomerChatComponent
+    CustomerComponent,
+    CustomerInfoComponent
   ]
 })
 export class CustomerModule { }

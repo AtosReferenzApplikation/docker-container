@@ -6,6 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { VideoChatComponent } from './video-chat/video-chat.component';
+import { BasicChatComponent } from './basic-chat/basic-chat.component';
 
 describe('CustomerChatComponent', () => {
   let component: CustomerChatComponent;
@@ -13,7 +15,7 @@ describe('CustomerChatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CustomerChatComponent],
+      declarations: [CustomerChatComponent, VideoChatComponent, BasicChatComponent],
       imports: [
         FontAwesomeModule,
         HttpClientTestingModule,

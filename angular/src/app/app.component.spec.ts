@@ -1,21 +1,15 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StarRatingModule } from 'angular-star-rating';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { FeedbackComponent } from './feedback/feedback.component';
-import { ManagementComponent } from './management/management.component';
-import { CustomerComponent } from './customer/customer.component';
-import { CustomerChatComponent } from './customer/customer-chat/customer-chat.component';
-import { NavigationComponent } from './core/navigation/navigation.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { LoginComponent } from './login/login.component';
+import { ManagementModule } from './management/management.module';
+import { CustomerModule } from './customer/customer.module';
+import { CoreModule } from './core';
+import { LoginModule } from './login/login.module';
+import { SharedModule } from './shared';
+import { FeedbackModule } from './feedback/feedback.module';
+
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -23,28 +17,17 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        FeedbackComponent,
-        ManagementComponent,
-        CustomerComponent,
-        CustomerChatComponent,
-        NavigationComponent,
-        LoginComponent
-      ],
+      declarations: [AppComponent],
       imports: [
         AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        StarRatingModule,
-        NgbModule,
-        NgbCollapseModule,
-        FontAwesomeModule,
-        NgxSpinnerModule,
-        ToastrModule.forRoot()
-      ],
-      providers: [ToastrService]
+        HttpClientTestingModule,
+        ManagementModule,
+        CustomerModule,
+        CoreModule,
+        LoginModule,
+        SharedModule,
+        FeedbackModule
+      ]
     }).compileComponents();
   }));
 

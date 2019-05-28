@@ -26,7 +26,17 @@ export class VideoChatComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.customer = this.customerService.getCustomerById(params.id);
+      this.customerService.getCustomerById(params.id).subscribe(val => {
+        this.customer = val;
+      });
+    });
+  }
+
+  getParticipants() {
+    this.circuitService.conversation.participants.forEach(userId => {
+      this.circuitService
+        .getUserById(userId)
+        .then((res: any) => this.participants.push(res));
     });
   }
 
@@ -60,7 +70,6 @@ export class VideoChatComponent implements OnInit {
   }
 
   get remoteVideoStream(): Object {
-    // tslint:disable-next-line: max-line-length
     return (
       (this.circuitService.call &&
         this.circuitService.call.participants.length &&

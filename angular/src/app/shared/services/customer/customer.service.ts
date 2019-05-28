@@ -23,54 +23,29 @@ export class CustomerService {
   }
 
   getAllCustomers() {
-    // return this.http.get(this.URI + '/getCustomers', httpOptions);
-    return of(SAMPLE_CUSTOMERS);
+    return this.http.get(this.URI + '/getCustomers', httpOptions);
   }
 
-  getCustomerById(id: string) {
-    let customer: Customer;
-    SAMPLE_CUSTOMERS.forEach(item => {
-      // tslint:disable-next-line: triple-equals
-      if (item.id == id) {
-        customer = item;
-      }
-    });
-    return of(customer);
-  }
+  getCustomerById(id: string) { }
 
   addCustomer(customer: Customer) {
-    // '/spring/addCustomer'
-    // return this.http.post<any>(
-    //   this.URI + '/addCustomer',
-    //   customer,
-    //   httpOptions
-    // );
-    SAMPLE_CUSTOMERS.push(customer);
-    return of(customer);
+    '/spring/addCustomer'
+    return this.http.post<any>(
+      this.URI + '/addCustomer',
+      customer,
+      httpOptions
+    );
   }
 
   updateCustomerById(id: any, customer: Customer) {
-    // return this.http.put(
-    //   this.URI + `/updateCustomer/${id}`,
-    //   customer,
-    //   httpOptions
-    // );
-    SAMPLE_CUSTOMERS.forEach(item => {
-      // tslint:disable-next-line: triple-equals
-      if (item.id == id) {
-        item = customer;
-      }
-    });
-    return of(customer);
+    return this.http.put(
+      this.URI + `/updateCustomer/${id}`,
+      customer,
+      httpOptions
+    );
   }
 
   deleteCustomerById(id: string) {
-    // return this.http.delete(this.URI + `/deleteCustomer/${id}`, httpOptions);
-    for (let index = 0; index < SAMPLE_CUSTOMERS.length; index++) {
-      if (SAMPLE_CUSTOMERS[index].id == id) {
-        SAMPLE_CUSTOMERS.slice(index,index);
-      }
-    }
-    return of('success');
+    return this.http.delete(this.URI + `/deleteCustomer/${id}`, httpOptions);
   }
 }

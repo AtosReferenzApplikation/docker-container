@@ -94,9 +94,7 @@ export class CircuitService {
       state; // auth request url
 
     const logonPopup = window.open(
-      url,
-      'Circuit Authentication',
-      'centerscreen,location,resizable,alwaysRaised,width=400,height=504'
+      url, 'Circuit Authentication', 'centerscreen,location,resizable,alwaysRaised,width=400,height=504'
     );
 
     // close popup if user login was successful

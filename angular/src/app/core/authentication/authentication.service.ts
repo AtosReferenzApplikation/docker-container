@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private circuitService: CircuitService) {
     this.circuitService.loggedIn.subscribe(
-      loggedIn => (this.isLoggedIn = loggedIn)
+      loggedIn => this.isLoggedIn = loggedIn
     );
   }
 

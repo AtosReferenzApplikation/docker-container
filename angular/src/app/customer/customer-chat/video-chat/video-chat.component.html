@@ -9,7 +9,7 @@
     <video autoplay playsinline muted [srcObject]="remoteVideoStream"
       [hidden]="!remoteVideoStream">Bitte benutzen sie einen anderen
       Browser</video>
-    <div class="videoOverlay">{{getParticipantById(customer.id)}}</div>
+    <div class="videoOverlay">{{customer.name}} {{customer.surname}}</div>
     <audio autoplay [srcObject]="remoteAudioStream"></audio>
   </div>
 </div>

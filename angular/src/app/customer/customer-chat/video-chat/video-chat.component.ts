@@ -32,22 +32,8 @@ export class VideoChatComponent implements OnInit {
     });
   }
 
-  getParticipants() {
-    this.circuitService.conversation.participants.forEach(userId => {
-      this.circuitService
-        .getUserById(userId)
-        .then((res: any) => this.participants.push(res));
-    });
-  }
-
-  getParticipantById(id: any) {
-    try {
-      return this.participants[
-        this.participants.findIndex(user => user.userId === id)
-      ].displayName;
-    } catch {
-      return 'Kunde';
-    }
+  get loggedOnUser() {
+    return this.circuitService.loggedOnUser;
   }
 
   get callState(): string {

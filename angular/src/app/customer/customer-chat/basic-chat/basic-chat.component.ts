@@ -39,7 +39,9 @@ export class BasicChatComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.activatedRoute.params.subscribe(params => {
-      this.customer = this.customerService.getCustomerById(params.id);
+      this.customerService.getCustomerById(params.id).subscribe(val => {
+        this.customer = val;
+      });
       // getParticipantById()??
     });
 
@@ -165,5 +167,12 @@ export class BasicChatComponent implements OnInit {
         content: content
       });
     }
+  }
+
+  get localVideoStream(): Object {
+    return (
+      (this.circuitService.call && this.circuitService.call.localVideoStream) ||
+      null
+    );
   }
 }

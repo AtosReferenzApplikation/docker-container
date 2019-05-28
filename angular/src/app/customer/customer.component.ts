@@ -22,8 +22,10 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.customer = this.customerService.getCustomerById(params.id);
-      this.getAvatarOfCustomer(this.customer);
+      this.customerService.getCustomerById(params.id).subscribe(val => {
+        this.customer = val;
+        this.getAvatarOfCustomer(this.customer);
+      })
     });
   }
 

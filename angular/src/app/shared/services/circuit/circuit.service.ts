@@ -209,7 +209,7 @@ export class CircuitService {
         email,
         {
           audio: true,
-          video: !!video
+          video: video
         },
         true
       )
@@ -228,7 +228,7 @@ export class CircuitService {
     }
     const mediaType = {
       audio: true,
-      video: !!video
+      video: video
     };
     return this.client.answerCall(this.call.callId, mediaType);
   }
@@ -238,7 +238,7 @@ export class CircuitService {
     if (!this.call) {
       return Promise.reject('No call found');
     }
-    return this.client.toggleVideo(this.call.callId);
+    return this.client.toggleVideo(this.call.callId, res => console.log(res));
   }
 
   endCall() {

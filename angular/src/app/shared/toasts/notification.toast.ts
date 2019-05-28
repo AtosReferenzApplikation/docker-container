@@ -58,7 +58,7 @@ import { CircuitService } from '../services/circuit/circuit.service';
           type="button"
           *ngIf="!options.closeButton"
           style="margin-right: 5px"
-          class="btn btn-primary rounded-circle"
+          class="btn btn-danger rounded-circle"
           (click)="
             $event.preventDefault(); $event.stopPropagation(); declineCall()
           "

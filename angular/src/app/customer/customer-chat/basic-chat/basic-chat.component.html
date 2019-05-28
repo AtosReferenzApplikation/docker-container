@@ -77,12 +77,7 @@
           <fa-icon [icon]="faPhoneSlash"></fa-icon>
         </button>
       </div>
-      <div id="callBtn" *ngIf="!localVideoStream">
-        <button type="button" *ngIf="!circuitService.call"
-          class="btn btn-primary rounded-circle"
-          (click)="startCall(customer, true)">
-          <fa-icon [icon]="faVideo"></fa-icon>
-        </button>
+      <div id="callBtn" *ngIf="circuitService.call && !localVideoStream">
         <button type="button" *ngIf="circuitService.call"
           class="btn btn-primary rounded-circle" (click)="toggleVideo()">
           <fa-icon [icon]="faVideo"></fa-icon>
@@ -101,10 +96,10 @@
       </div>
       <div id="newTopicInput">
         <input type="text" class="form-control" [(ngModel)]="messageTopic"
-          placeholder="Titel des neuen Themas"
-          aria-label="Titel des neuen Themas">
+          placeholder="Titel des Themas"
+          aria-label="Titel des Themas">
         <input type="text" class="form-control" [(ngModel)]="messageTopicDesc"
-          placeholder="Themenbeschreibung" aria-label="Themenbeschreibung">
+          placeholder="Themabeschreibung" aria-label="Themabeschreibung">
       </div>
       <div class="input-group-append" style="margin-right: auto">
         <button class="btn btn-outline-secondary sendBtn" type="button"

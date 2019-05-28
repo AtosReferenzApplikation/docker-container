@@ -34,6 +34,10 @@ import { ToastrModule } from 'ngx-toastr';
       provide: SAMPLE_CUSTOMERS,
       useValue: SAMPLE_CUSTOMERS
     }
+  ],
+  entryComponents: [
+    ActivecallToast,
+    NotificationToast
   ]
 })
 export class SharedModule {}

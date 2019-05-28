@@ -6,12 +6,14 @@ import { AuthenticationService } from './authentication/authentication.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    RouterModule
   ],
   declarations: [
     NavigationComponent

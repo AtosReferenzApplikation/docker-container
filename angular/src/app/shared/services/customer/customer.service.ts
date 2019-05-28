@@ -26,7 +26,16 @@ export class CustomerService {
     return this.http.get(this.URI + '/getCustomers', httpOptions);
   }
 
-  getCustomerById(id: string) { }
+  getCustomerById(id: string) {
+    let customer: Customer;
+    SAMPLE_CUSTOMERS.forEach(item => {
+      // tslint:disable-next-line: triple-equals
+      if (item.id == id) {
+        customer = item;
+      }
+    });
+    return of(customer);
+  }
 
   addCustomer(customer: Customer) {
     '/spring/addCustomer'

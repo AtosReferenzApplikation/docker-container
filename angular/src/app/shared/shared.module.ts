@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { SAMPLE_CUSTOMERS } from './sample-customers';
 import { CustomerService } from './services/customer/customer.service';
 import { CircuitService } from './services/circuit/circuit.service';
 import { ToastService } from './services/toast/toast.service';
@@ -29,11 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [
     CustomerService,
     CircuitService,
-    ToastService,
-    {
-      provide: SAMPLE_CUSTOMERS,
-      useValue: SAMPLE_CUSTOMERS
-    }
+    ToastService
   ],
   entryComponents: [
     ActivecallToast,

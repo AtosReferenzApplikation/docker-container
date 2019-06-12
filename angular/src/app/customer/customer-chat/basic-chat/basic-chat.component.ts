@@ -28,7 +28,7 @@ export class BasicChatComponent implements OnInit {
   messageTopic = '';
   messageTopicDesc = '';
 
-  @ViewChild('scrollChat') private chat: ElementRef<any>;
+  @ViewChild('scrollChat', {static: false}) private chat: ElementRef<any>;
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,

@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerChatComponent } from './customer-chat.component';
+import { CustomerChatComponent } from '../customer-chat/customer-chat.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {VideoChatComponent} from '../customer-chat/video-chat/video-chat.component';
+import {BasicChatComponent} from '../customer-chat/basic-chat/basic-chat.component';
 
 describe('CustomerChatComponent', () => {
   let component: CustomerChatComponent;
@@ -13,7 +15,11 @@ describe('CustomerChatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CustomerChatComponent],
+      declarations: [
+        CustomerChatComponent,
+        VideoChatComponent,
+        BasicChatComponent
+      ],
       imports: [
         FontAwesomeModule,
         HttpClientTestingModule,

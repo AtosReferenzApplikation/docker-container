@@ -23,7 +23,7 @@ export class CustomerInfoComponent implements OnInit {
       this.customerService.getCustomerById(params.id).subscribe(val => {
         this.customer = val;
         this.getAvatarOfCustomer(this.customer);
-      })
+      });
     });
   }
 

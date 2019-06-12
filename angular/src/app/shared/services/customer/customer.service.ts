@@ -38,8 +38,7 @@ export class CustomerService {
   }
 
   addCustomer(customer: Customer) {
-    '/spring/addCustomer'
-    return this.http.post<any>(
+    return this.http.post<any> (
       this.URI + '/addCustomer',
       customer,
       httpOptions
